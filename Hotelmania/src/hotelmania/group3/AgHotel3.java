@@ -111,7 +111,7 @@ public class AgHotel3 extends Agent {
 								RegistrationRequest rr = new RegistrationRequest();
 								//Hotel Information for the request
 								Hotel hotel = new Hotel();
-								hotel.setHotel_name("Hotel3");
+								hotel.setHotel_name("");
 								//Add hotel information to the registration request
 								rr.setHotel(hotel);
 								

@@ -98,7 +98,10 @@ public class AgHotelmania3 extends Agent {
 				if(msg!=null){
 					try{
 						ContentElement ce = null;
-						if (msg.getPerformative() == ACLMessage.REQUEST){
+						int AclMessage = msg.getPerformative();
+						ACLMessage reply = msg.createReply();
+						
+						if (AclMessage == ACLMessage.REQUEST){
 							// If an REGISTRATION request arrives (type REQUEST)
 							// it answers with the acceptance o deny
 							
@@ -112,12 +115,13 @@ public class AgHotelmania3 extends Agent {
 								// If the action is RegistrationRequest...
 								if (conc instanceof RegistrationRequest){
 									System.out.println(myAgent.getLocalName()+": received Registration request from "+(msg.getSender()).getLocalName());    
-									ACLMessage reply = msg.createReply();
-	
-													
+																						
 									RegistrationRequest re = (RegistrationRequest)conc;
 									Hotel newHotel = re.getHotel();
 									boolean repeated = false;
+									boolean blank_name = false;
+									boolean wrong_name = false;
+									
 									
 									/*Hotel testHotel = new Hotel();
 									testHotel.setHotel_name("Hotel3");
@@ -126,30 +130,41 @@ public class AgHotelmania3 extends Agent {
 									if (!RegisteredHotels.isEmpty()){
 										for (int i=0; i<RegisteredHotels.size(); i++){
 											Hotel currentHotel = (Hotel)RegisteredHotels.get(i);
-											if (currentHotel.getHotel_name().compareTo(newHotel.getHotel_name()) == 0)
+											if (currentHotel.getHotel_name().toLowerCase().compareTo(newHotel.getHotel_name().toLowerCase()) == 0)
 												repeated = true;
-											
 										}
 									}
 									
-									if ( (!repeated) && (newHotel.getHotel_name().compareTo("")!=0) ){
+									if (newHotel.getHotel_name().compareTo("")==0)
+										blank_name = true;
+									
+									if (!newHotel.getHotel_name().toLowerCase().contains("hotel"))
+										wrong_name = true;
+									
+									
+									if ( blank_name || wrong_name || repeated  ){
+										reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
+										System.out.println(myAgent.getLocalName()+ ": Registration request of "+ newHotel.getHotel_name() + " is deny");
+									} 
+									else {
 										RegisteredHotels.add(newHotel);
 										reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-										System.out.println(myAgent.getLocalName()+ ": "+ newHotel.getHotel_name() + " is resgistered in Hotelmania");
-									} else { 
-										if ((newHotel.getHotel_name().compareTo("")==0)) {
-												reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-												System.out.println(myAgent.getLocalName()+ ": Registration request doesn't understood");
-										} else{
-											reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
-											System.out.println(myAgent.getLocalName()+ ": Registration request of "+ newHotel.getHotel_name() + " is deny");
-										}
+										System.out.println(myAgent.getLocalName()+ ": "+ newHotel.getHotel_name() + " is resgistered in Hotelmania");	
 									}
-									myAgent.send(reply);
-									System.out.println(myAgent.getLocalName()+": answer sent");
+								} 
+								else {
+									reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
+									System.out.println(myAgent.getLocalName()+ ": Registration request doesn't understood");
 								}
 							}
+						} 
+						else{
+							reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
+							System.out.println(myAgent.getLocalName()+ ": Registration request doesn't understood");
 						}
+						
+						myAgent.send(reply);
+						System.out.println(myAgent.getLocalName()+": answer sent");
 					}
 					catch (CodecException e){
 						e.printStackTrace();
