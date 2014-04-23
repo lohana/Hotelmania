@@ -3,10 +3,9 @@ Agent Client demanding a painting service: AgClient.java
 
  *****************************************************************/
 
-package hotelmania.group3;
+package hotelmania.group3.platform;
 
 import jade.core.Agent;
-import jade.core.AID;
 import jade.domain.FIPAAgentManagement.*;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -19,11 +18,9 @@ import jade.content.lang.sl.*;
 import jade.content.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
-//import javax.swing.Action;
-import hotelmania.onto.*;
+import hotelmania.ontology.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 
 

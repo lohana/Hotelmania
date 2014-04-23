@@ -1,8 +1,9 @@
 package hotelmania.group3.HotelBehaviours;
 
-import hotelmania.onto.RegistrationRequest;
+import hotelmania.ontology.RegistrationRequest;
 
 import java.util.Date;
+
 
 
 import jade.content.lang.Codec;

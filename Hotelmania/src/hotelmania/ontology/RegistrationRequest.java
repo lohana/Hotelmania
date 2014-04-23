@@ -1,4 +1,4 @@
-package hotelmania.onto;
+package hotelmania.ontology;
 
 
 import jade.content.*;

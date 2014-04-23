@@ -3,7 +3,7 @@ Agent Client demanding a painting service: AgClient.java
 
  *****************************************************************/
 
-package hotelmania.group3;
+package hotelmania.group3.hotel;
 
 import jade.core.Agent;
 import jade.core.AID;
@@ -17,8 +17,7 @@ import jade.content.lang.Codec.*;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
-//import javax.swing.Action;
-import hotelmania.onto.*;
+import hotelmania.ontology.*;
 
 import java.util.Date;
 
@@ -111,7 +110,7 @@ public class AgHotel3 extends Agent {
 								RegistrationRequest rr = new RegistrationRequest();
 								//Hotel Information for the request
 								Hotel hotel = new Hotel();
-								hotel.setHotel_name("");
+								hotel.setHotel_name("Hotel3");
 								//Add hotel information to the registration request
 								rr.setHotel(hotel);
 								
