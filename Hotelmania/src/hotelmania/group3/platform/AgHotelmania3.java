@@ -53,12 +53,12 @@ public class AgHotelmania3 extends Agent {
     private Ontology ontology = SharedAgentsOntology.getInstance();
     
     private ArrayList<Hotel> RegisteredHotels = new ArrayList<Hotel>(); 
-    public final static String HOTELMANIA = "Hotelmania";
+    public final static String REGISTRATION_SERVICE = "Registration";
     
     
     @SuppressWarnings("serial")
 	protected void setup(){
-		System.out.println(getLocalName()+": has entered into the system");
+		System.out.println(getLocalName()+": Hotelmania has entered into the system");
 //      Register of the codec and the ontology to be used in the ContentManager
         getContentManager().registerLanguage(codec);
         getContentManager().registerOntology(ontology);		
@@ -67,13 +67,13 @@ public class AgHotelmania3 extends Agent {
 			// Creates its own description
 			DFAgentDescription dfd = new DFAgentDescription();
 			ServiceDescription sd = new ServiceDescription();
-			sd.setName(this.getName()); //I am not sure if the name should be "Registration"
-			sd.setType("Registration");
+			sd.setName(this.getName()); 
+			sd.setType(REGISTRATION_SERVICE);
 			dfd.addServices(sd);
 			
 			// Registers its description in the DF
 			DFService.register(this, dfd);
-			System.out.println(getLocalName()+": registered in the DF");
+			System.out.println(getLocalName()+": HOTELMANIA REGISTRATION SERVICE is registered in the DF");
 			dfd = null;
 			sd = null;
 			doWait(10000);
@@ -95,7 +95,7 @@ public class AgHotelmania3 extends Agent {
 			public void action()
 			{
 				// Waits for estimation requests
-				ACLMessage msg = receive(MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()), MessageTemplate.and(MessageTemplate.MatchProtocol("Registration"), 
+				ACLMessage msg = receive(MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()), MessageTemplate.and(MessageTemplate.MatchProtocol(REGISTRATION_SERVICE), 
 						MessageTemplate.MatchOntology(ontology.getName())) ));
 				
 				if(msg!=null){

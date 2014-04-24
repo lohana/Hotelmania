@@ -45,11 +45,12 @@ public class AgHotel3 extends Agent {
 	private Codec codec = new SLCodec();
 	private Ontology ontology = SharedAgentsOntology.getInstance();
 
-	public final static String HOTELMANIA = "Hotelmania";
+	public final static String REGISTRATION_SERVICE = "Registration";
+	public final static String HOTEL_NAME = "Hotel3";
 	
 	protected void setup(){
 		
-		System.out.println(getLocalName()+": HAS ENTERED");
+		System.out.println(getLocalName()+": HOTEL HAS ENTERED");
 		
 //      Register of the codec and the ontology to be used in the ContentManager
         getContentManager().registerLanguage(codec);
@@ -75,7 +76,7 @@ public class AgHotel3 extends Agent {
 				// Creates the description for the type of agent to be searched
 				DFAgentDescription dfd = new DFAgentDescription();
 				ServiceDescription sd = new ServiceDescription();
-				sd.setType("Registration");
+				sd.setType(REGISTRATION_SERVICE);
 				dfd.addServices(sd);
 				
 				try{
@@ -104,14 +105,14 @@ public class AgHotel3 extends Agent {
 								
 								// Asks for registration
 								ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-								msg.setProtocol("Registration");
+								msg.setProtocol(REGISTRATION_SERVICE);
 								msg.addReceiver(ag);
 								msg.setLanguage(codec.getName());
 								msg.setOntology(ontology.getName());
 								RegistrationRequest rr = new RegistrationRequest();
 								//Hotel Information for the request
 								Hotel hotel = new Hotel();
-								hotel.setHotel_name("Hotel3");
+								hotel.setHotel_name(HOTEL_NAME);
 								//Add hotel information to the registration request
 								rr.setHotel(hotel);
 								
@@ -122,7 +123,7 @@ public class AgHotel3 extends Agent {
 									// The ContentManager transforms the java objects into strings
 									getContentManager().fillContent(msg, agAction);
 									send(msg);
-									System.out.println(getLocalName()+": REGISTER REQUEST SEND");
+									System.out.println(getLocalName()+": REGISTATION REQUEST SEND");
 								}
 								catch (CodecException ce){
 									ce.printStackTrace();
