@@ -28,6 +28,11 @@ import java.util.Date;
 
 public class AgPlatfform3 extends Agent {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 
 	}

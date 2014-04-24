@@ -75,8 +75,7 @@ public class AgHotel3 extends Agent {
 				// Creates the description for the type of agent to be searched
 				DFAgentDescription dfd = new DFAgentDescription();
 				ServiceDescription sd = new ServiceDescription();
-				sd.setName("Registration");
-				sd.setType(HOTELMANIA);
+				sd.setType("Registration");
 				dfd.addServices(sd);
 				
 				try{
@@ -102,8 +101,10 @@ public class AgHotel3 extends Agent {
 							// If we have not contacted yet with this hotelmania
 							if (!ignore){
 								hotelmania[last++] = ag;
+								
 								// Asks for registration
 								ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+								msg.setProtocol("Registration");
 								msg.addReceiver(ag);
 								msg.setLanguage(codec.getName());
 								msg.setOntology(ontology.getName());
@@ -162,7 +163,7 @@ public class AgHotel3 extends Agent {
     			if (msg != null)
     			{
     				// If an acceptation arrives...
-    				System.out.println(myAgent.getLocalName()+": received request acceptation from "+(msg.getSender()).getLocalName());
+    				System.out.println(myAgent.getLocalName()+": received request ACCEPTATION from "+(msg.getSender()).getLocalName());
     			}
     			else
     			{
@@ -185,7 +186,7 @@ public class AgHotel3 extends Agent {
     			if (msg != null)
     			{
     				// If a rejection arrives...
-    				System.out.println(myAgent.getLocalName()+": received request rejection from "+(msg.getSender()).getLocalName());
+    				System.out.println(myAgent.getLocalName()+": received request REJECTION from "+(msg.getSender()).getLocalName());
     			}
     			else
     			{

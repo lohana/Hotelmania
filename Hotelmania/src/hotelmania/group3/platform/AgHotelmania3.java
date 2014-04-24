@@ -43,6 +43,10 @@ import java.util.ArrayList;
 
 
 public class AgHotelmania3 extends Agent {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// Codec for the SL language used and instance of the ontology
 	// PaintServOntology that we have created
     private Codec codec = new SLCodec();
@@ -52,7 +56,8 @@ public class AgHotelmania3 extends Agent {
     public final static String HOTELMANIA = "Hotelmania";
     
     
-    protected void setup(){
+    @SuppressWarnings("serial")
+	protected void setup(){
 		System.out.println(getLocalName()+": has entered into the system");
 //      Register of the codec and the ontology to be used in the ContentManager
         getContentManager().registerLanguage(codec);
@@ -62,8 +67,8 @@ public class AgHotelmania3 extends Agent {
 			// Creates its own description
 			DFAgentDescription dfd = new DFAgentDescription();
 			ServiceDescription sd = new ServiceDescription();
-			sd.setName("Registration"); //I am not sure if the name should be "Registration"
-			sd.setType(HOTELMANIA);
+			sd.setName(this.getName()); //I am not sure if the name should be "Registration"
+			sd.setType("Registration");
 			dfd.addServices(sd);
 			
 			// Registers its description in the DF
@@ -90,8 +95,9 @@ public class AgHotelmania3 extends Agent {
 			public void action()
 			{
 				// Waits for estimation requests
-				ACLMessage msg = receive(MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()), 
-						MessageTemplate.MatchOntology(ontology.getName())));
+				ACLMessage msg = receive(MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()), MessageTemplate.and(MessageTemplate.MatchProtocol("Registration"), 
+						MessageTemplate.MatchOntology(ontology.getName())) ));
+				
 				if(msg!=null){
 					try{
 						ContentElement ce = null;
@@ -111,7 +117,7 @@ public class AgHotelmania3 extends Agent {
 								Concept conc = agAction.getAction();
 								// If the action is RegistrationRequest...
 								if (conc instanceof RegistrationRequest){
-									System.out.println(myAgent.getLocalName()+": received Registration request from "+(msg.getSender()).getLocalName());    
+									System.out.println(myAgent.getLocalName()+": received REGISTRATION REQUEST from "+(msg.getSender()).getLocalName());    
 																						
 									RegistrationRequest re = (RegistrationRequest)conc;
 									Hotel newHotel = re.getHotel();
@@ -141,27 +147,28 @@ public class AgHotelmania3 extends Agent {
 									
 									if ( blank_name || wrong_name || repeated  ){
 										reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
-										System.out.println(myAgent.getLocalName()+ ": Registration request of "+ newHotel.getHotel_name() + " is deny");
+										System.out.println(myAgent.getLocalName()+ ": Registration Request of "+ newHotel.getHotel_name() + " is DENIED");
 									} 
 									else {
 										RegisteredHotels.add(newHotel);
 										reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-										System.out.println(myAgent.getLocalName()+ ": "+ newHotel.getHotel_name() + " is resgistered in Hotelmania");	
+										System.out.println(myAgent.getLocalName()+ ": Registration Request of "+ newHotel.getHotel_name() + " is ACCEPTED");
+										System.out.println(myAgent.getLocalName()+ ": "+ newHotel.getHotel_name() + " is REGISTERED in Hotelmania");	
 									}
 								} 
 								else {
 									reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-									System.out.println(myAgent.getLocalName()+ ": Registration request doesn't understood");
+									System.out.println(myAgent.getLocalName()+ ": Registration Request DOES NOT UNDERSTOOD");
 								}
 							}
 						} 
 						else{
 							reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-							System.out.println(myAgent.getLocalName()+ ": Registration request doesn't understood");
+							System.out.println(myAgent.getLocalName()+ ": Registration request DOES NOT UNDERSTOOD");
 						}
 						
 						myAgent.send(reply);
-						System.out.println(myAgent.getLocalName()+": answer sent");
+						System.out.println(myAgent.getLocalName()+": Answer Sent");
 					}
 					catch (CodecException e){
 						e.printStackTrace();
