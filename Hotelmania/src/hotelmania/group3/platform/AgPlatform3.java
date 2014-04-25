@@ -6,6 +6,7 @@ Agent Client demanding a painting service: AgClient.java
 package hotelmania.group3.platform;
 
 import jade.core.Agent;
+import jade.core.AID;
 import jade.domain.FIPAAgentManagement.*;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -21,11 +22,7 @@ import jade.content.onto.basic.*;
 import hotelmania.ontology.*;
 
 import java.util.ArrayList;
-
-
-
-
-//import searchPainter.paintServOntology.PaintServOntology;
+import java.util.Date;
 
 
 /**
@@ -42,10 +39,12 @@ import java.util.ArrayList;
  **/
 
 
-public class AgHotelmania3 extends Agent {
+
+public class AgPlatform3 extends Agent {
+
 	/**
 	 * 
-	 *//*
+	 */
 	private static final long serialVersionUID = 1L;
 	// Codec for the SL language used and instance of the ontology
 	// PaintServOntology that we have created
@@ -126,9 +125,9 @@ public class AgHotelmania3 extends Agent {
 									boolean wrong_name = false;
 									
 									
-									Hotel testHotel = new Hotel();
+									/*Hotel testHotel = new Hotel();
 									testHotel.setHotel_name("Hotel3");
-									RegisteredHotels.add(testHotel);
+									RegisteredHotels.add(testHotel);*/
 									
 									if (!RegisteredHotels.isEmpty()){
 										for (int i=0; i<RegisteredHotels.size(); i++){
@@ -185,5 +184,5 @@ public class AgHotelmania3 extends Agent {
 			}
 		});
     }
-*/
+
 }
