@@ -1,33 +1,3 @@
-/*****************************************************************
-Agent Client demanding a painting service: AgClient.java
-
- *****************************************************************/
-
-package hotelmania.group3.platform;
-
-import jade.core.Agent;
-import jade.domain.FIPAAgentManagement.*;
-import jade.domain.DFService;
-import jade.domain.FIPAException;
-import jade.core.behaviours.*;
-import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import jade.content.lang.Codec;
-import jade.content.lang.Codec.*;
-import jade.content.lang.sl.*;
-import jade.content.*;
-import jade.content.onto.*;
-import jade.content.onto.basic.*;
-import hotelmania.ontology.*;
-
-import java.util.ArrayList;
-
-
-
-
-//import searchPainter.paintServOntology.PaintServOntology;
-
-
 /**
  * This agent has the following functionality: 
  * <ul>
@@ -41,25 +11,31 @@ import java.util.ArrayList;
  * @version $Date: 2014/04/19 19:28 $ $Revision: 1.0 $
  **/
 
+package hotelmania.group3.platform;
 
+import jade.core.Agent;
+import jade.domain.FIPAAgentManagement.*;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
+import jade.content.lang.Codec;
+import jade.content.lang.sl.*;
+import jade.content.onto.*;
+import hotelmania.group3.platform.hotelmania.behaviuor.RegistrationBehaviour;
+import hotelmania.ontology.*;
+
+import java.util.ArrayList;
+
+@SuppressWarnings("serial")
 public class AgHotelmania3 extends Agent {
-	/**
-	 * 
-	 *//*
-	private static final long serialVersionUID = 1L;
-	// Codec for the SL language used and instance of the ontology
-	// PaintServOntology that we have created
-    private Codec codec = new SLCodec();
-    private Ontology ontology = SharedAgentsOntology.getInstance();
+	
+    public Codec codec = new SLCodec();
+    public Ontology ontology = SharedAgentsOntology.getInstance();
+    public static final String REGISTRATION_SERVICE = "Registration";
+	public ArrayList<Hotel> RegisteredHotels = new ArrayList<Hotel>(); 
     
-    private ArrayList<Hotel> RegisteredHotels = new ArrayList<Hotel>(); 
-    public final static String REGISTRATION_SERVICE = "Registration";
-    
-    
-    @SuppressWarnings("serial")
-	protected void setup(){
+	protected void setup() {
 		System.out.println(getLocalName()+": Hotelmania has entered into the system");
-//      Register of the codec and the ontology to be used in the ContentManager
+
         getContentManager().registerLanguage(codec);
         getContentManager().registerOntology(ontology);		
         
@@ -82,108 +58,7 @@ public class AgHotelmania3 extends Agent {
 			e.printStackTrace();
 		}
 		
-		
-		
 		// Adds a behavior to answer the estimation requests
-		// Waits for a request and, when it arrives, answers with			  
-		// the ESTIMATION and waits again.
-		// If arrives a DECISION, it takes it (at this point, the painter would begin painting
-		// if it is accepted...)
-		
-		addBehaviour(new CyclicBehaviour(this){
-		
-			public void action()
-			{
-				// Waits for estimation requests
-				ACLMessage msg = receive(MessageTemplate.and(MessageTemplate.MatchLanguage(codec.getName()), MessageTemplate.and(MessageTemplate.MatchProtocol(REGISTRATION_SERVICE), 
-						MessageTemplate.MatchOntology(ontology.getName())) ));
-				
-				if(msg!=null){
-					try{
-						ContentElement ce = null;
-						int AclMessage = msg.getPerformative();
-						ACLMessage reply = msg.createReply();
-						
-						if (AclMessage == ACLMessage.REQUEST){
-							// If an REGISTRATION request arrives (type REQUEST)
-							// it answers with the acceptance o deny
-							
-							// The ContentManager transforms the message content (string)
-							// in java objects
-							ce = getContentManager().extractContent(msg);
-							// We expect an action inside the message
-							if (ce instanceof Action){
-								Action agAction = (Action) ce;
-								Concept conc = agAction.getAction();
-								// If the action is RegistrationRequest...
-								if (conc instanceof RegistrationRequest){
-									System.out.println(myAgent.getLocalName()+": received REGISTRATION REQUEST from "+(msg.getSender()).getLocalName());    
-																						
-									RegistrationRequest re = (RegistrationRequest)conc;
-									Hotel newHotel = re.getHotel();
-									boolean repeated = false;
-									boolean blank_name = false;
-									boolean wrong_name = false;
-									
-									
-									Hotel testHotel = new Hotel();
-									testHotel.setHotel_name("Hotel3");
-									RegisteredHotels.add(testHotel);
-									
-									if (!RegisteredHotels.isEmpty()){
-										for (int i=0; i<RegisteredHotels.size(); i++){
-											Hotel currentHotel = (Hotel)RegisteredHotels.get(i);
-											if (currentHotel.getHotel_name().toLowerCase().compareTo(newHotel.getHotel_name().toLowerCase()) == 0)
-												repeated = true;
-										}
-									}
-									
-									if (newHotel.getHotel_name().compareTo("")==0)
-										blank_name = true;
-									
-									if (!newHotel.getHotel_name().toLowerCase().contains("hotel"))
-										wrong_name = true;
-									
-									
-									if ( blank_name || wrong_name || repeated  ){
-										reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
-										System.out.println(myAgent.getLocalName()+ ": Registration Request of "+ newHotel.getHotel_name() + " is DENIED");
-									} 
-									else {
-										RegisteredHotels.add(newHotel);
-										reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-										System.out.println(myAgent.getLocalName()+ ": Registration Request of "+ newHotel.getHotel_name() + " is ACCEPTED");
-										System.out.println(myAgent.getLocalName()+ ": "+ newHotel.getHotel_name() + " is REGISTERED in Hotelmania");	
-									}
-								} 
-								else {
-									reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-									System.out.println(myAgent.getLocalName()+ ": Registration Request DOES NOT UNDERSTOOD");
-								}
-							}
-						} 
-						else{
-							reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-							System.out.println(myAgent.getLocalName()+ ": Registration request DOES NOT UNDERSTOOD");
-						}
-						
-						myAgent.send(reply);
-						System.out.println(myAgent.getLocalName()+": Answer Sent");
-					}
-					catch (CodecException e){
-						e.printStackTrace();
-					}
-					catch (OntologyException oe){
-						oe.printStackTrace();
-					}
-				}
-				else
-				{
-					// If no message arrives
-					block();
-				}
-			}
-		});
+		addBehaviour(new RegistrationBehaviour(this));
     }
-*/
 }
