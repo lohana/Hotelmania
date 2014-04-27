@@ -35,8 +35,7 @@ public class RegistrationBehaviour extends CyclicBehaviour {
 		
 		// Waits for estimation requests
 		ACLMessage msg = agent.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agent.codec.getName()), 
-								 MessageTemplate.and(MessageTemplate.MatchProtocol(AgHotelmania3.REGISTRATION_SERVICE), 
-				MessageTemplate.MatchOntology(agent.ontology.getName())) ));
+				MessageTemplate.MatchOntology(agent.ontology.getName())) );
 		
 		if(msg!=null){
 			try{
@@ -44,7 +43,11 @@ public class RegistrationBehaviour extends CyclicBehaviour {
 				int AclMessage = msg.getPerformative();
 				ACLMessage reply = msg.createReply();
 				
-				if (AclMessage == ACLMessage.REQUEST){
+				if (!MessageTemplate.MatchProtocol(AgHotelmania3.REGISTRATION_SERVICE).match(msg)) {
+					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
+					System.out.println(myAgent.getLocalName()+ ": Registration request DOES NOT UNDERSTOOD");
+				}
+				else if (AclMessage == ACLMessage.REQUEST){
 					// If an REGISTRATION request arrives (type REQUEST)
 					// it answers with the acceptance o deny
 					
