@@ -20,6 +20,26 @@ public class AgPlatform3 extends Agent {
 			e.printStackTrace();
 			System.out.println("Unable to launch agent Hotelmania.");
 		}
+		
+		// Test clients
+		/*try {
+			startNewAgent("hotelmania.group3.platform.AgClient", "Client1", new Object[]{ "Client001" });
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+			System.out.println("Unable to launch agent Client.");
+		}
+		try {
+			startNewAgent("hotelmania.group3.platform.AgClient", "Client2", new Object[]{ "Client002" });
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+			System.out.println("Unable to launch agent Client.");
+		}
+		try {
+			startNewAgent("hotelmania.group3.platform.AgClient", "Client3", new Object[]{ "Client003" });
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+			System.out.println("Unable to launch agent Client.");
+		}*/
     }
     
     private void startNewAgent(String className,String agentName,Object[] arguments) throws StaleProxyException {
