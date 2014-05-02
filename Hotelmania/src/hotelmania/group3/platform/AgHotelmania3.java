@@ -32,12 +32,14 @@ import java.util.Dictionary;
 public class AgHotelmania3 extends Agent {
 	
     public Codec codec = new SLCodec();
-    public Ontology ontology = SharedAgentsOntology.getInstance();
+    public Ontology ontology = SharedAgentsOntology_1.getInstance();
     public Ontology innerOntology = Ontology3.getInstance();
     public static final String REGISTRATION_SERVICE = "Registration";
     public static final String EVALUATION_SERVICE = "Evaluation";
+    //Hotels Registered in Hotelmania during execution 
+    public ArrayList<Hotel> RegisteredHotels = new ArrayList<Hotel>();
+    
     public Dictionary<String, ArrayList<Opinion>> hotelsOpinions;
-	public ArrayList<Hotel> RegisteredHotels = new ArrayList<Hotel>();
 	private ArrayList<Opinion> opinions = new ArrayList<Opinion>();
     
 	protected void setup() {

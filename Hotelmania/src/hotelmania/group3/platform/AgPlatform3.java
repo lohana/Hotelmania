@@ -16,9 +16,18 @@ public class AgPlatform3 extends Agent {
 	protected void setup(){
 		try {
 			startNewAgent("hotelmania.group3.platform.AgHotelmania3", "Hotelmania", new Object[]{});
+			
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
-			System.out.println("Unable to launch agent Hotelmania.");
+			System.out.println("Unable to launch Agent Hotelmania.");
+		}
+		
+		try {
+			startNewAgent("hotelmania.group3.platform.AgAgency3", "Agency", new Object[]{});
+			
+		} catch (StaleProxyException e) {
+			e.printStackTrace();
+			System.out.println("Unable to launch Agent Agency.");
 		}
 		
 		// Test clients

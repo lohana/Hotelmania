@@ -25,10 +25,13 @@ public class AgHotel3 extends Agent {
 	// Code for the SL language used and instance of the ontology
 	// SharedAgentsOntology that we have created
 	public Codec codec = new SLCodec();
-	public Ontology ontology = SharedAgentsOntology.getInstance();
+	public Ontology ontology = SharedAgentsOntology_1.getInstance();
 
+	//Sprint 1
 	public final static String REGISTRATION_SERVICE = "Registration";
 	public final static String HOTEL_NAME = "Hotel3";
+	//Sprint 2
+	public static final String SIGN_CONTRACT = "SignContract";
 	
 	protected void setup(){
 		
@@ -49,6 +52,9 @@ public class AgHotel3 extends Agent {
     	
     	// Adds a behavior to process the NOT_UNDERSTOOD answer to an registration request
     	addBehaviour(new  ExpectNotUnderstood(this));
+    	
+    	// Adds a behavior to request sign contract to Agency
+    	addBehaviour(new  SIGNCONTRACT_SignContract(this));
 		
 	}
 }
