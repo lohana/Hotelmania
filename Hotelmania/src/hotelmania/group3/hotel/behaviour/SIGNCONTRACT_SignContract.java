@@ -34,7 +34,7 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 		AgHotel3 agent = (AgHotel3)this.myAgent;
 		
 	     // From this moment, it will be searching agency for a minute		
-     	final Date registerTime = new Date();
+     	//final Date registerTime = new Date();
 		
 		// Creates the description for the type of agent to be searched
 		DFAgentDescription dfd = new DFAgentDescription();
@@ -44,9 +44,9 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 		
 		try{
 			// If has been searching for estimations for more than a minute, it does not search any more
-			if ((new Date()).getTime() - registerTime.getTime() >= 60000){
+			/*if ((new Date()).getTime() - registerTime.getTime() >= 60000){
 				end = true;
-			}
+			}*/
 			
 			// It finds agents of the required type
 			DFAgentDescription[] res = new DFAgentDescription[20];
