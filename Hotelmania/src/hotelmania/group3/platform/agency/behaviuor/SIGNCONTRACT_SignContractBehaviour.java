@@ -41,7 +41,7 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 				
 				if (!MessageTemplate.MatchProtocol(AgAgency3.SIGN_CONTRACT).match(msg)) {
 					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-					System.out.println(myAgent.getLocalName()+ ": Sign Contract Request DOES NOT UNDERSTOOD 1: Protocol isn't set it");
+					System.out.println(myAgent.getLocalName()+ ": Sign Contract Request DOES NOT UNDERSTOOD: Protocol isn't set it");
 				}
 				else if (AclMessage == ACLMessage.REQUEST){
 					// If an SIGN CONTRACT request arrives (type REQUEST)
@@ -108,7 +108,7 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 						} 
 						else {
 							reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-							System.out.println(myAgent.getLocalName()+ ": Sign Contract Request DOES NOT UNDERSTOOD 22222: Protocol isn't set it.");
+							System.out.println(myAgent.getLocalName()+ ": Sign Contract Request DOES NOT UNDERSTOOD: Protocol isn't set it.");
 						}
 					}
 				} 
