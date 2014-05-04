@@ -32,7 +32,7 @@ import java.util.Dictionary;
 public class AgHotelmania3 extends Agent {
 	
     public Codec codec = new SLCodec();
-    public Ontology ontology = SharedAgentsOntology_1.getInstance();
+    public Ontology ontology = SharedAgentsOntology.getInstance();
     public Ontology innerOntology = Ontology3.getInstance();
     public static final String REGISTRATION_SERVICE = "Registration";
     public static final String EVALUATION_SERVICE = "Evaluation";
@@ -43,6 +43,7 @@ public class AgHotelmania3 extends Agent {
 	private ArrayList<Opinion> opinions = new ArrayList<Opinion>();
     
 	protected void setup() {
+		
 		System.out.println(getLocalName() + ": Hotelmania has entered into the system");
 
         getContentManager().registerLanguage(codec);

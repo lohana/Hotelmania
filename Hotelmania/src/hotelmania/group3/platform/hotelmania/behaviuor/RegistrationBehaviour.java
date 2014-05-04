@@ -1,5 +1,5 @@
 /**
- * This agent launches all the agents that are inner for the platform.
+ * This is action of the Hotelmania agent for registering hotels.
  * @author Lohana Lema Moreta, EMSE
  * @version $Date: 2014/04/27 12:28 $ $Revision: 1.0 $
  **/
@@ -44,8 +44,8 @@ public class RegistrationBehaviour extends CyclicBehaviour {
 				ACLMessage reply = msg.createReply();
 				
 				if (!MessageTemplate.MatchProtocol(AgHotelmania3.REGISTRATION_SERVICE).match(msg)) {
-					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-					System.out.println(myAgent.getLocalName()+ ": Registration request DOES NOT UNDERSTOOD");
+					/*reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
+					System.out.println(myAgent.getLocalName()+ ": Registration request DOES NOT UNDERSTOOD");*/
 				}
 				else if (AclMessage == ACLMessage.REQUEST){
 					// If an REGISTRATION request arrives (type REQUEST)
@@ -89,12 +89,12 @@ public class RegistrationBehaviour extends CyclicBehaviour {
 							
 							
 							if ( blank_name || wrong_name || repeated  ){
-								reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
+								reply.setPerformative(ACLMessage.REFUSE);
 								System.out.println(myAgent.getLocalName()+ ": Registration Request of "+ newHotel.getHotel_name() + " is DENIED");
 							} 
 							else {
 								agent.RegisteredHotels.add(newHotel);
-								reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+								reply.setPerformative(ACLMessage.AGREE);
 								System.out.println(myAgent.getLocalName()+ ": Registration Request of "+ newHotel.getHotel_name() + " is ACCEPTED");
 								System.out.println(myAgent.getLocalName()+ ": "+ newHotel.getHotel_name() + " is REGISTERED in Hotelmania");	
 							}

@@ -7,9 +7,9 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 @SuppressWarnings("serial")
-public class ExpectNotUnderstood extends CyclicBehaviour {
+public class ExpectRegistrationNotUnderstood extends CyclicBehaviour {
 	
-	public ExpectNotUnderstood(Agent agent) {
+	public ExpectRegistrationNotUnderstood(Agent agent) {
 		super(agent);
 	}
 	

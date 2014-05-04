@@ -74,7 +74,7 @@ public class SendRate extends SimpleBehaviour {
 						msg.setProtocol(AgClient.EVALUATION_SERVICE);
 						msg.addReceiver(ag);
 						msg.setLanguage(agent.codec.getName());
-						msg.setOntology(agent.ontology.getName());
+						msg.setOntology(agent.innerOntology.getName());
 						Evaluation e = new Evaluation();
 						
 						// Client information

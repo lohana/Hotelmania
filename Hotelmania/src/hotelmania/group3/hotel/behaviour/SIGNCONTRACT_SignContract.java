@@ -14,8 +14,6 @@ import jade.content.onto.basic.*;
 import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.ontology.*;
 
-import java.util.Date;
-
 @SuppressWarnings("serial")
 public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 	

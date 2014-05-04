@@ -12,15 +12,19 @@
 
 package hotelmania.group3.hotel;
 
-import jade.core.Agent;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
+import hotelmania.group3.commonbehaviour.ReceiveDayNotification;
+import hotelmania.group3.commonbehaviour.ReceiveSubscriptionAgree;
+import hotelmania.group3.commonbehaviour.ReceiveSubscriptionRefuse;
+import hotelmania.group3.commonbehaviour.SubscribeForDayNotification;
 import hotelmania.group3.hotel.behaviour.*;
+import hotelmania.group3.platform.DayDependentAgent;
 import hotelmania.ontology.*;
 
 @SuppressWarnings("serial")
-public class AgHotel3 extends Agent {
+public class AgHotel3 extends DayDependentAgent {
 	
 	// Code for the SL language used and instance of the ontology
 	// SharedAgentsOntology that we have created
@@ -45,13 +49,13 @@ public class AgHotel3 extends Agent {
         addBehaviour(new SearchHotelmania(this));
 		
      	// Adds a behavior to process the ACEPTATION answer to an registration request
-     	addBehaviour(new ExpectAcception(this));
+     	addBehaviour(new ExpectReqistrationAgree(this));
 
      	// Adds a behavior to process the REJECTION answer to an registration request
-    	addBehaviour(new ExpectRejection(this));
+    	addBehaviour(new ExpectRegistrationRefuse(this));
     	
     	// Adds a behavior to process the NOT_UNDERSTOOD answer to an registration request
-    	addBehaviour(new  ExpectNotUnderstood(this));
+    	addBehaviour(new  ExpectRegistrationNotUnderstood(this));
     	
     	// Adds a behavior to request sign contract to Agency
     	addBehaviour(new  SIGNCONTRACT_SignContract(this));
@@ -64,6 +68,22 @@ public class AgHotel3 extends Agent {
     	
     	// Adds a behavior to process the NOT_UNDERSTOOD answer to a sign contract request
     	addBehaviour(new  SIGNCONTRACT_ExpectNotUnderstood(this));
+    	
+    	// Adds a behavior to subscribe for day event
+    	addBehaviour(new  SubscribeForDayNotification(this));
 		
+    	// Adds a behavior to process day notification
+    	addBehaviour(new  ReceiveDayNotification(this));
+    	
+    	// Adds a behavior to process subscription answer receive
+    	addBehaviour(new  ReceiveSubscriptionAgree(this));
+    	
+    	// Adds a behavior to process subscription answer receive
+    	addBehaviour(new  ReceiveSubscriptionRefuse(this));
 	}
+	
+	public void ChangesOnDayChange()
+    {
+    	System.out.println(getLocalName() + ": Day changed to " + currentDay);
+    }
 }
