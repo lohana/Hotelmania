@@ -14,6 +14,7 @@ import jade.content.onto.basic.*;
 import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.ontology.*;
 
+
 @SuppressWarnings("serial")
 public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 	
@@ -97,7 +98,7 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 							// The ContentManager transforms the java objects into strings
 							agent.getContentManager().fillContent(msg, agAction);
 							agent.send(msg);
-							System.out.println(agent.getLocalName()+": SIGN CONTRACT REQUEST SEND");
+							System.out.println(agent.getLocalName()+": SIGN CONTRACT REQUEST for " + agent.currentDay +" day has been SEND");
 						}
 						catch (CodecException ce){
 							ce.printStackTrace();

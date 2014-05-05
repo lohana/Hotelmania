@@ -42,6 +42,7 @@ public class RegistrationBehaviour extends CyclicBehaviour {
 				ContentElement ce = null;
 				int AclMessage = msg.getPerformative();
 				ACLMessage reply = msg.createReply();
+				reply.setProtocol(AgHotelmania3.REGISTRATION_SERVICE);
 				
 				if (!MessageTemplate.MatchProtocol(AgHotelmania3.REGISTRATION_SERVICE).match(msg)) {
 					/*reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);

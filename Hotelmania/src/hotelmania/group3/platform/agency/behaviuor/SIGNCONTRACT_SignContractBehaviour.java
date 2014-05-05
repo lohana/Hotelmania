@@ -38,10 +38,11 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 				ContentElement ce = null;
 				int AclMessage = msg.getPerformative();
 				ACLMessage reply = msg.createReply();
+				reply.setProtocol(AgAgency3.SIGN_CONTRACT);
 				
 				if (!MessageTemplate.MatchProtocol(AgAgency3.SIGN_CONTRACT).match(msg)) {
 					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-					System.out.println(myAgent.getLocalName()+ ": Sign Contract Request DOES NOT UNDERSTOOD: Protocol isn't set it");
+					System.out.println(myAgent.getLocalName()+ ": Sign Contract Request DOES NOT UNDERSTOOD: Protocol isn't set it-----");
 				}
 				else if (AclMessage == ACLMessage.REQUEST){
 					// If an SIGN CONTRACT request arrives (type REQUEST)
@@ -56,11 +57,13 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 						Concept conc = agAction.getAction();
 						// If the action is SignContract...
 						if (conc instanceof SignContract){
-							System.out.println(myAgent.getLocalName()+": received SIGN CONTRACT REQUEST from "+(msg.getSender()).getLocalName());    
+							System.out.println(myAgent.getLocalName()+": received SIGN CONTRACT REQUEST from "+(msg.getSender()).getLocalName() + "for a " + agent.currentDay + " day");    
 																				
 							SignContract sc = (SignContract)conc;
 							Hotel requestedHotel = sc.getHotel();
 							boolean repeated_day_hotel = false;
+							
+							
 							
 							
 							/*Simulation Exist Contract in day 0 for a Hotel3*/
@@ -88,27 +91,29 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 							//One contract per day per hotel
 							if (!agent.signedContracts.isEmpty()){
 								for (int i = 0; i < agent.signedContracts.size(); i++){
-									Hotel currentHotel = (Hotel)agent.signedContracts.get(i).getHotel();
-									if ( (currentHotel.getHotel_name().toLowerCase().compareTo(requestedHotel.getHotel_name().toLowerCase()) == 0) && (i==agent.currentDay))
-										repeated_day_hotel = true;
+									if (i!=0){
+										Hotel currentHotel = (Hotel)agent.signedContracts.get(i).getHotel();
+										if ( (currentHotel.getHotel_name().toLowerCase().compareTo(requestedHotel.getHotel_name().toLowerCase()) == 0) && (i==agent.currentDay))
+											repeated_day_hotel = true;
+									}
 								}
 							}
 												
 							
 							if ( repeated_day_hotel  ){
 								reply.setPerformative(ACLMessage.REFUSE);
-								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " is REFUSED: Contract exits for this Hotel in this day");
+								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + "for a " + agent.currentDay + " day " + " is REFUSED: Contract exits for this Hotel in this day");
 							} 
 							else {
 								agent.signedContracts.add(agent.currentDay, sc);
 								reply.setPerformative(ACLMessage.AGREE);
-								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " is AGREED");
+								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + "for a " + agent.currentDay + " day " + " is AGREED");
 								System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " has hired Staff requested");	
 							}
 						} 
 						else {
 							reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-							System.out.println(myAgent.getLocalName()+ ": Sign Contract Request DOES NOT UNDERSTOOD: Protocol isn't set it.");
+							System.out.println(myAgent.getLocalName()+ ": Sign Contract Request DOES NOT UNDERSTOOD: Wrong Concept");
 						}
 					}
 				} 

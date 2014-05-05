@@ -58,7 +58,7 @@ public class AgHotel3 extends DayDependentAgent {
     	addBehaviour(new  ExpectRegistrationNotUnderstood(this));
     	
     	// Adds a behavior to request sign contract to Agency
-    	addBehaviour(new  SIGNCONTRACT_SignContract(this));
+    	//addBehaviour(new  SIGNCONTRACT_SignContract(this));
     	
     	// Adds a behavior to process the ACEPTATION answer to a sign contract request
      	addBehaviour(new SIGNCONTRACT_ExpectAcceptation(this));
@@ -85,5 +85,6 @@ public class AgHotel3 extends DayDependentAgent {
 	public void ChangesOnDayChange()
     {
     	System.out.println(getLocalName() + ": Day changed to " + currentDay);
+    	addBehaviour(new  SIGNCONTRACT_SignContract(this));
     }
 }
