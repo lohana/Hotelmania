@@ -8,12 +8,12 @@ import jade.core.*;
 /**
 * Protege name: SignContract
 * @author ontology bean generator
-* @version 2014/05/1, 06:37:44
+* @version 2014/05/5, 13:17:33
 */
 public class SignContract implements AgentAction {
 
-   /** 
-* Protege name: hotel instance
+   /**
+* Protege name: hotel
    */
    private Hotel hotel;
    public void setHotel(Hotel value) { 

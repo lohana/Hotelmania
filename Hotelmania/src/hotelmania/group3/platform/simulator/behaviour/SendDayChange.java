@@ -7,9 +7,9 @@ package hotelmania.group3.platform.simulator.behaviour;
 
 import hotelmania.group3.platform.AgSimulator3;
 import hotelmania.ontology.DayEvent;
+import hotelmania.ontology.NotificationDayEvent;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
-import jade.content.onto.basic.Action;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
@@ -38,11 +38,14 @@ public class SendDayChange extends TickerBehaviour {
 					msg.addReceiver(ag);
 					msg.setLanguage(agent.codec.getName());
 					msg.setOntology(agent.ontology.getName());
+					
 					DayEvent e = new DayEvent();
 					e.setDay(agent.getCurrentDay());
-							
-					Action agAction = new Action(ag, e);
-					agent.getContentManager().fillContent(msg, agAction);
+					
+					NotificationDayEvent n = new NotificationDayEvent();
+					n.setDayEvent(e);
+
+					agent.getContentManager().fillContent(msg, n);
 					agent.send(msg);
 					System.out.println(String.format("%s: Day %d sent to %s.", agent.getLocalName(), agent.getCurrentDay(), ag.getLocalName()));
 				}

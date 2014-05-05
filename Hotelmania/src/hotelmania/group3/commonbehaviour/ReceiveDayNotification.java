@@ -8,11 +8,10 @@ package hotelmania.group3.commonbehaviour;
 
 import hotelmania.group3.platform.DayDependentAgent;
 import hotelmania.ontology.DayEvent;
-import jade.content.Concept;
+import hotelmania.ontology.NotificationDayEvent;
 import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
-import jade.content.onto.basic.Action;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -47,18 +46,13 @@ public class ReceiveDayNotification extends CyclicBehaviour {
 				if (message == ACLMessage.INFORM) 
 				{
 					content = agent.getContentManager().extractContent(msg);
-					if (content instanceof Action)
+					if (content instanceof NotificationDayEvent)
 					{
-						Action agAction = (Action)content;
-						Concept concept = agAction.getAction();
-
-						if (concept instanceof DayEvent)
-						{   													
-							DayEvent e = (DayEvent)concept;
-							int day = e.getDay();
-							agent.currentDay = day;
-							agent.ChangesOnDayChange();
-						}
+						NotificationDayEvent n = (NotificationDayEvent)content;
+						DayEvent e = n.getDayEvent();
+						int day = e.getDay();
+						agent.currentDay = day;
+						agent.ChangesOnDayChange();
 					}
 				}
 			}
