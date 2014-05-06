@@ -9,10 +9,6 @@ package hotelmania.group3.platform;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
-import hotelmania.group3.commonbehaviour.ReceiveDayNotification;
-import hotelmania.group3.commonbehaviour.ReceiveSubscriptionAgree;
-import hotelmania.group3.commonbehaviour.ReceiveSubscriptionRefuse;
-import hotelmania.group3.commonbehaviour.SubscribeForDayNotification;
 import hotelmania.group3.ontology.Ontology3;
 import hotelmania.group3.platform.client.behaviour.SendRate;
 import hotelmania.ontology.SharedAgentsOntology;
@@ -51,17 +47,8 @@ public class AgClient extends DayDependentAgent {
         // Adds a behavior to evaluate a hotel
         addBehaviour(new SendRate(this));
         
-        // Adds a behavior to subscribe for day event
-    	addBehaviour(new  SubscribeForDayNotification(this));
-		
-    	// Adds a behavior to process day notification
-    	addBehaviour(new  ReceiveDayNotification(this));
-    	
-    	// Adds a behavior to process subscription answer receive
-    	addBehaviour(new  ReceiveSubscriptionAgree(this));
-    	
-    	// Adds a behavior to process subscription answer receive
-    	addBehaviour(new  ReceiveSubscriptionRefuse(this));
+        // Adds behavior for day communication
+    	addDayBehaviour();
     }
 	
 	public int getRate()

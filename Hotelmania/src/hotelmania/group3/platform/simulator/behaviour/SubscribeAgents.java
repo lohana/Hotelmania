@@ -31,7 +31,8 @@ public class SubscribeAgents extends CyclicBehaviour {
 		AgSimulator3 agent = (AgSimulator3)this.myAgent;
 		
 		ACLMessage msg = agent.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agent.codec.getName()), 
-				MessageTemplate.MatchOntology(agent.ontology.getName())) );
+				MessageTemplate.and(MessageTemplate.MatchOntology(agent.ontology.getName()),
+						MessageTemplate.MatchProtocol(AgSimulator3.TIMECHANGE_SERVICE))));
 		
 		if(msg!=null){
 			try{
@@ -39,11 +40,7 @@ public class SubscribeAgents extends CyclicBehaviour {
 				int AclMessage = msg.getPerformative();
 				ACLMessage reply = msg.createReply();
 				
-				if (!MessageTemplate.MatchProtocol(AgSimulator3.TIMECHANGE_SERVICE).match(msg)) {
-					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-					System.out.println(myAgent.getLocalName()+ ": answer sent -> NOT_UNDERSTOOD");
-				}
-				else if (AclMessage == ACLMessage.SUBSCRIBE){
+				if (AclMessage == ACLMessage.SUBSCRIBE){
 					
 					ce = agent.getContentManager().extractContent(msg);
 
@@ -77,6 +74,7 @@ public class SubscribeAgents extends CyclicBehaviour {
 					System.out.println(myAgent.getLocalName()+ ": answer sent -> NOT_UNDERSTOOD");
 				}
 				
+				reply.setProtocol(AgSimulator3.TIMECHANGE_SERVICE);
 				myAgent.send(reply);
 			}
 			catch (CodecException e){

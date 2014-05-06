@@ -31,7 +31,8 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 		
 		// Waits for estimation requests
 		ACLMessage msg = agent.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agent.codec.getName()), 
-				MessageTemplate.MatchOntology(agent.ontology.getName())) );
+				MessageTemplate.and(MessageTemplate.MatchOntology(agent.ontology.getName()),
+						MessageTemplate.MatchProtocol(AgAgency3.SIGN_CONTRACT))));
 		
 		if(msg!=null){
 			try{
@@ -39,12 +40,8 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 				int AclMessage = msg.getPerformative();
 				ACLMessage reply = msg.createReply();
 				reply.setProtocol(AgAgency3.SIGN_CONTRACT);
-				
-				if (!MessageTemplate.MatchProtocol(AgAgency3.SIGN_CONTRACT).match(msg)) {
-					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-					System.out.println(myAgent.getLocalName()+ ": Sign Contract Request DOES NOT UNDERSTOOD: Protocol isn't set it-----");
-				}
-				else if (AclMessage == ACLMessage.REQUEST){
+
+				if (AclMessage == ACLMessage.REQUEST){
 					// If an SIGN CONTRACT request arrives (type REQUEST)
 					// it answers with the acceptance o deny
 					
@@ -89,7 +86,7 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 							
 							
 							//One contract per day per hotel
-							if (!agent.signedContracts.isEmpty()){
+							/*if (!agent.signedContracts.isEmpty()){
 								for (int i = 0; i < agent.signedContracts.size(); i++){
 									if (i!=0){
 										Hotel currentHotel = (Hotel)agent.signedContracts.get(i).getHotel();
@@ -97,7 +94,7 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 											repeated_day_hotel = true;
 									}
 								}
-							}
+							}*/
 												
 							
 							if ( repeated_day_hotel  ){
@@ -105,7 +102,7 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + "for a " + agent.currentDay + " day " + " is REFUSED: Contract exits for this Hotel in this day");
 							} 
 							else {
-								agent.signedContracts.add(agent.currentDay, sc);
+								agent.signedContracts.add(agent.signedContracts.size() - 1, sc);
 								reply.setPerformative(ACLMessage.AGREE);
 								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + "for a " + agent.currentDay + " day " + " is AGREED");
 								System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " has hired Staff requested");	

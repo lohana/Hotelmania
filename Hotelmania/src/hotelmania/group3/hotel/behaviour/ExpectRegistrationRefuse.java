@@ -1,6 +1,7 @@
 // Processes the REJECTION answer to request
 package hotelmania.group3.hotel.behaviour;
 
+import hotelmania.group3.hotel.AgHotel3;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
@@ -16,7 +17,8 @@ public class ExpectRegistrationRefuse extends CyclicBehaviour {
 	public void action()
 	{
 		// Waits for estimation rejections
-		ACLMessage msg = myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.REFUSE));
+		ACLMessage msg = myAgent.receive(MessageTemplate.and(MessageTemplate.MatchProtocol(AgHotel3.REGISTRATION_SERVICE), 
+				 						 MessageTemplate.MatchPerformative(ACLMessage.REFUSE)));
 		if (msg != null)
 		{
 			// If a rejection arrives...

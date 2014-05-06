@@ -5,6 +5,11 @@
  **/
 package hotelmania.group3.platform;
 
+import hotelmania.group3.commonbehaviour.ReceiveDayNotification;
+import hotelmania.group3.commonbehaviour.ReceiveSubscriptionAgree;
+import hotelmania.group3.commonbehaviour.ReceiveSubscriptionNotUnderstood;
+import hotelmania.group3.commonbehaviour.ReceiveSubscriptionRefuse;
+import hotelmania.group3.commonbehaviour.SubscribeForDayNotification;
 import hotelmania.ontology.SharedAgentsOntology;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -23,4 +28,22 @@ public abstract class DayDependentAgent extends Agent {
 	public Ontology ontology = SharedAgentsOntology.getInstance();
 	
 	public abstract void ChangesOnDayChange();
+	
+	public void addDayBehaviour()
+	{
+    	// Adds a behavior to subscribe for day event
+    	addBehaviour(new  SubscribeForDayNotification(this));
+		
+    	// Adds a behavior to process day notification
+    	addBehaviour(new  ReceiveDayNotification(this));
+    	
+    	// Adds a behavior to process subscription answer receive
+    	addBehaviour(new  ReceiveSubscriptionAgree(this));
+    	
+    	// Adds a behavior to process subscription answer receive
+    	addBehaviour(new  ReceiveSubscriptionRefuse(this));
+    	
+    	// Adds a behavior to process subscription answer receive
+    	addBehaviour(new  ReceiveSubscriptionNotUnderstood(this));
+	}
 }

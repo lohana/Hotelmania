@@ -1,4 +1,4 @@
-// Receives Subscription answer refuse
+// Receives Subscription answer not understood
 package hotelmania.group3.commonbehaviour;
 
 import hotelmania.group3.platform.DayDependentAgent;
@@ -8,9 +8,9 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 @SuppressWarnings("serial")
-public class ReceiveSubscriptionRefuse extends CyclicBehaviour {
+public class ReceiveSubscriptionNotUnderstood extends CyclicBehaviour {
 
-	public ReceiveSubscriptionRefuse(Agent agent)
+	public ReceiveSubscriptionNotUnderstood(Agent agent)
 	{
 		super(agent);
 	}
@@ -18,10 +18,10 @@ public class ReceiveSubscriptionRefuse extends CyclicBehaviour {
 	public void action()
 	{
 		ACLMessage msg = myAgent.receive(MessageTemplate.and(MessageTemplate.MatchProtocol(DayDependentAgent.SUBSCRIBETODAYEVENT), 
-				 						 MessageTemplate.MatchPerformative(ACLMessage.REFUSE)));
+				 						 MessageTemplate.MatchPerformative(ACLMessage.NOT_UNDERSTOOD)));
 		if (msg != null)
 		{
-			System.out.println(myAgent.getLocalName()+": received REFUSE from " + (msg.getSender()).getName());
+			System.out.println(myAgent.getLocalName()+": received NOT_UNDERSTOOD from " + (msg.getSender()).getName());
 		}
 		else
 		{

@@ -27,7 +27,8 @@ public class ReceiveEvaluation extends CyclicBehaviour {
 		
 		// Waits for estimation requests
 		ACLMessage msg = agent.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agent.codec.getName()), 
-				MessageTemplate.MatchOntology(agent.innerOntology.getName())) );
+				MessageTemplate.and(MessageTemplate.MatchOntology(agent.innerOntology.getName()), 
+						MessageTemplate.MatchProtocol(AgHotelmania3.EVALUATION_SERVICE))));
 		
 		if(msg!=null)
 		{
@@ -35,8 +36,8 @@ public class ReceiveEvaluation extends CyclicBehaviour {
 			{
 				ContentElement content = null;
 				int message = msg.getPerformative();
-				
-				if (MessageTemplate.MatchProtocol(AgHotelmania3.EVALUATION_SERVICE).match(msg) && message == ACLMessage.INFORM) 
+
+				if (message == ACLMessage.INFORM)
 				{
 					content = agent.getContentManager().extractContent(msg);
 					if (content instanceof Action)
