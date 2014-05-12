@@ -16,6 +16,7 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import hotelmania.group3.hotel.behaviour.*;
+import hotelmania.group3.hotel.behaviour.CreateAccount;
 import hotelmania.group3.platform.DayDependentAgent;
 import hotelmania.ontology.*;
 
@@ -32,6 +33,8 @@ public class AgHotel3 extends DayDependentAgent {
 	public final static String HOTEL_NAME = "Hotel3";
 	//Sprint 2
 	public static final String SIGN_CONTRACT = "SignContract";
+	//Sprint 3
+	public static final String CREATEACCOUNT_SERVICE = "CreateAccount";
 	
 	protected void setup(){
 		
@@ -67,6 +70,10 @@ public class AgHotel3 extends DayDependentAgent {
     	
     	// Adds behavior for day communication
     	addDayBehaviour();
+    	
+    	addBehaviour(new CreateAccount(this));
+    	
+    	addBehaviour(new ExpectAccount(this));
 	}
 	
 	public void ChangesOnDayChange()

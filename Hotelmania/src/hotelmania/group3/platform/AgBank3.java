@@ -1,5 +1,7 @@
 package hotelmania.group3.platform;
 
+import java.util.ArrayList;
+
 import jade.domain.FIPAAgentManagement.*;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -10,6 +12,7 @@ import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import jade.core.Agent;
 import hotelmania.ontology.*;
+import hotelmania.group3.platform.bank.behaviour.*;
 
 
 @SuppressWarnings("serial")
@@ -20,6 +23,8 @@ public class AgBank3 extends Agent{
     public static final String CREATEACCOUNT_SERVICE = "CreateAccount";
 
     private Map accounts = new HashMap();
+    public ArrayList<Hotel> hotelsWithAccount = new ArrayList<Hotel>();
+    private int nextId = 1;
     
     protected void setup() {
     	System.out.println(getLocalName() + ": Bank3 has entered into the system");
@@ -45,10 +50,22 @@ public class AgBank3 extends Agent{
         }catch (FIPAException e){
 			e.printStackTrace();
 		}
+        
+        addBehaviour(new CreateAccountForHotel(this));
     }
     
-    public float getStatusForHotel(String account)
+    public float getStatusForHotel(int account)
     {
-    	return Float.parseFloat((String)accounts.get(account));
+    	return Float.parseFloat((String)accounts.get(account + ""));
+    }
+    
+    public int createAccount(Hotel hotel)
+    {
+    	hotelsWithAccount.add(hotel);
+    	int result = nextId;
+    	nextId++;
+		String id = result + "";
+		accounts.put(id, "0");
+		return result;
     }
 }
