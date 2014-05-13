@@ -75,7 +75,8 @@ public class AgSimulator3 extends Agent {
 		addBehaviour(new SubscribeAgents(this));
 
 		int interval = 5000;
-		interval = Integer.parseInt(Configuration.getInstance().getProperty(Configuration.DATE_LENGTH)) * 1000;
+		//interval = Integer.parseInt(Configuration.getInstance().getProperty(Configuration.DATE_LENGTH)) * 1000;
+		interval = 10 * 1000;
 
 		// Adds a behavior to receive evaluation from clients
 		addBehaviour(new SendDayChange(this, interval));

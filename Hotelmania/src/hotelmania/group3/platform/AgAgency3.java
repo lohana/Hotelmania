@@ -49,7 +49,7 @@ public class AgAgency3 extends DayDependentAgent{
 		}
         
         // Adds a behavior to answer the sign contract requests
-     	//addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
+     	addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
         
         // Adds behavior for day communication
     	addDayBehaviour();
@@ -58,6 +58,6 @@ public class AgAgency3 extends DayDependentAgent{
     public void ChangesOnDayChange()
     {
     	System.out.println(getLocalName() + ": Day changed to " + currentDay);
-    	addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
+    	//addBehaviour(new   SIGNCONTRACT_SignContractBehaviour(this));
     }
 }

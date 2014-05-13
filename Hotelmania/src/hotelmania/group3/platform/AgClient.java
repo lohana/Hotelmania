@@ -9,14 +9,16 @@ package hotelmania.group3.platform;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
+import jade.core.AID;
 import hotelmania.group3.ontology.Ontology3;
-import hotelmania.group3.platform.client.behaviour.SendRate;
+import hotelmania.group3.platform.client.behaviour.*;
 import hotelmania.ontology.SharedAgentsOntology;
 
 @SuppressWarnings("serial")
 public class AgClient extends DayDependentAgent {
 	
 	public static final String EVALUATION_SERVICE = "Evaluation";
+	public static final String NUMBEROFCLIENTS_QUERY = "NumberOfClients";
 	
 	public Codec codec = new SLCodec();
 	public Ontology innerOntology = Ontology3.getInstance();
@@ -26,6 +28,7 @@ public class AgClient extends DayDependentAgent {
 	// Information about the hotel where the client stayed
 	private String hotel = "";
 	private int rate = 0;
+	private AID hotelAID;
 	
 	protected void setup(){
 		
@@ -43,12 +46,20 @@ public class AgClient extends DayDependentAgent {
         // Random generation of rate, should be assign when going to the hotel 
         rate = randomValue();
         hotel = "Hotel3";
+        hotelAID =  new AID("Hotel",AID.ISLOCALNAME);
         
         // Adds a behavior to evaluate a hotel
-        addBehaviour(new SendRate(this));
+       // addBehaviour(new SendRate(this));
         
         // Adds behavior for day communication
     	addDayBehaviour();
+    	
+    	//addBehaviour(new NUMBEROFCLIENTS_NumberOfClientsBehaviour(this) );
+    	
+    	addBehaviour(new NUMBEROFCLIENTS_ExpectInform(this) );
+    	
+    	addBehaviour(new NUMBEROFCLIENTS_ExpectFailure(this) );
+    	
     }
 	
 	public int getRate()
@@ -60,6 +71,11 @@ public class AgClient extends DayDependentAgent {
 	{
 		return hotel;
 	}
+	
+	public AID getHotelAID()
+	{
+		return hotelAID;
+	}
 
 	private int randomValue() {
 		return (int)(Math.random() * 11);
@@ -68,5 +84,6 @@ public class AgClient extends DayDependentAgent {
 	public void ChangesOnDayChange()
     {
 		System.out.println(getLocalName() + ": Day changed to " + currentDay);
+		addBehaviour(new NUMBEROFCLIENTS_NumberOfClientsBehaviour(this) );
     }
 }

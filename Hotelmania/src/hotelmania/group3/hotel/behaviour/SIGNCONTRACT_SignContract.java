@@ -86,6 +86,10 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 						contractRequesting.setRoom_service_staff(2);
 						contractRequesting.setRecepcionist_novice(0);
 						contractRequesting.setRecepcionist_experienced(2);
+						
+						//Information about the contract day 
+						int contractDay = agent.currentDay+1;
+						contractRequesting.setDay(contractDay);
 							
 						//Add hotel information to the registration request
 						sc.setHotel(hotelRequesting);
@@ -98,7 +102,7 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 							// The ContentManager transforms the java objects into strings
 							agent.getContentManager().fillContent(msg, agAction);
 							agent.send(msg);
-							System.out.println(agent.getLocalName()+": SIGN CONTRACT REQUEST for " + agent.currentDay +" day has been SEND");
+							System.out.println(agent.getLocalName()+": SIGN CONTRACT REQUEST for " + contractDay +" day has been SEND");
 						}
 						catch (CodecException ce){
 							ce.printStackTrace();

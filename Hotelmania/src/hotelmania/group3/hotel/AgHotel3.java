@@ -18,6 +18,8 @@ import jade.content.onto.*;
 import hotelmania.group3.hotel.behaviour.*;
 import hotelmania.group3.hotel.behaviour.CreateAccount;
 import hotelmania.group3.platform.DayDependentAgent;
+import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectFailure;
+import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectInform;
 import hotelmania.ontology.*;
 
 @SuppressWarnings("serial")
@@ -27,6 +29,8 @@ public class AgHotel3 extends DayDependentAgent {
 	// SharedAgentsOntology that we have created
 	public Codec codec = new SLCodec();
 	public Ontology ontology = SharedAgentsOntology.getInstance();
+	
+	public int id_account = 0;
 
 	//Sprint 1
 	public final static String REGISTRATION_SERVICE = "Registration";
@@ -34,7 +38,12 @@ public class AgHotel3 extends DayDependentAgent {
 	//Sprint 2
 	public static final String SIGN_CONTRACT = "SignContract";
 	//Sprint 3
+
+	public static final String NUMBEROFCLIENTS_QUERY = "NumberOfClients";
+
 	public static final String CREATEACCOUNT_SERVICE = "CreateAccount";
+	
+	public final  String ACCOUNT_INFO = "AccountStatus";
 	
 	protected void setup(){
 		
@@ -57,7 +66,7 @@ public class AgHotel3 extends DayDependentAgent {
     	addBehaviour(new  ExpectRegistrationNotUnderstood(this));
     	
     	// Adds a behavior to request sign contract to Agency
-    	//addBehaviour(new  SIGNCONTRACT_SignContract(this));
+    	addBehaviour(new  SIGNCONTRACT_SignContract(this));
     	
     	// Adds a behavior to process the ACEPTATION answer to a sign contract request
      	addBehaviour(new SIGNCONTRACT_ExpectAcceptation(this));
@@ -67,6 +76,19 @@ public class AgHotel3 extends DayDependentAgent {
     	
     	// Adds a behavior to process the NOT_UNDERSTOOD answer to a sign contract request
     	addBehaviour(new  SIGNCONTRACT_ExpectNotUnderstood(this));
+    	
+    	//Adds a behavior to process the Number of Clients Query Ref
+    	addBehaviour(new  NUMBEROFCLIENTS_ExpectQueryRef(this));
+    	
+    	//Adds a behavior to process the Number of Clients Query Ref
+    	addBehaviour(new  NUMBEROFCLIENTS_ExpectInform(this));
+    	
+    	//Adds a behavior to process the Number of Clients Query Ref
+    	addBehaviour(new  NUMBEROFCLIENTS_ExpectFailure(this));
+    	
+    	 // Adds a behavior to queryref account status
+       	addBehaviour(new GetAccountStatus(this)); 	
+       	addBehaviour(new GetAccountStatus_ExpectforMessages(this));
     	
     	// Adds behavior for day communication
     	addDayBehaviour();
@@ -82,3 +104,4 @@ public class AgHotel3 extends DayDependentAgent {
     	addBehaviour(new  SIGNCONTRACT_SignContract(this));
     }
 }
+

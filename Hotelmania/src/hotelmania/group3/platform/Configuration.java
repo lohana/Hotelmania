@@ -15,7 +15,7 @@ public class Configuration {
     Properties properties = null;
  
     /** Configuration file name */
-    public final static String CONFIG_FILE_NAME = "./resources/settings.properties";
+    public final static String CONFIG_FILE_NAME = "resources/settings.properties";
  
     /** Date length in seconds */
     public final static String DATE_LENGTH = "day.length";

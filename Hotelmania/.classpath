@@ -3,7 +3,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry exported="true" kind="lib" path="D:/jade/jade/lib/jade.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eli/Desktop/Sprint2/Group1-v2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/eli/Desktop/Sprint2/group2_2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

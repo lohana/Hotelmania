@@ -21,6 +21,8 @@ public class AgBank3 extends Agent{
 	public Codec codec = new SLCodec();
     public Ontology ontology = SharedAgentsOntology.getInstance();
     public static final String CREATEACCOUNT_SERVICE = "CreateAccount";
+    
+    public static final String ACCOUNTSTATUS_SERVICE = "AccountStatus";
 
     private Map accounts = new HashMap();
     public ArrayList<Hotel> hotelsWithAccount = new ArrayList<Hotel>();
@@ -54,9 +56,9 @@ public class AgBank3 extends Agent{
         addBehaviour(new CreateAccountForHotel(this));
     }
     
-    public float getStatusForHotel(int account)
+    public Account getStatusForHotel(int account)
     {
-    	return Float.parseFloat((String)accounts.get(account + ""));
+    	return (Account)(accounts.get(account + ""));
     }
     
     public int createAccount(Hotel hotel)
@@ -64,8 +66,11 @@ public class AgBank3 extends Agent{
     	hotelsWithAccount.add(hotel);
     	int result = nextId;
     	nextId++;
-		String id = result + "";
-		accounts.put(id, "0");
+    	Account newAccount = new Account();
+    	newAccount.setBalance(0);
+    	newAccount.setHotel(hotel);
+    	newAccount.setId_account(result);
+		accounts.put(result, newAccount);
 		return result;
     }
 }

@@ -51,7 +51,8 @@ public class ExpectAccount extends CyclicBehaviour {
 				Concept conc = ((AccountStatus) ce).getAccount();
 				// If the action is RegistrationRequest...
 				if (conc instanceof Account){
-					System.out.println(myAgent.getLocalName()+": received bank account from "+(msg.getSender()).getLocalName() + ": id-" + ((Account)conc).getId_account());    
+					agent.id_account = ((Account)conc).getId_account();
+					System.out.println(myAgent.getLocalName()+": received bank account from "+(msg.getSender()).getLocalName() + ": id=" + ((Account)conc).getId_account());    
 				}
 			}
 		}

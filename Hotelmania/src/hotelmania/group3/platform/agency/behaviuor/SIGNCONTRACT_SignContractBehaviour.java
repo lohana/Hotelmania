@@ -54,13 +54,15 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 						Concept conc = agAction.getAction();
 						// If the action is SignContract...
 						if (conc instanceof SignContract){
-							System.out.println(myAgent.getLocalName()+": received SIGN CONTRACT REQUEST from "+(msg.getSender()).getLocalName() + "for a " + agent.currentDay + " day");    
+							   
 																				
 							SignContract sc = (SignContract)conc;
 							Hotel requestedHotel = sc.getHotel();
-							boolean repeated_day_hotel = false;
+							int requestedContractDay = sc.getContract().getDay();
+							boolean hotel_day_contract_repeated = false;
+							boolean correct_contract_day = false;
 							
-							
+							System.out.println(myAgent.getLocalName()+": received SIGN CONTRACT REQUEST from "+(msg.getSender()).getLocalName() + "for a " + requestedContractDay + " day");
 							
 							
 							/*Simulation Exist Contract in day 0 for a Hotel3*/
@@ -84,28 +86,37 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 							agent.currentDay++;*/
 							/*SIMULATION ENDS*/
 							
+							//Validate if contract request day is the greater equal than the agency day
+							if (requestedContractDay >= agent.currentDay)
+								correct_contract_day = true;
 							
 							//One contract per day per hotel
-							/*if (!agent.signedContracts.isEmpty()){
+							if (!agent.signedContracts.isEmpty()){
+								int contractedDay = 0;
 								for (int i = 0; i < agent.signedContracts.size(); i++){
 									if (i!=0){
-										Hotel currentHotel = (Hotel)agent.signedContracts.get(i).getHotel();
-										if ( (currentHotel.getHotel_name().toLowerCase().compareTo(requestedHotel.getHotel_name().toLowerCase()) == 0) && (i==agent.currentDay))
-											repeated_day_hotel = true;
+										Hotel contractedHotel = (Hotel)agent.signedContracts.get(i).getHotel();
+										contractedDay = agent.signedContracts.get(i).getContract().getDay();
+										if ( (contractedHotel.getHotel_name().toLowerCase().compareTo(requestedHotel.getHotel_name().toLowerCase()) == 0) && (contractedDay==requestedContractDay))
+											hotel_day_contract_repeated = true;
 									}
 								}
-							}*/
+							}
 												
 							
-							if ( repeated_day_hotel  ){
+							if ( hotel_day_contract_repeated  ){
 								reply.setPerformative(ACLMessage.REFUSE);
-								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + "for a " + agent.currentDay + " day " + " is REFUSED: Contract exits for this Hotel in this day");
-							} 
+								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is REFUSED: Contract exits for this Hotel in this day");
+							} /*else if (!correct_contract_day){
+								reply.setPerformative(ACLMessage.REFUSE);
+								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is REFUSED: Day of requested contract it is wrong");
+							}*/
 							else {
-								agent.signedContracts.add(agent.signedContracts.size() - 1, sc);
+								//agent.signedContracts.add(agent.signedContracts.size(), sc);
+								agent.signedContracts.add(sc);
 								reply.setPerformative(ACLMessage.AGREE);
-								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + "for a " + agent.currentDay + " day " + " is AGREED");
-								System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " has hired Staff requested");	
+								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is AGREED");
+								System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " has hired Staff requested for " + requestedContractDay + " day");	
 							}
 						} 
 						else {
