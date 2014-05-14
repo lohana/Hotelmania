@@ -59,11 +59,6 @@ public class CreateAccountForHotel extends CyclicBehaviour {
 							boolean blank_name = false;
 							boolean wrong_name = false;
 							
-							
-							/*Hotel testHotel = new Hotel();
-							testHotel.setHotel_name("Hotel3");
-							agent.RegisteredHotels.add(testHotel);*/
-							
 							if (!agent.hotelsWithAccount.isEmpty()){
 								for (int i = 0; i < agent.hotelsWithAccount.size(); i++){
 									Hotel currentHotel = (Hotel)agent.hotelsWithAccount.get(i);
