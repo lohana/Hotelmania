@@ -38,15 +38,30 @@ public class AgBank3 extends Agent{
 			DFAgentDescription dfd = new DFAgentDescription();
 			// Add registration service
 			ServiceDescription sd = new ServiceDescription();
+			ServiceDescription sdas = new ServiceDescription();
 			sd.setName(this.getName()); 
 			sd.setType(CREATEACCOUNT_SERVICE);
 			dfd.addServices(sd);
 			
+			
+			
+			
+			sdas.setName(this.getName()); 
+			sdas.setType(ACCOUNTSTATUS_SERVICE);
+			
+			dfd.addServices(sdas);
+			
+			
 			// Registers its description in the DF
 			DFService.register(this, dfd);
 			System.out.println(getLocalName()+": Bank CREATE ACCOUNT SERVICE is registered in the DF");
+			System.out.println(getLocalName()+": Bank CREATE ACCOUNT STATUS SERVICE is registered in the DF");
+			
+			
+			
 			dfd = null;
 			sd = null;
+			sdas= null;
 			doWait(10000);
 			
         }catch (FIPAException e){
@@ -54,11 +69,13 @@ public class AgBank3 extends Agent{
 		}
         
         addBehaviour(new CreateAccountForHotel(this));
+		addBehaviour(new SendAccountStatus(this));
     }
     
     public Account getStatusForHotel(int account)
     {
-    	return (Account)(accounts.get(account + ""));
+    	return (Account)(accounts.get(account));
+    	 
     }
     
     public int createAccount(Hotel hotel)

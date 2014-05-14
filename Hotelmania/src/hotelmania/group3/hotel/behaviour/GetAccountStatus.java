@@ -5,9 +5,7 @@ import java.util.Date;
 import jade.lang.acl.ACLMessage;
 import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.group3.platform.AgBank3;
-import hotelmania.group3.platform.DayDependentAgent;
 import hotelmania.ontology.AccountStatusQueryRef;
-import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
@@ -18,7 +16,6 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import jade.lang.acl.MessageTemplate;
 
 @SuppressWarnings("serial")
 public class GetAccountStatus extends CyclicBehaviour {
@@ -38,8 +35,6 @@ public class GetAccountStatus extends CyclicBehaviour {
 	public void action() {
 
 		AgHotel3 agent = (AgHotel3) this.myAgent;
-		AgBank3 agentb =new  AgBank3();
-
 		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_REF);
 
 		if(agent.id_account!=0) {
@@ -47,7 +42,6 @@ public class GetAccountStatus extends CyclicBehaviour {
 			final Date registerTime = new Date();
 
 
-			ContentElement ce = null;
 			ACLMessage reply = msg.createReply();
 			reply.setProtocol(agent.ACCOUNT_INFO);
 
@@ -119,18 +113,13 @@ public class GetAccountStatus extends CyclicBehaviour {
 								+ ag.getName());
 
 
-
-
-
-
-
 					}ignore = false;
 				}
 				
-				agent.doWait(5000);
+				agent.doWait(5);
 			} else {
 				// If no new Simulator has been found, it waits 5 seconds
-				agent.doWait(5000);
+				agent.doWait(5);
 			}	
 		}
 		

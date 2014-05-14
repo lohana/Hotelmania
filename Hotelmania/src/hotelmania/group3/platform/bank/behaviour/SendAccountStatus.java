@@ -5,7 +5,6 @@ import hotelmania.group3.platform.AgBank3;
 import hotelmania.ontology.Account;
 import hotelmania.ontology.AccountStatus;
 import hotelmania.ontology.AccountStatusQueryRef;
-import hotelmania.ontology.Hotel;
 import jade.content.Concept;
 import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
@@ -78,17 +77,9 @@ public class SendAccountStatus extends CyclicBehaviour {
 
 						
 						Account ac =  agentb.getStatusForHotel(id_account);
-						//float balance = ac.getBalance();
-						   AccountStatus as = new AccountStatus();
-											
-						   /*Account ac = new Account();
-		                   // temporally creation AccountStatus  
-		                     ac.setBalance(balance);
-		                     ac.setId_account(id_account);
-		                     Hotel h = new Hotel();
-		                     h.setHotel_name("id_account");
-		                     ac.setHotel(h);	   */                  
-		                     as.setAccount(ac);
+						AccountStatus as = new AccountStatus();
+											                  
+		                 as.setAccount(ac);
 		                     
 						reply.setPerformative(ACLMessage.INFORM);
 
