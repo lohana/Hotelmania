@@ -20,13 +20,16 @@ public class AgAgency3 extends DayDependentAgent{
     public static final String SIGN_CONTRACT = "SignContract";
     //Contracts signing in Agency during execution
     public ArrayList<SignContract> signedContracts = new ArrayList<SignContract>();
+    public ChargeAccount cta = new ChargeAccount();
+    
     
     protected void setup() {
     	System.out.println(getLocalName() + ": Agency3 has entered into the system");
     	getContentManager().registerLanguage(codec);
         getContentManager().registerOntology(ontology);
         
-        this.signedContracts.add(0,null);
+        this.signedContracts.add(0,null); 
+        this.cta =null;
         
         try{
 			// Creates its own description
@@ -49,7 +52,7 @@ public class AgAgency3 extends DayDependentAgent{
 		}
         
         // Adds a behavior to answer the sign contract requests
-     	addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
+     //	addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
         
         // Adds behavior for day communication
     	addDayBehaviour();
@@ -58,6 +61,6 @@ public class AgAgency3 extends DayDependentAgent{
     public void ChangesOnDayChange()
     {
     	System.out.println(getLocalName() + ": Day changed to " + currentDay);
-    	//addBehaviour(new   SIGNCONTRACT_SignContractBehaviour(this));
+    	addBehaviour(new   SIGNCONTRACT_SignContractBehaviour(this));
     }
 }

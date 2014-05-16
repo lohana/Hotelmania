@@ -5,6 +5,8 @@ import hotelmania.group3.platform.AgBank3;
 import hotelmania.ontology.Account;
 import hotelmania.ontology.AccountStatus;
 import hotelmania.ontology.AccountStatusQueryRef;
+import hotelmania.ontology.ChargeAccount;
+import hotelmania.ontology.Hotel;
 import jade.content.Concept;
 import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
@@ -17,9 +19,9 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 @SuppressWarnings("serial")
-public class SendAccountStatus extends CyclicBehaviour {
+public class ChargetoAccount extends CyclicBehaviour {
 
-	public SendAccountStatus(Agent agente) {
+	public ChargetoAccount(Agent agente) {
 		super(agente);
 	}
 
@@ -33,17 +35,17 @@ public class SendAccountStatus extends CyclicBehaviour {
 		AgBank3 agentb = (AgBank3)this.myAgent;
 		
 		
-		ACLMessage msg = agentb.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agent.codec.getName()), MessageTemplate.and(
-						MessageTemplate.MatchOntology(agentb.ontology.getName()),MessageTemplate.MatchProtocol(agentb.ACCOUNTSTATUS_SERVICE))));
+ 		ACLMessage msg = agentb.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agentb.codec.getName()), MessageTemplate.and(
+						MessageTemplate.MatchOntology(agentb.ontology.getName()),MessageTemplate.MatchProtocol(agentb.CHARGE_ACCOUNT_SERVICE))));
 
 		if (msg != null) {
 
 			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
-			reply.setProtocol(agentb.ACCOUNTSTATUS_SERVICE);
+			reply.setProtocol(agentb.CHARGE_ACCOUNT_SERVICE);
 
-			if (AclMessage == ACLMessage.QUERY_REF) {
+			if (AclMessage == ACLMessage.REQUEST) {
 
 
 
@@ -66,40 +68,37 @@ public class SendAccountStatus extends CyclicBehaviour {
 					Action agAction = (Action) ce;
 					Concept conc = agAction.getAction();
 
-					if (conc instanceof AccountStatusQueryRef){
+					if (conc instanceof ChargeAccount){
 
 
-						System.out.println(myAgent.getLocalName()+": received AccountStatusQUERY_REF from   "+(msg.getSender()).getLocalName());    
+						System.out.println(myAgent.getLocalName()+": received  ChargetoAccount REQUEST from   "+(msg.getSender()).getLocalName());    
 
 
-						AccountStatusQueryRef re = (AccountStatusQueryRef)conc;
-
-						int id_account = re.getId_account();
+						ChargeAccount re = (ChargeAccount)conc;
 
 						
-						Account ac =  agentb.getStatusForHotel(id_account);
-						AccountStatus as = new AccountStatus();
-											                  
-		                 as.setAccount(ac);
-		                     
-						reply.setPerformative(ACLMessage.INFORM);
+						Float amount = re.getAmount();
+						Hotel h = re.getHotel();
+ 						
+						if( agentb.chargetoaccount(h,amount) )
+						{
+							reply.setPerformative(ACLMessage.AGREE);
+							reply.setProtocol(agentb.ACCOUNTSTATUS_SERVICE);					 
+							myAgent.send(reply);
+							System.out.println(myAgent.getLocalName()+":  answer sent -> AGREE");
+							
+							
+						}else{
+							reply.setPerformative(ACLMessage.REFUSE);
+							reply.setProtocol(agentb.ACCOUNTSTATUS_SERVICE);					 
+							myAgent.send(reply);
+							System.out.println(myAgent.getLocalName()+":  answer sent -> REFUSE");
 
+							
+							
+						}		
 
-						reply.setProtocol(agentb.ACCOUNTSTATUS_SERVICE);
-						try {
-							myAgent.getContentManager().fillContent(reply,as);
-						} catch (CodecException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (OntologyException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-						myAgent.send(reply);
-						System.out.println(myAgent.getLocalName()+":  answer sent -> INFORM");
-
-
+			
 
 					}else{
 						reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
@@ -128,10 +127,6 @@ public class SendAccountStatus extends CyclicBehaviour {
 						+ (msg.getSender()).getLocalName());
 
 			}
-		} else
-		{
-		//	block();
-			
-		}
+		} 
 	}
 }

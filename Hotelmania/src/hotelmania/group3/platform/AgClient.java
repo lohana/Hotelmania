@@ -84,6 +84,6 @@ public class AgClient extends DayDependentAgent {
 	public void ChangesOnDayChange()
     {
 		System.out.println(getLocalName() + ": Day changed to " + currentDay);
-		addBehaviour(new NUMBEROFCLIENTS_NumberOfClientsBehaviour(this) );
+		//addBehaviour(new NUMBEROFCLIENTS_NumberOfClientsBehaviour(this) );
     }
 }

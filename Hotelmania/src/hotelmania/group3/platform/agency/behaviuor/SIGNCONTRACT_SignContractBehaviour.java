@@ -14,8 +14,10 @@ import jade.content.lang.Codec.*;
 import jade.content.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
+import hotelmania.group3.hotel.behaviour.GetAccountStatus;
 import hotelmania.group3.platform.AgAgency3;
 import hotelmania.group3.platform.agency.behaviuor.SIGNCONTRACT_SignContractBehaviour;
+import hotelmania.group3.platform.bank.behaviour.ChargetoAccount;
 import hotelmania.ontology.*;
 
 @SuppressWarnings("serial")
@@ -116,7 +118,11 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 								agent.signedContracts.add(sc);
 								reply.setPerformative(ACLMessage.AGREE);
 								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is AGREED");
-								System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " has hired Staff requested for " + requestedContractDay + " day");	
+								System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " has hired Staff requested for " + requestedContractDay + " day");
+								//charge to account
+								//addBehaviour(new ChargetoAccount(myAgent)); 	
+								myAgent.addBehaviour(new ChargetoAccount_Request(myAgent,requestedHotel));
+								
 							}
 						} 
 						else {

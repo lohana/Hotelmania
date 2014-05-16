@@ -1,6 +1,6 @@
 
 
-package hotelmania.group3.hotel.behaviour;
+package hotelmania.group3.platform.agency.behaviuor;
 
 import jade.core.Agent;
 import jade.core.AID;
@@ -12,46 +12,58 @@ import jade.content.lang.Codec.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
 import hotelmania.group3.hotel.AgHotel3;
+import hotelmania.group3.platform.AgAgency3;
+import hotelmania.group3.platform.AgBank3;
 import hotelmania.ontology.*;
 
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class CreateAccount extends SimpleBehaviour{
-	
+public class ChargetoAccount_Request extends SimpleBehaviour{
+
 	boolean end = false;
 	AID[] bank = new AID[20];
 	AID ag;
 	boolean ignore = false;
 	int last = 0;
 	int i, j;
+	Hotel h = new Hotel();
 
-	public CreateAccount(Agent agent) {
+
+	public ChargetoAccount_Request(Agent agent,Hotel hotel) {
+
 		super(agent);
+
+		h = hotel;
 	}
-	
+
 	public void action(){
-		AgHotel3 agent = (AgHotel3)this.myAgent;
+		AgBank3 agent = new AgBank3();
+		AgAgency3 agency = (AgAgency3)myAgent;
 		
-	     // From this moment, it will be searching bank for a minute		
-     	final Date registerTime = new Date();
-		
+
+
+
+
+		// From this moment, it will be searching bank for a minute		
+		final Date registerTime = new Date();
+
 		// Creates the description for the type of agent to be searched
 		DFAgentDescription dfd = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(AgHotel3.CREATEACCOUNT_SERVICE);
+		sd.setType(AgBank3.CHARGE_ACCOUNT_SERVICE);
 		dfd.addServices(sd);
-		
+
 		try{
 			// If has been searching for estimations for more than a minute, it does not search any more
 			if ((new Date()).getTime() - registerTime.getTime() >= 60000){
 				end = true;
 			}
-			
+
 			// It finds agents of the required type
 			DFAgentDescription[] res = new DFAgentDescription[20];
 			res = DFService.search(myAgent, dfd);
-			
+
 			// Gets the first occurrence, if there was success
 			if (res.length > 0){
 				for (i=0; i < res.length; i++){
@@ -65,28 +77,31 @@ public class CreateAccount extends SimpleBehaviour{
 					// If we have not contacted yet with this bank
 					if (!ignore){
 						bank[last++] = ag;
-						
+
 						// Asks for registration
 						ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-						msg.setProtocol(AgHotel3.CREATEACCOUNT_SERVICE);
+						msg.setProtocol(AgBank3.CHARGE_ACCOUNT_SERVICE);
 						msg.addReceiver(ag);
-						msg.setLanguage(agent.codec.getName());
-						msg.setOntology(agent.ontology.getName());
-						CreateAccountRequest rr = new CreateAccountRequest();
-						//Hotel Information for the request
-						Hotel hotel = new Hotel();
-						hotel.setHotel_name(AgHotel3.HOTEL_NAME);
-						//Add hotel information to the registration request
-						rr.setHotel(hotel);
-						
+						msg.setLanguage(agency.codec.getName());
+						msg.setOntology(agency.ontology.getName());
+
+						ChargeAccount ca = new ChargeAccount();
+						float amount = 1000;
+
+						ca.setHotel(h);
+						ca.setAmount(amount);
+						ca.setDay(1);
+
+
+
 						// As it is an action and the encoding language the SL, it must be wrapped
 						// into an Action
-						Action agAction = new Action(ag,rr);
+						Action agAction = new Action(ag,ca);
 						try{
 							// The ContentManager transforms the java objects into strings
-							agent.getContentManager().fillContent(msg, agAction);
-							agent.send(msg);
-							System.out.println(agent.getLocalName()+": CREATE ACCOUNT REQUEST SEND");
+							agency.getContentManager().fillContent(msg, agAction);
+							agency.send(msg);
+							System.out.println(agency.getLocalName()+": CHARGE TO ACCOUNT REQUEST SEND");
 						}
 						catch (CodecException ce){
 							ce.printStackTrace();
@@ -97,17 +112,17 @@ public class CreateAccount extends SimpleBehaviour{
 					}
 					ignore = false;
 				}
-				//agent.doWait(5000);
+				agency.doWait(5000);
 			} else {
 				// If no new BANK has been found, it waits 5 seconds
-				agent.doWait(5000);
+				agency.doWait(5000);
 			}	
 		}catch (Exception e){
 			e.printStackTrace();
 		}
 	} 
-	
+
 	public boolean done (){
-     	return end;
-    }
+		return end;
+	}
 }

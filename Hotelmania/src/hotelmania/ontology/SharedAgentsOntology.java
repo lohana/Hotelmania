@@ -9,7 +9,7 @@ import jade.core.CaseInsensitiveString;
 
 /** file: SharedAgentsOntology.java
  * @author ontology bean generator
- * @version 2014/05/9, 01:27:27
+ * @version 2014/05/15, 05:15:31
  */
 public class SharedAgentsOntology extends jade.content.onto.Ontology  {
   //NAME
@@ -36,6 +36,10 @@ public class SharedAgentsOntology extends jade.content.onto.Ontology  {
     public static final String SIGNCONTRACT_CONTRACT="contract";
     public static final String SIGNCONTRACT_HOTEL="hotel";
     public static final String SIGNCONTRACT="SignContract";
+    public static final String CHARGEACCOUNT_HOTEL="hotel";
+    public static final String CHARGEACCOUNT_AMOUNT="amount";
+    public static final String CHARGEACCOUNT_DAY="day";
+    public static final String CHARGEACCOUNT="ChargeAccount";
     public static final String REGISTRATIONREQUEST_HOTEL="hotel";
     public static final String REGISTRATIONREQUEST="RegistrationRequest";
     public static final String SUBSCRIBETODAYEVENT="SubscribeToDayEvent";
@@ -82,6 +86,8 @@ public class SharedAgentsOntology extends jade.content.onto.Ontology  {
     add(subscribeToDayEventSchema, hotelmania.ontology.SubscribeToDayEvent.class);
     AgentActionSchema registrationRequestSchema = new AgentActionSchema(REGISTRATIONREQUEST);
     add(registrationRequestSchema, hotelmania.ontology.RegistrationRequest.class);
+    AgentActionSchema chargeAccountSchema = new AgentActionSchema(CHARGEACCOUNT);
+    add(chargeAccountSchema, hotelmania.ontology.ChargeAccount.class);
     AgentActionSchema signContractSchema = new AgentActionSchema(SIGNCONTRACT);
     add(signContractSchema, hotelmania.ontology.SignContract.class);
     AgentActionSchema createAccountRequestSchema = new AgentActionSchema(CREATEACCOUNTREQUEST);
@@ -115,6 +121,9 @@ public class SharedAgentsOntology extends jade.content.onto.Ontology  {
     dayEventSchema.add(DAYEVENT_DAY, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.MANDATORY);
     numberOfClientsQueryRefSchema.add(NUMBEROFCLIENTSQUERYREF_HOTEL_NAME, (TermSchema)getSchema(BasicOntology.STRING), ObjectSchema.MANDATORY);
     registrationRequestSchema.add(REGISTRATIONREQUEST_HOTEL, hotelSchema, ObjectSchema.OPTIONAL);
+    chargeAccountSchema.add(CHARGEACCOUNT_DAY, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.MANDATORY);
+    chargeAccountSchema.add(CHARGEACCOUNT_AMOUNT, (TermSchema)getSchema(BasicOntology.FLOAT), ObjectSchema.MANDATORY);
+    chargeAccountSchema.add(CHARGEACCOUNT_HOTEL, hotelSchema, ObjectSchema.OPTIONAL);
     signContractSchema.add(SIGNCONTRACT_HOTEL, hotelSchema, ObjectSchema.OPTIONAL);
     signContractSchema.add(SIGNCONTRACT_CONTRACT, contractSchema, ObjectSchema.MANDATORY);
     createAccountRequestSchema.add(CREATEACCOUNTREQUEST_HOTEL, hotelSchema, ObjectSchema.OPTIONAL);

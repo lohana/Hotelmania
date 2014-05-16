@@ -1,6 +1,7 @@
 package hotelmania.group3.hotel.behaviour;
 
 import hotelmania.group3.hotel.AgHotel3;
+import hotelmania.group3.platform.AgBank3;
 import hotelmania.ontology.AccountStatus;
 import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
@@ -26,14 +27,14 @@ public class GetAccountStatus_ExpectforMessages extends CyclicBehaviour {
 		ACLMessage msg = agent.receive(MessageTemplate.and(MessageTemplate
 				.MatchLanguage(agent.codec.getName()), MessageTemplate.and(
 				MessageTemplate.MatchOntology(agent.ontology.getName()),
-				MessageTemplate.MatchProtocol(agent.ACCOUNT_INFO))));
+				MessageTemplate.MatchProtocol(AgBank3.ACCOUNTSTATUS_SERVICE))));
 
 		if (msg != null) {
 
 			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
-			reply.setProtocol(agent.ACCOUNT_INFO);
+			reply.setProtocol(AgBank3.ACCOUNTSTATUS_SERVICE);
 
 			if (AclMessage == ACLMessage.INFORM) {
 
@@ -43,7 +44,7 @@ public class GetAccountStatus_ExpectforMessages extends CyclicBehaviour {
 							.getContentManager().extractContent(msg);
 
 					System.out.println(myAgent.getLocalName()
-							+ ": received AccountStatus from Bank  "
+							+ ": received AccountStatus from Bank ****************** "
 							+ (msg.getSender()).getLocalName() + "Balance: "
 							+ as.getAccount().getBalance());
 
@@ -72,7 +73,7 @@ public class GetAccountStatus_ExpectforMessages extends CyclicBehaviour {
 
 		} else {
 			// If no message arrives
-			block();
+			//block();
 		}
 
 	}

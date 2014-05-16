@@ -16,7 +16,7 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import hotelmania.group3.hotel.behaviour.*;
-import hotelmania.group3.hotel.behaviour.CreateAccount;
+import hotelmania.group3.platform.AgBank3;
 import hotelmania.group3.platform.DayDependentAgent;
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectFailure;
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectInform;
@@ -43,7 +43,7 @@ public class AgHotel3 extends DayDependentAgent {
 
 	public static final String CREATEACCOUNT_SERVICE = "CreateAccount";
 	
-	public final  String ACCOUNT_INFO = "AccountStatus";
+	//public final  String ACCOUNT_INFO = "AccountStatus";  
 	
 	protected void setup(){
 		
@@ -87,7 +87,6 @@ public class AgHotel3 extends DayDependentAgent {
     	addBehaviour(new  NUMBEROFCLIENTS_ExpectFailure(this));
     	
     	 // Adds a behavior to queryref account status
-       	addBehaviour(new GetAccountStatus(this)); 	
        	addBehaviour(new GetAccountStatus_ExpectforMessages(this));
     	
     	// Adds behavior for day communication
@@ -102,6 +101,8 @@ public class AgHotel3 extends DayDependentAgent {
     {
     	System.out.println(getLocalName() + ": Day changed to " + currentDay);
     	addBehaviour(new  SIGNCONTRACT_SignContract(this));
+       	addBehaviour(new GetAccountStatus(this)); 	
+
     }
 }
 
