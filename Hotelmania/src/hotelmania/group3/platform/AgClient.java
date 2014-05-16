@@ -60,6 +60,8 @@ public class AgClient extends DayDependentAgent {
     	
     	addBehaviour(new NUMBEROFCLIENTS_ExpectFailure(this) );
     	
+    	
+    	addBehaviour(new GetHotelInformation_ExpectforMessages(this));
     }
 	
 	public int getRate()
@@ -85,5 +87,7 @@ public class AgClient extends DayDependentAgent {
     {
 		System.out.println(getLocalName() + ": Day changed to " + currentDay);
 		//addBehaviour(new NUMBEROFCLIENTS_NumberOfClientsBehaviour(this) );
+    	addBehaviour(new GetHotelInformation(this));
+
     }
 }

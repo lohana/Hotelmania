@@ -21,6 +21,7 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import hotelmania.group3.ontology.Ontology3;
+import hotelmania.group3.platform.hotelmania.behaviuor.HotelmaniaInformation;
 import hotelmania.group3.platform.hotelmania.behaviuor.ReceiveEvaluation;
 import hotelmania.group3.platform.hotelmania.behaviuor.RegistrationBehaviour;
 import hotelmania.ontology.*;
@@ -36,6 +37,8 @@ public class AgHotelmania3 extends Agent {
     public Ontology innerOntology = Ontology3.getInstance();
     public static final String REGISTRATION_SERVICE = "Registration";
     public static final String EVALUATION_SERVICE = "Evaluation";
+    public static final String HOTEL_INFORMATION = "QueryHotelmaniaInformation";
+    public static final String HOTEL_INFORMATION_SERVICE = "QueryHotelmaniaHotel";
     //Hotels Registered in Hotelmania during execution 
     public ArrayList<Hotel> RegisteredHotels = new ArrayList<Hotel>();
     
@@ -66,9 +69,19 @@ public class AgHotelmania3 extends Agent {
 			es.setType(EVALUATION_SERVICE);
 			dfd.addServices(es);
 			
+			// Add evaluation service
+			ServiceDescription hi = new ServiceDescription();
+			hi.setName(this.getName()); 
+			hi.setType(HOTEL_INFORMATION_SERVICE);
+			dfd.addServices(hi);
+			
 			// Registers its description in the DF
 			DFService.register(this, dfd);
 			System.out.println(getLocalName()+": HOTELMANIA REGISTRATION SERVICE is registered in the DF");
+			System.out.println(getLocalName()+": HOTELMANIA HOTEL INFORMATION SERVICE is registered in the DF");
+			
+			
+			
 			dfd = null;
 			sd = null;
 			doWait(10000);
@@ -82,6 +95,9 @@ public class AgHotelmania3 extends Agent {
 		
 		// Adds a behavior to receive evaluation from clients
 		addBehaviour(new ReceiveEvaluation(this));
+		
+		
+		addBehaviour(new HotelmaniaInformation(this));
     }
 	
 	public void addOpinion(String clientId, String hotel, int rate)

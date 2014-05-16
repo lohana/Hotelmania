@@ -76,6 +76,7 @@ public class SearchHotelmania extends SimpleBehaviour{
 						//Hotel Information for the request
 						Hotel hotel = new Hotel();
 						hotel.setHotel_name(AgHotel3.HOTEL_NAME);
+						hotel.setHotelAgent(agent.getAID());
 						//Add hotel information to the registration request
 						rr.setHotel(hotel);
 						
