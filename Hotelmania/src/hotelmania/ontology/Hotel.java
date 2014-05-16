@@ -8,9 +8,20 @@ import jade.core.*;
 /**
 * Protege name: Hotel
 * @author ontology bean generator
-* @version 2014/05/15, 05:15:31
+* @version 2014/05/16, 20:26:03
 */
 public class Hotel implements Concept {
+
+   /**
+* Protege name: hotelAgent
+   */
+   private AID hotelAgent;
+   public void setHotelAgent(AID value) { 
+    this.hotelAgent=value;
+   }
+   public AID getHotelAgent() {
+     return this.hotelAgent;
+   }
 
    /**
 * Protege name: hotel_name

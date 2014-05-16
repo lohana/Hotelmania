@@ -14,6 +14,7 @@ import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
@@ -61,7 +62,10 @@ public class NUMBEROFCLIENTS_ExpectQueryRef extends CyclicBehaviour {
 																				
 							NumberOfClientsQueryRef  noc = (NumberOfClientsQueryRef )conc;
 														
-							String requestedHotelName = noc.getHotel_name();
+							int requestedday = noc.getDay();
+							AID receiverAgent = msg.getSender();
+							String requestedHotelName = receiverAgent.getLocalName();
+							
 							Hotel requestedHotel = new Hotel();
 							requestedHotel.setHotel_name(requestedHotelName);
 							

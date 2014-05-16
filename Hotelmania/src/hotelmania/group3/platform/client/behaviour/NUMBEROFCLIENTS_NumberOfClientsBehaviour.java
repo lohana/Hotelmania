@@ -47,7 +47,7 @@ public class NUMBEROFCLIENTS_NumberOfClientsBehaviour extends SimpleBehaviour {
 			msg.setOntology(agent.ontology.getName());
 			
 			NumberOfClientsQueryRef noc = new NumberOfClientsQueryRef();
-			noc.setHotel_name(agent.getHotel());
+			//noc.setHotel_name(agent.getHotel());
 			
 			// Wrap the message with action
 			Action agAction = new Action(agent.getHotelAID(),  noc);
