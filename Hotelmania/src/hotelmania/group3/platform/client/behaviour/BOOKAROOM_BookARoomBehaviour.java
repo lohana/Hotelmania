@@ -16,8 +16,12 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import hotelmania.group3.ontology.*;
-import hotelmania.group3.platform.AgClient;
+import hotelmania.group3.platform.AgClient3;
+import hotelmania.ontology.BookRoom;
+import hotelmania.ontology.BookingOffer;
 import hotelmania.ontology.NumberOfClientsQueryRef;
+import hotelmania.ontology.Price;
+import hotelmania.ontology.Stay;
 
 @SuppressWarnings("serial")
 public class BOOKAROOM_BookARoomBehaviour extends CyclicBehaviour {
@@ -32,28 +36,39 @@ public class BOOKAROOM_BookARoomBehaviour extends CyclicBehaviour {
 	}
 	
 	public void action(){
-		AgClient agent = (AgClient)this.myAgent;
+		AgClient3 agent = (AgClient3)this.myAgent;
 		
 		try{
 								
 			// Inform for opinion
 			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-			msg.setProtocol(AgClient.BOOKAROOM_REQUEST);
+			msg.setProtocol(AgClient3.BOOKAROOM_REQUEST);
 			msg.addReceiver(agent.getHotelAID());
 			msg.setLanguage(agent.codec.getName());
 			msg.setOntology(agent.ontology.getName());
 			
-			NumberOfClientsQueryRef noc = new NumberOfClientsQueryRef();
-			//noc.setHotel_name(agent.getHotel());
+			BookRoom br = new BookRoom();
+			//FIX VALUES
+			Stay stayTest = new Stay();
+			stayTest.setCheckIn(3);
+			stayTest.setCheckOut(5);
+			BookingOffer bookingOfferTest = new BookingOffer();
+			Price priceTest = new Price();
+			priceTest.setPrice(20.30f);
+			bookingOfferTest.setRoomPrice(priceTest);
+			//////////
+			
+			br.setStay(stayTest);
+			br.setBookingOffer(bookingOfferTest);
 			
 			// Wrap the message with action
-			Action agAction = new Action(agent.getHotelAID(),  noc);
+			Action agAction = new Action(agent.getHotelAID(),  br);
 			try{
 				// The ContentManager transforms the java objects into strings
 				//myAgent.getContentManager().fillContent(msg, agAction);
 				agent.getContentManager().fillContent(msg, agAction);
 				agent.send(msg);
-				System.out.println(agent.getLocalName() + ": Query for Number of Clients of " + agent.getHotel());
+				System.out.println(agent.getLocalName() + ": REQUEST BOOK a ROOM to" + agent.getHotel());
 			}
 			catch (CodecException ce){
 				ce.printStackTrace();
@@ -66,6 +81,5 @@ public class BOOKAROOM_BookARoomBehaviour extends CyclicBehaviour {
 			e.printStackTrace();
 		}
 	} 
-	
 	
 }

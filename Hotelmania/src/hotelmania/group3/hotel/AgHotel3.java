@@ -12,14 +12,20 @@
 
 package hotelmania.group3.hotel;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import hotelmania.group3.hotel.behaviour.*;
+import hotelmania.group3.platform.AgClient3;
 import hotelmania.group3.platform.DayDependentAgent;
+import hotelmania.group3.platform.Opinion;
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectFailure;
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectInform;
 import hotelmania.ontology.*;
+import hotelmania.group3.ontology.*;
 
 @SuppressWarnings("serial")
 public class AgHotel3 extends DayDependentAgent {
@@ -44,7 +50,11 @@ public class AgHotel3 extends DayDependentAgent {
 
 	public static final String CREATEACCOUNT_SERVICE = "CreateAccount";
 	
-	//public final  String ACCOUNT_INFO = "AccountStatus";  
+	//Sprint 4
+	public ArrayList<String> BookingClients = new ArrayList<String>();
+	public static final String BOOKAROOM_REQUEST = "BookARoom";
+	public Dictionary<String, BookingOffer> offers;
+	public int numberOfRooms = 6;
 	
 	protected void setup(){
 		
@@ -89,6 +99,9 @@ public class AgHotel3 extends DayDependentAgent {
     	
     	 // Adds a behavior to queryref account status
        	addBehaviour(new GetAccountStatus_ExpectforMessages(this));
+       	
+       	// Adds a behavior to expect Client Booking Request
+       	addBehaviour(new BOOKAROOM_BookARoomExpectRequest(this));
     	
     	// Adds behavior for day communication
     	addDayBehaviour();
