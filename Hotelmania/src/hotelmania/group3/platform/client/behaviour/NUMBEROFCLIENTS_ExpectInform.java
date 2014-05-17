@@ -1,9 +1,7 @@
 // Processes the ACEPTATION answer to request
 package hotelmania.group3.platform.client.behaviour;
 
-
-import hotelmania.group3.hotel.AgHotel3;
-import hotelmania.group3.platform.AgClient;
+import hotelmania.group3.platform.AgClient3;
 import hotelmania.ontology.NumberOfClients;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
@@ -24,7 +22,7 @@ public class NUMBEROFCLIENTS_ExpectInform extends CyclicBehaviour {
 	{
 		
 		// Waits for sign contract acceptation
-		ACLMessage msg = myAgent.receive(MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM),MessageTemplate.MatchProtocol(AgClient.NUMBEROFCLIENTS_QUERY)) );
+		ACLMessage msg = myAgent.receive(MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM),MessageTemplate.MatchProtocol(AgClient3.NUMBEROFCLIENTS_QUERY)) );
 		
 		//ACLMessage msg = myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.AGREE));
 		if (msg != null)

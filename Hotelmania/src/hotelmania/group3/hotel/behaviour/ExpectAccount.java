@@ -2,13 +2,9 @@
 package hotelmania.group3.hotel.behaviour;
 
 import hotelmania.group3.hotel.AgHotel3;
-import hotelmania.group3.platform.AgBank3;
-import hotelmania.ontology.Hotel;
-import hotelmania.ontology.RegistrationRequest;
 import jade.content.*;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.*;
-import jade.content.onto.basic.*;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;

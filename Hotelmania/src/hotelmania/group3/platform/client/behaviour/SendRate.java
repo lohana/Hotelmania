@@ -16,7 +16,7 @@ import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import hotelmania.group3.ontology.*;
-import hotelmania.group3.platform.AgClient;
+import hotelmania.group3.platform.AgClient3;
 
 @SuppressWarnings("serial")
 public class SendRate extends SimpleBehaviour {
@@ -31,7 +31,7 @@ public class SendRate extends SimpleBehaviour {
 	}
 	
 	public void action(){
-		AgClient agent = (AgClient)this.myAgent;
+		AgClient3 agent = (AgClient3)this.myAgent;
 		
 		// The client will search for hotelmania 12 times for total of 60 seconds
 	    int count = 0;
@@ -39,7 +39,7 @@ public class SendRate extends SimpleBehaviour {
 		// Creates the description for the type of agent to be searched
 		DFAgentDescription dfd = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(AgClient.EVALUATION_SERVICE);
+		sd.setType(AgClient3.EVALUATION_SERVICE);
 		dfd.addServices(sd);
 		
 		try{
@@ -71,7 +71,7 @@ public class SendRate extends SimpleBehaviour {
 						
 						// Inform for opinion
 						ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-						msg.setProtocol(AgClient.EVALUATION_SERVICE);
+						msg.setProtocol(AgClient3.EVALUATION_SERVICE);
 						msg.addReceiver(ag);
 						msg.setLanguage(agent.codec.getName());
 						msg.setOntology(agent.innerOntology.getName());

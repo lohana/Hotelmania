@@ -11,7 +11,6 @@ import jade.lang.acl.ACLMessage;
 import jade.content.lang.Codec.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
-import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.group3.platform.AgAgency3;
 import hotelmania.group3.platform.AgBank3;
 import hotelmania.ontology.*;
@@ -38,12 +37,7 @@ public class ChargetoAccount_Request extends SimpleBehaviour{
 	}
 
 	public void action(){
-		AgBank3 agent = new AgBank3();
 		AgAgency3 agency = (AgAgency3)myAgent;
-		
-
-
-
 
 		// From this moment, it will be searching bank for a minute		
 		final Date registerTime = new Date();

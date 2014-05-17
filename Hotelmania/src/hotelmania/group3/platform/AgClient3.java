@@ -15,7 +15,7 @@ import hotelmania.group3.platform.client.behaviour.*;
 import hotelmania.ontology.SharedAgentsOntology;
 
 @SuppressWarnings("serial")
-public class AgClient extends DayDependentAgent {
+public class AgClient3 extends DayDependentAgent {
 	
 	public static final String EVALUATION_SERVICE = "Evaluation";
 	public static final String NUMBEROFCLIENTS_QUERY = "NumberOfClients";

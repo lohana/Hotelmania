@@ -3,15 +3,8 @@ package hotelmania.group3.platform.client.behaviour;
 import java.util.Date;
 
 import jade.lang.acl.ACLMessage;
-import hotelmania.group3.hotel.AgHotel3;
-import hotelmania.group3.platform.AgBank3;
-import hotelmania.group3.platform.AgClient;
+import hotelmania.group3.platform.AgClient3;
 import hotelmania.group3.platform.AgHotelmania3;
-import hotelmania.group3.platform.AgPlatform3;
-import hotelmania.ontology.AccountStatusQueryRef;
-import jade.content.lang.Codec.CodecException;
-import jade.content.onto.OntologyException;
-import jade.content.onto.basic.Action;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -37,8 +30,7 @@ public class GetHotelInformation extends CyclicBehaviour {
 
 	public void action() {
 
-		AgClient agent = (AgClient) this.myAgent;
-		AgHotelmania3 agentb = new AgHotelmania3();
+		AgClient3 agent = (AgClient3) this.myAgent;
 		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_REF);
 
 
@@ -49,7 +41,7 @@ public class GetHotelInformation extends CyclicBehaviour {
 		// Creates the description for the type of agent to be searched
 		DFAgentDescription dfd = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(agentb.HOTEL_INFORMATION_SERVICE);
+		sd.setType(AgHotelmania3.HOTEL_INFORMATION_SERVICE);
 		dfd.addServices(sd);
 
 		if ((new Date()).getTime() - registerTime.getTime() >= 60000){
@@ -82,7 +74,7 @@ public class GetHotelInformation extends CyclicBehaviour {
 					msg.addReceiver(ag);
 					msg.setLanguage(agent.codec.getName());
 					msg.setOntology(agent.ontology.getName());
-					msg.setProtocol(agentb.HOTEL_INFORMATION);
+					msg.setProtocol(AgHotelmania3.HOTEL_INFORMATION);
 
 
 					agent.send(msg);

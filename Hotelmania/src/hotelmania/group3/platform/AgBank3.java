@@ -6,14 +6,12 @@ import jade.domain.FIPAAgentManagement.*;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.util.leap.HashMap;
-import jade.util.leap.Iterator;
 import jade.util.leap.Map;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import jade.core.Agent;
 import hotelmania.ontology.*;
-import hotelmania.group3.hotel.behaviour.SIGNCONTRACT_SignContract;
 import hotelmania.group3.platform.bank.behaviour.*;
 
 

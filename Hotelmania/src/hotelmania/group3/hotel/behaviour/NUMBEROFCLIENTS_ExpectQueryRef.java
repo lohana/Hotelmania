@@ -1,14 +1,11 @@
 // Processes the ACEPTATION answer to request
 package hotelmania.group3.hotel.behaviour;
 
-
 import hotelmania.group3.hotel.AgHotel3;
-import hotelmania.group3.platform.AgAgency3;
-import hotelmania.group3.platform.AgClient;
+import hotelmania.group3.platform.AgClient3;
 import hotelmania.ontology.Hotel;
 import hotelmania.ontology.NumberOfClients;
 import hotelmania.ontology.NumberOfClientsQueryRef;
-import hotelmania.ontology.SignContract;
 import jade.content.Concept;
 import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
@@ -35,7 +32,7 @@ public class NUMBEROFCLIENTS_ExpectQueryRef extends CyclicBehaviour {
 		// Waits for sign contract acceptation
 		ACLMessage msg = agent.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agent.codec.getName()), 
 				MessageTemplate.and(MessageTemplate.MatchOntology(agent.ontology.getName()),
-						MessageTemplate.MatchProtocol(AgClient.NUMBEROFCLIENTS_QUERY))));
+						MessageTemplate.MatchProtocol(AgClient3.NUMBEROFCLIENTS_QUERY))));
 		
 		
 		if(msg!=null){
@@ -43,7 +40,7 @@ public class NUMBEROFCLIENTS_ExpectQueryRef extends CyclicBehaviour {
 				ContentElement ce = null;
 				int AclMessage = msg.getPerformative();
 				ACLMessage reply = msg.createReply();
-				reply.setProtocol(AgClient.NUMBEROFCLIENTS_QUERY);
+				reply.setProtocol(AgClient3.NUMBEROFCLIENTS_QUERY);
 
 								
 				if (AclMessage == ACLMessage.QUERY_REF){
