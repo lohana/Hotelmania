@@ -20,41 +20,40 @@ import hotelmania.group3.platform.AgClient;
 import hotelmania.ontology.NumberOfClientsQueryRef;
 
 @SuppressWarnings("serial")
-public class NUMBEROFCLIENTS_NumberOfClientsBehaviour extends SimpleBehaviour {
+public class BOOKAROOM_BookARoomBehaviour extends CyclicBehaviour {
 	
 	AID[] hotelmania = new AID[20];
 	AID ag;
 	boolean end = false;
 	int current = 0;
 
-	public NUMBEROFCLIENTS_NumberOfClientsBehaviour(Agent agent) {
+	public BOOKAROOM_BookARoomBehaviour(Agent agent) {
 		super(agent);
 	}
 	
 	public void action(){
 		AgClient agent = (AgClient)this.myAgent;
 		
-		// The client will search for hotelmania 12 times for total of 60 seconds
-;
-		
 		try{
 								
 			// Inform for opinion
-			ACLMessage msg = new ACLMessage(ACLMessage.QUERY_REF);
-			msg.setProtocol(AgClient.NUMBEROFCLIENTS_QUERY);
+			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+			msg.setProtocol(AgClient.BOOKAROOM_REQUEST);
 			msg.addReceiver(agent.getHotelAID());
 			msg.setLanguage(agent.codec.getName());
 			msg.setOntology(agent.ontology.getName());
 			
 			NumberOfClientsQueryRef noc = new NumberOfClientsQueryRef();
+			//noc.setHotel_name(agent.getHotel());
 			
 			// Wrap the message with action
 			Action agAction = new Action(agent.getHotelAID(),  noc);
 			try{
 				// The ContentManager transforms the java objects into strings
+				//myAgent.getContentManager().fillContent(msg, agAction);
 				agent.getContentManager().fillContent(msg, agAction);
 				agent.send(msg);
-				System.out.println(agent.getLocalName() + ": Query for Number of Clients of " + agent.getHotelAID().getLocalName());
+				System.out.println(agent.getLocalName() + ": Query for Number of Clients of " + agent.getHotel());
 			}
 			catch (CodecException ce){
 				ce.printStackTrace();
@@ -68,7 +67,5 @@ public class NUMBEROFCLIENTS_NumberOfClientsBehaviour extends SimpleBehaviour {
 		}
 	} 
 	
-	public boolean done (){
-     	return end;
-    }
+	
 }

@@ -19,6 +19,7 @@ public class AgClient extends DayDependentAgent {
 	
 	public static final String EVALUATION_SERVICE = "Evaluation";
 	public static final String NUMBEROFCLIENTS_QUERY = "NumberOfClients";
+	public static final String BOOKAROOM_REQUEST = "BookARoom";
 	
 	public Codec codec = new SLCodec();
 	public Ontology innerOntology = Ontology3.getInstance();
@@ -28,7 +29,9 @@ public class AgClient extends DayDependentAgent {
 	// Information about the hotel where the client stayed
 	private String hotel = "";
 	private int rate = 0;
+	private float budget = 0.0f;
 	private AID hotelAID;
+	private String selectedHotel = "";
 	
 	protected void setup(){
 		
@@ -45,8 +48,9 @@ public class AgClient extends DayDependentAgent {
         // TOREMOVE
         // Random generation of rate, should be assign when going to the hotel 
         rate = randomValue();
-        hotel = "Hotel3";
+        //hotel = "Hotel3";
         hotelAID =  new AID("Hotel",AID.ISLOCALNAME);
+        selectedHotel = "Hotel3";
         
         // Adds a behavior to evaluate a hotel
        // addBehaviour(new SendRate(this));
@@ -59,9 +63,10 @@ public class AgClient extends DayDependentAgent {
     	addBehaviour(new NUMBEROFCLIENTS_ExpectInform(this) );
     	
     	addBehaviour(new NUMBEROFCLIENTS_ExpectFailure(this) );
-    	
-    	
+    	    	
     	addBehaviour(new GetHotelInformation_ExpectforMessages(this));
+    	
+    	addBehaviour(new BOOKAROOM_BookARoomBehaviour(this));
     }
 	
 	public int getRate()

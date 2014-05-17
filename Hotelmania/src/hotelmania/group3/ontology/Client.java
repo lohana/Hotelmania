@@ -8,6 +8,7 @@ public class Client implements Concept {
 	private String clientId;
 	private String hotel;
 	private int rate;
+	private float budget;
 	   
 	public void setClientId(String value) { 
 		this.clientId = value;
@@ -37,4 +38,14 @@ public class Client implements Concept {
 	{
 		return String.format("Opinion of client %s for hotel %s: %d", this.clientId, this.hotel, this.rate);
 	}
+	
+	public void setBudget(float budget)
+	{
+		this.budget = budget;
+	}
+	
+	public float getBudget(){
+		return this.budget;
+	}
+	
 }

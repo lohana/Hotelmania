@@ -25,6 +25,7 @@ private static ReflectiveIntrospector introspect = new ReflectiveIntrospector();
     public static final String CLIENT = "clientId";
     public static final String HOTEL = "hotel";
     public static final String RATE = "rate";
+    public static final String BUDGET = "budget";
 
   /**
    * Constructor
@@ -45,6 +46,7 @@ private static ReflectiveIntrospector introspect = new ReflectiveIntrospector();
     clientSchema.add(CLIENT_ID, (TermSchema)getSchema(BasicOntology.STRING), ObjectSchema.MANDATORY);
     clientSchema.add(HOTEL, (TermSchema)getSchema(BasicOntology.STRING), ObjectSchema.MANDATORY);
     clientSchema.add(RATE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.MANDATORY);
+    clientSchema.add(BUDGET, (TermSchema)getSchema(BasicOntology.FLOAT), ObjectSchema.MANDATORY);
     evaluationSchema.add(EVALUATION_CLIENT, clientSchema, ObjectSchema.MANDATORY);
 
    }catch (java.lang.Exception e) {
