@@ -3,7 +3,6 @@ package hotelmania.group3.hotel.behaviour;
 import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.group3.platform.AgBank3;
 import hotelmania.ontology.AccountStatus;
-import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.content.onto.UngroundedException;
@@ -30,8 +29,6 @@ public class GetAccountStatus_ExpectforMessages extends CyclicBehaviour {
 				MessageTemplate.MatchProtocol(AgBank3.ACCOUNTSTATUS_SERVICE))));
 
 		if (msg != null) {
-
-			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
 			reply.setProtocol(AgBank3.ACCOUNTSTATUS_SERVICE);

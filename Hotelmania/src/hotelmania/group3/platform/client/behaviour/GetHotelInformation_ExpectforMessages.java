@@ -1,9 +1,8 @@
 package hotelmania.group3.platform.client.behaviour;
 
-import hotelmania.group3.platform.AgClient;
+import hotelmania.group3.platform.AgClient3;
 import hotelmania.group3.platform.AgHotelmania3;
 import hotelmania.ontology.HotelInformation;
-import jade.content.ContentElement;
 import jade.content.ContentElementList;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
@@ -23,7 +22,7 @@ public class GetHotelInformation_ExpectforMessages extends CyclicBehaviour {
 
 	@SuppressWarnings("static-access")
 	public void action() {
-		AgClient agent = (AgClient) this.myAgent;
+		AgClient3 agent = (AgClient3) this.myAgent;
 		AgHotelmania3 agentb = new AgHotelmania3();
 
 		// Waits for estimation requests
@@ -34,7 +33,6 @@ public class GetHotelInformation_ExpectforMessages extends CyclicBehaviour {
 
 		if (msg != null) {
 
-			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
 			reply.setProtocol(agentb.HOTEL_INFORMATION);

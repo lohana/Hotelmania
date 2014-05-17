@@ -14,10 +14,8 @@ import jade.content.lang.Codec.*;
 import jade.content.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
-import hotelmania.group3.hotel.behaviour.GetAccountStatus;
 import hotelmania.group3.platform.AgAgency3;
 import hotelmania.group3.platform.agency.behaviuor.SIGNCONTRACT_SignContractBehaviour;
-import hotelmania.group3.platform.bank.behaviour.ChargetoAccount;
 import hotelmania.ontology.*;
 
 @SuppressWarnings("serial")

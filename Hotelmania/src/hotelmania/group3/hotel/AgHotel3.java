@@ -16,7 +16,6 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import hotelmania.group3.hotel.behaviour.*;
-import hotelmania.group3.platform.AgBank3;
 import hotelmania.group3.platform.DayDependentAgent;
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectFailure;
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectInform;
@@ -29,6 +28,8 @@ public class AgHotel3 extends DayDependentAgent {
 	// SharedAgentsOntology that we have created
 	public Codec codec = new SLCodec();
 	public Ontology ontology = SharedAgentsOntology.getInstance();
+	
+	public IStrategy strategy = new SimpleFixedStrategy();
 	
 	public int id_account = 0;
 

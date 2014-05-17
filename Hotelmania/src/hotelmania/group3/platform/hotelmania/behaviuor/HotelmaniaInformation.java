@@ -1,20 +1,11 @@
 package hotelmania.group3.platform.hotelmania.behaviuor;
 
-import hotelmania.group3.hotel.AgHotel3;
-import hotelmania.group3.platform.AgBank3;
 import hotelmania.group3.platform.AgHotelmania3;
-import hotelmania.ontology.Account;
-import hotelmania.ontology.AccountStatus;
-import hotelmania.ontology.AccountStatusQueryRef;
 import hotelmania.ontology.Hotel;
 import hotelmania.ontology.HotelInformation;
-import jade.content.Concept;
-import jade.content.ContentElement;
 import jade.content.ContentElementList;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
-import jade.content.onto.UngroundedException;
-import jade.content.onto.basic.Action;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -30,9 +21,6 @@ public class HotelmaniaInformation extends CyclicBehaviour {
 	@SuppressWarnings("static-access")
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
-
-		AgHotel3 agent = new AgHotel3();
 
 		AgHotelmania3 agentb = (AgHotelmania3) this.myAgent;
 
@@ -42,8 +30,6 @@ public class HotelmaniaInformation extends CyclicBehaviour {
 						MessageTemplate.MatchProtocol(agentb.HOTEL_INFORMATION))));
 
 		if (msg != null) {
-
-			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
 			reply.setProtocol(agentb.HOTEL_INFORMATION);
