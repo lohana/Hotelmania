@@ -104,6 +104,11 @@ public class AgHotel3 extends DayDependentAgent {
     	addBehaviour(new ExpectAccount(this));
     	
     	addBehaviour(new ReceiveOfferRequests(this));
+    	
+    	addBehaviour (new SubscribeForEndSimulation(this));
+    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
+
+    	
 	}
 	
 	public void ChangesOnDayChange()

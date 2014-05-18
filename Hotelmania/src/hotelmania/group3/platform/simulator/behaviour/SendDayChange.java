@@ -47,6 +47,8 @@ public class SendDayChange extends TickerBehaviour {
 					agent.getContentManager().fillContent(msg, n);
 					agent.send(msg);
 					System.out.println(String.format("%s: Day %d sent to %s.", agent.getLocalName(), agent.getCurrentDay(), ag.getLocalName()));
+					
+					this.myAgent.addBehaviour(new SendSubscribeEndSimulation(this.myAgent));
 				}
 				catch (CodecException ce){
 					ce.printStackTrace();
