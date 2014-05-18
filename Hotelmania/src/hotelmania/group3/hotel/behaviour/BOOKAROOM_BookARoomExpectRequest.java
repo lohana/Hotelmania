@@ -43,10 +43,8 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 				reply.setProtocol(AgClient3.BOOKAROOM_REQUEST);
 					
 				if (AclMessage == ACLMessage.REQUEST){
-					// The ContentManager transforms the message content (string)
-					// in java objects
+					// The ContentManager transforms the message content (string) in java objects
 					ce = msg.getContentObject();
-					//ce = agent.getContentManager().extractContent(msg);
 					// We expect an action inside the message
 					if (ce instanceof Action){
 						Action agAction = (Action) ce;
@@ -58,7 +56,7 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 							System.out.println(myAgent.getLocalName()+": received BOOK A ROOM Request from "+(msg.getSender()).getLocalName() );
 							
 							AID receiverAgent = msg.getSender();
-							String requestedClientName = receiverAgent.getLocalName();
+							String requestedClientName = receiverAgent.getName();
 							
 							
 							if (!agent.BookingClients.isEmpty()){
@@ -86,6 +84,9 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 							} else if (differentPrice){
 								reply.setPerformative(ACLMessage.REFUSE);
 								System.out.println(myAgent.getLocalName()+": Price has been change. REFUSE has been send");
+							} else if (br.getStay().getCheckIn() < agent.currentDay) {
+								reply.setPerformative(ACLMessage.REFUSE);
+								System.out.println(myAgent.getLocalName()+ ": Book a Room for past day");
 							} else {
 								reply.setPerformative(ACLMessage.AGREE);
 								agent.BookingClients.add(requestedClientName);
@@ -99,15 +100,6 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
 					System.out.println(myAgent.getLocalName()+ ": BOOK ROOM REQUEST - NOT UNDERSTOOD: wrong protocol");
 				}	
-				
-			/*}catch (CodecException e){
-				e.printStackTrace();
-			} catch (UngroundedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (OntologyException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();*/
 			} catch (UnreadableException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
