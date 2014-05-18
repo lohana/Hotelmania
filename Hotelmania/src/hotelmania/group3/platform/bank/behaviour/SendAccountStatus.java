@@ -1,6 +1,5 @@
 package hotelmania.group3.platform.bank.behaviour;
 
-import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.group3.platform.AgBank3;
 import hotelmania.ontology.Account;
 import hotelmania.ontology.AccountStatus;
@@ -23,42 +22,29 @@ public class SendAccountStatus extends CyclicBehaviour {
 		super(agente);
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
-
-		AgHotel3 agent = new AgHotel3();
 
 		AgBank3 agentb = (AgBank3)this.myAgent;
 		
-		
-		ACLMessage msg = agentb.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agent.codec.getName()), MessageTemplate.and(
-						MessageTemplate.MatchOntology(agentb.ontology.getName()),MessageTemplate.MatchProtocol(agentb.ACCOUNTSTATUS_SERVICE))));
+		ACLMessage msg = agentb.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agentb.codec.getName()), MessageTemplate.and(
+						MessageTemplate.MatchOntology(agentb.ontology.getName()),MessageTemplate.MatchProtocol(AgBank3.ACCOUNTSTATUS_SERVICE))));
 
 		if (msg != null) {
 
 			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
-			reply.setProtocol(agentb.ACCOUNTSTATUS_SERVICE);
+			reply.setProtocol(AgBank3.ACCOUNTSTATUS_SERVICE);
 
 			if (AclMessage == ACLMessage.QUERY_REF) {
-
-
-
-
-
 				try {
 					ce = agentb.getContentManager().extractContent(msg);
 				} catch (UngroundedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (CodecException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (OntologyException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				// We expect an action inside the message
@@ -85,7 +71,7 @@ public class SendAccountStatus extends CyclicBehaviour {
 						reply.setPerformative(ACLMessage.INFORM);
 
 
-						reply.setProtocol(agentb.ACCOUNTSTATUS_SERVICE);
+						reply.setProtocol(AgBank3.ACCOUNTSTATUS_SERVICE);
 						try {
 							myAgent.getContentManager().fillContent(reply,as);
 						} catch (CodecException e) {
@@ -98,23 +84,13 @@ public class SendAccountStatus extends CyclicBehaviour {
 
 						myAgent.send(reply);
 						System.out.println(myAgent.getLocalName()+":  answer sent -> INFORM");
-
-
-
 					}else{
 						reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
 						myAgent.send(reply);
-
-						
 					}
-
-
-
 				}else{
 					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
 					myAgent.send(reply);
-
-					
 				}
 
 			} else if (AclMessage == ACLMessage.REFUSE) {
@@ -128,10 +104,8 @@ public class SendAccountStatus extends CyclicBehaviour {
 						+ (msg.getSender()).getLocalName());
 
 			}
-		} else
-		{
-		//	block();
-			
+		} else {
+			//block();
 		}
 	}
 }

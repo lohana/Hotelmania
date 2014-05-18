@@ -18,7 +18,6 @@ public class HotelmaniaInformation extends CyclicBehaviour {
 		super(agente);
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public void action() {
 
@@ -27,12 +26,12 @@ public class HotelmaniaInformation extends CyclicBehaviour {
 		ACLMessage msg = agentb.receive(MessageTemplate.and(MessageTemplate
 				.MatchLanguage(agentb.codec.getName()), MessageTemplate.and(
 						MessageTemplate.MatchOntology(agentb.ontology.getName()),
-						MessageTemplate.MatchProtocol(agentb.HOTEL_INFORMATION))));
+						MessageTemplate.MatchProtocol(AgHotelmania3.HOTEL_INFORMATION))));
 
 		if (msg != null) {
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
-			reply.setProtocol(agentb.HOTEL_INFORMATION);
+			reply.setProtocol(AgHotelmania3.HOTEL_INFORMATION);
 
 			if (AclMessage == ACLMessage.QUERY_REF
 					&& !agentb.RegisteredHotels.isEmpty()) {
@@ -87,7 +86,7 @@ public class HotelmaniaInformation extends CyclicBehaviour {
 
 				reply.setPerformative(ACLMessage.INFORM);
 
-				reply.setProtocol(agentb.HOTEL_INFORMATION);
+				reply.setProtocol(AgHotelmania3.HOTEL_INFORMATION);
 
 				myAgent.send(reply);
 				System.out.println(myAgent.getLocalName()

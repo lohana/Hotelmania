@@ -1,5 +1,4 @@
 
-
 package hotelmania.group3.platform.agency.behaviuor;
 
 import jade.core.Agent;

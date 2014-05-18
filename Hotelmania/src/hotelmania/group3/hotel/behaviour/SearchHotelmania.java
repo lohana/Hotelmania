@@ -1,4 +1,4 @@
-
+// Register in hotelmania
 
 package hotelmania.group3.hotel.behaviour;
 

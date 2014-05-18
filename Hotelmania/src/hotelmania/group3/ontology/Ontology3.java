@@ -1,4 +1,5 @@
 // Inner ontology for group 3
+
 package hotelmania.group3.ontology;
 
 import jade.content.onto.*;

@@ -19,7 +19,6 @@ import jade.lang.acl.ACLMessage;
 public class SendDayChange extends TickerBehaviour {
 	
 	public SendDayChange(Agent agent, int milliseconds) {
-		// TODO Auto-generated constructor stub
 		super(agent, milliseconds);
 	}
 

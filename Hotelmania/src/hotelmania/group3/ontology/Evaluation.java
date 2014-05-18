@@ -1,3 +1,4 @@
+
 package hotelmania.group3.ontology;
 
 import jade.content.*;

@@ -3,6 +3,7 @@
  * @author Eleonora Adova, EMSE
  * @version $Date: 2014/05/04 00:28 $ $Revision: 1.0 $
  **/
+
 package hotelmania.group3.platform;
 
 import hotelmania.group3.commonbehaviour.ReceiveDayNotification;

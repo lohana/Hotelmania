@@ -2,6 +2,7 @@
  * Processes the day notification
  * @author Eleonora Adova, EMSE
  * @version $Date: 2014/05/04 00:28 $ $Revision: 1.0 $
+ * 
  **/
 
 package hotelmania.group3.commonbehaviour;

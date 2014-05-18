@@ -7,6 +7,7 @@
 package hotelmania.group3.platform;
 
 public class Opinion {
+	
 	private String clientId;
 	private String hotel;
 	private int rate;

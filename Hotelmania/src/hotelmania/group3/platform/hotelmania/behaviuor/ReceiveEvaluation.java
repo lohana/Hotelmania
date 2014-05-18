@@ -68,7 +68,6 @@ public class ReceiveEvaluation extends CyclicBehaviour {
 		}
 		else
 		{
-			// If no message arrives
 			block();
 		}
 	}

@@ -1,4 +1,5 @@
 // Receives Subscription answer refuse
+
 package hotelmania.group3.commonbehaviour;
 
 import hotelmania.group3.platform.DayDependentAgent;

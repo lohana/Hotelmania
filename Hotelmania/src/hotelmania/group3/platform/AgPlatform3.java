@@ -70,5 +70,4 @@ public class AgPlatform3 extends Agent {
     private void startNewAgent(String className,String agentName,Object[] arguments) throws StaleProxyException {
     	((AgentController)getContainerController().createNewAgent(agentName,className,arguments)).start();
     }
-
 }

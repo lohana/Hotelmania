@@ -101,6 +101,7 @@ public class AgSimulator3 extends Agent {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 

@@ -16,7 +16,6 @@ import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.group3.platform.AgClient3;
 import hotelmania.ontology.*;
 
-
 @SuppressWarnings("serial")
 public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 	

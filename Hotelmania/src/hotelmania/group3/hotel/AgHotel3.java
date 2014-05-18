@@ -8,6 +8,7 @@
  * </ul>
  * @author Lohana Lema Moreta, EMSE
  * @version $Date: 2014/04/18 22:36:23 $ $Revision: 1.0 $
+ * 
  **/
 
 package hotelmania.group3.hotel;

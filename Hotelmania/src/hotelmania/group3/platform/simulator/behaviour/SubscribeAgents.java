@@ -86,7 +86,6 @@ public class SubscribeAgents extends CyclicBehaviour {
 		}
 		else
 		{
-			// If no message arrives
 			block();
 		}
 	}

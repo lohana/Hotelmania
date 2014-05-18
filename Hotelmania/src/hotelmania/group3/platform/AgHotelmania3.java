@@ -78,10 +78,8 @@ public class AgHotelmania3 extends Agent {
 			// Registers its description in the DF
 			DFService.register(this, dfd);
 			System.out.println(getLocalName()+": HOTELMANIA REGISTRATION SERVICE is registered in the DF");
-			System.out.println(getLocalName()+": HOTELMANIA HOTEL INFORMATION SERVICE is registered in the DF");
-			
-			
-			
+			System.out.println(getLocalName()+": HOTELMANIA HOTEL INFORMATION SERVICE is registered in the DF");	
+					
 			dfd = null;
 			sd = null;
 			doWait(10000);

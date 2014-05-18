@@ -117,7 +117,6 @@ public class CreateAccountForHotel extends CyclicBehaviour {
 		}
 		else
 		{
-			// If no message arrives
 			block();
 		}
 	}

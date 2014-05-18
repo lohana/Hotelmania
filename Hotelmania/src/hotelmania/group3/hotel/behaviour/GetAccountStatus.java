@@ -1,3 +1,5 @@
+// Gets acount status
+
 package hotelmania.group3.hotel.behaviour;
 
 import java.util.Date;

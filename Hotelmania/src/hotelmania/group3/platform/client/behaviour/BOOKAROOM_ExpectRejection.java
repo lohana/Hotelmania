@@ -1,7 +1,7 @@
 // Processes the REJECTION answer to request
+
 package hotelmania.group3.platform.client.behaviour;
 
-import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.group3.platform.AgClient3;
 import jade.core.Agent;
 import jade.core.behaviours.*;

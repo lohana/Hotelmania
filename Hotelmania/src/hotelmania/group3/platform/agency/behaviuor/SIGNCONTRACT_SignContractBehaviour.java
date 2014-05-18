@@ -25,7 +25,6 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 		super(agent);
 	}
 		
-		
 	public void action() {
 		AgAgency3 agent = (AgAgency3)this.myAgent;
 		

@@ -1,4 +1,5 @@
 // Processes the REJECTION answer to request
+
 package hotelmania.group3.platform.client.behaviour;
 
 import hotelmania.group3.platform.AgClient3;

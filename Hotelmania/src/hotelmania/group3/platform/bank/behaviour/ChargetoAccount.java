@@ -1,10 +1,6 @@
 package hotelmania.group3.platform.bank.behaviour;
 
-import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.group3.platform.AgBank3;
-import hotelmania.ontology.Account;
-import hotelmania.ontology.AccountStatus;
-import hotelmania.ontology.AccountStatusQueryRef;
 import hotelmania.ontology.ChargeAccount;
 import hotelmania.ontology.Hotel;
 import jade.content.Concept;
@@ -25,25 +21,21 @@ public class ChargetoAccount extends CyclicBehaviour {
 		super(agente);
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
-
-		AgHotel3 agent = new AgHotel3();
 
 		AgBank3 agentb = (AgBank3)this.myAgent;
 		
 		
  		ACLMessage msg = agentb.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agentb.codec.getName()), MessageTemplate.and(
-						MessageTemplate.MatchOntology(agentb.ontology.getName()),MessageTemplate.MatchProtocol(agentb.CHARGE_ACCOUNT_SERVICE))));
+						MessageTemplate.MatchOntology(agentb.ontology.getName()),MessageTemplate.MatchProtocol(AgBank3.CHARGE_ACCOUNT_SERVICE))));
 
 		if (msg != null) {
 
 			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
-			reply.setProtocol(agentb.CHARGE_ACCOUNT_SERVICE);
+			reply.setProtocol(AgBank3.CHARGE_ACCOUNT_SERVICE);
 
 			if (AclMessage == ACLMessage.REQUEST) {
 
@@ -83,37 +75,22 @@ public class ChargetoAccount extends CyclicBehaviour {
 						if( agentb.chargetoaccount(h,amount) )
 						{
 							reply.setPerformative(ACLMessage.AGREE);
-							reply.setProtocol(agentb.ACCOUNTSTATUS_SERVICE);					 
+							reply.setProtocol(AgBank3.ACCOUNTSTATUS_SERVICE);					 
 							myAgent.send(reply);
-							System.out.println(myAgent.getLocalName()+":  answer sent -> AGREE");
-							
-							
+							System.out.println(myAgent.getLocalName()+":  answer sent -> AGREE");	
 						}else{
 							reply.setPerformative(ACLMessage.REFUSE);
-							reply.setProtocol(agentb.ACCOUNTSTATUS_SERVICE);					 
+							reply.setProtocol(AgBank3.ACCOUNTSTATUS_SERVICE);					 
 							myAgent.send(reply);
 							System.out.println(myAgent.getLocalName()+":  answer sent -> REFUSE");
-
-							
-							
 						}		
-
-			
-
 					}else{
 						reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
 						myAgent.send(reply);
-
-						
 					}
-
-
-
 				}else{
 					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
 					myAgent.send(reply);
-
-					
 				}
 
 			} else if (AclMessage == ACLMessage.REFUSE) {

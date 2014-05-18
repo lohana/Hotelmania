@@ -63,7 +63,7 @@ public class AgClient3 extends DayDependentAgent {
         hotelAID =  new AID("Hotel",AID.ISLOCALNAME);
         
         // Adds a behavior to evaluate a hotel
-       // addBehaviour(new SendRate(this));
+        // addBehaviour(new SendRate(this));
         
         // Adds behavior for day communication
     	addDayBehaviour();

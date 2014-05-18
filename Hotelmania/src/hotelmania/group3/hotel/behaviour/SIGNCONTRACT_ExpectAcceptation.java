@@ -1,4 +1,5 @@
 // Processes the ACEPTATION answer to request
+
 package hotelmania.group3.hotel.behaviour;
 
 

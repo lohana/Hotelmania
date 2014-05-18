@@ -3,6 +3,7 @@
  * @author Lohanna Lema, EMSE
  * @version $Date: 2014/05/12 $ $Revision: 1.0 $
  **/
+
 package hotelmania.group3.platform.client.behaviour;
 
 import jade.core.AID;

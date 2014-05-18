@@ -65,8 +65,7 @@ public class RegistrationBehaviour extends CyclicBehaviour {
 							boolean repeated = false;
 							boolean blank_name = false;
 							boolean wrong_name = false;
-							
-							
+												
 							/*Hotel testHotel = new Hotel();
 							testHotel.setHotel_name("Hotel3");
 							agent.RegisteredHotels.add(testHotel);*/

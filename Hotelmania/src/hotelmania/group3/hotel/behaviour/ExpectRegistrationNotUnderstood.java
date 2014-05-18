@@ -1,4 +1,5 @@
 // Processes the NOT_UNDERSTOOD answer to request
+
 package hotelmania.group3.hotel.behaviour;
 
 import hotelmania.group3.hotel.AgHotel3;

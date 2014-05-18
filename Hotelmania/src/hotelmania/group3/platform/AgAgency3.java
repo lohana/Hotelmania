@@ -1,3 +1,4 @@
+
 package hotelmania.group3.platform;
 
 import java.util.ArrayList;

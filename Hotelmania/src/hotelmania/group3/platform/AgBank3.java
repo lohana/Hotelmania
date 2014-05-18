@@ -1,3 +1,4 @@
+
 package hotelmania.group3.platform;
 
 import java.util.ArrayList;
@@ -13,8 +14,6 @@ import jade.content.onto.*;
 import jade.core.Agent;
 import hotelmania.ontology.*;
 import hotelmania.group3.platform.bank.behaviour.*;
-
-
 
 @SuppressWarnings("serial")
 public class AgBank3 extends Agent{

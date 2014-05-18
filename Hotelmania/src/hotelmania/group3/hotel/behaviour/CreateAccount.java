@@ -1,4 +1,4 @@
-
+// Creating an account
 
 package hotelmania.group3.hotel.behaviour;
 
