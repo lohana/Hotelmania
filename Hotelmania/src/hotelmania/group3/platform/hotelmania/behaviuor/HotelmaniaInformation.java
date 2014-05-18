@@ -53,7 +53,7 @@ public class HotelmaniaInformation extends CyclicBehaviour {
 
 				System.out
 				.println(myAgent.getLocalName()
-						+ ": received HotelmaniaInformation+++++++++++++++ QUERY_REF from   "
+						+ ": received HotelmaniaInformation QUERY_REF from   "
 						+ (msg.getSender()).getLocalName());
 
 				ContentElementList cel = new ContentElementList();

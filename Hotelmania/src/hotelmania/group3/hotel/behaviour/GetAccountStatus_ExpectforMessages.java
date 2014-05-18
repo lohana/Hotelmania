@@ -43,7 +43,7 @@ public class GetAccountStatus_ExpectforMessages extends CyclicBehaviour {
 							.getContentManager().extractContent(msg);
 
 					System.out.println(myAgent.getLocalName()
-							+ ": received AccountStatus from Bank ****************** "
+							+ ": received AccountStatus from Bank  "
 							+ (msg.getSender()).getLocalName() + "Balance: "
 							+ as.getAccount().getBalance());
 

@@ -42,7 +42,7 @@ public class GetHotelInformation extends CyclicBehaviour {
 		// Creates the description for the type of agent to be searched
 		DFAgentDescription dfd = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(AgHotelmania3.HOTEL_INFORMATION_SERVICE);
+		sd.setType(AgHotelmania3.HOTEL_INFORMATION);
 		dfd.addServices(sd);
 
 		if ((new Date()).getTime() - registerTime.getTime() >= 60000){
