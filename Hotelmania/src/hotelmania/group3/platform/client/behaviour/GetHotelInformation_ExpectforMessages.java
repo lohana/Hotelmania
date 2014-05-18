@@ -51,9 +51,9 @@ public class GetHotelInformation_ExpectforMessages extends CyclicBehaviour {
 
 						System.out
 						.println(myAgent.getLocalName()
-								+ ": received HotelInformation from Hotelmania ****HOTEL: "
+								+ ": received HotelInformation from Hotelmania HOTEL: "
 								+ hi.getHotel().getHotel_name()
-								+ "****** RANKIN " + hi.getRating()
+								+ " RATE " + hi.getRating()
 								+ (msg.getSender()).getLocalName());
 
 					}
@@ -70,9 +70,9 @@ public class GetHotelInformation_ExpectforMessages extends CyclicBehaviour {
 
 						System.out
 						.println(myAgent.getLocalName()
-								+ ": received HotelInformation from Hotelmania ****HOTEL: "
+								+ ": received HotelInformation from Hotelmania HOTEL: "
 								+ h1.getHotel().getHotel_name()
-								+ "****** RANKIN " + h1.getRating()
+								+ "RATE " + h1.getRating()
 								+ (msg.getSender()).getLocalName());
 
 					}

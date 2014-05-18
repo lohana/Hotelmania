@@ -38,7 +38,6 @@ public class AgHotelmania3 extends Agent {
     public static final String REGISTRATION_SERVICE = "Registration";
     public static final String EVALUATION_SERVICE = "Evaluation";
     public static final String HOTEL_INFORMATION = "QueryHotelmaniaInformation";
-    public static final String HOTEL_INFORMATION_SERVICE = "QueryHotelmaniaHotel";
     //Hotels Registered in Hotelmania during execution 
     public ArrayList<Hotel> RegisteredHotels = new ArrayList<Hotel>();
     
@@ -72,7 +71,7 @@ public class AgHotelmania3 extends Agent {
 			// Add evaluation service
 			ServiceDescription hi = new ServiceDescription();
 			hi.setName(this.getName()); 
-			hi.setType(HOTEL_INFORMATION_SERVICE);
+			hi.setType(HOTEL_INFORMATION);
 			dfd.addServices(hi);
 			
 			// Registers its description in the DF

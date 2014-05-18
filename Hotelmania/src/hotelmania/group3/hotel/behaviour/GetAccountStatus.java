@@ -106,7 +106,7 @@ public class GetAccountStatus extends CyclicBehaviour {
 						}
 						agent.send(msg);
 						System.out.println(agent.getLocalName()
-								+ ": QUERY_REF ***************************************************** AccountStatusQueryRef  "
+								+ ": QUERY_REF AccountStatusQueryRef  "
 								+ ag.getName());
 
 

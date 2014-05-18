@@ -15,6 +15,7 @@ import jade.content.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
 import hotelmania.group3.platform.AgHotelmania3;
+import hotelmania.group3.platform.Opinion;
 import hotelmania.group3.platform.hotelmania.behaviuor.RegistrationBehaviour;
 import hotelmania.ontology.*;
 
@@ -91,6 +92,9 @@ public class RegistrationBehaviour extends CyclicBehaviour {
 							} 
 							else {
 								agent.RegisteredHotels.add(newHotel);
+								//initial Rate for new Hotel, default 5
+								 agent.addOpinion("", newHotel.getHotel_name(), 5);
+								
 								reply.setPerformative(ACLMessage.AGREE);
 								System.out.println(myAgent.getLocalName()+ ": Registration Request of "+ newHotel.getHotel_name() + " is ACCEPTED");
 								System.out.println(myAgent.getLocalName()+ ": "+ newHotel.getHotel_name() + " is REGISTERED in Hotelmania");	
