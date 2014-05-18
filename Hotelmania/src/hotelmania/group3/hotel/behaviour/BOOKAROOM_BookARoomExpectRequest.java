@@ -84,7 +84,7 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 							} else if (differentPrice){
 								reply.setPerformative(ACLMessage.REFUSE);
 								System.out.println(myAgent.getLocalName()+": Price has been change. REFUSE has been send");
-							} else if (br.getStay().getCheckIn() < agent.currentDay) {
+							} else if (br.getStay().getCheckIn() <= agent.currentDay) {
 								reply.setPerformative(ACLMessage.REFUSE);
 								System.out.println(myAgent.getLocalName()+ ": Book a Room for past day");
 							} else {
