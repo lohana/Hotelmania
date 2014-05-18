@@ -6,6 +6,8 @@
 
 package hotelmania.group3.platform;
 
+import java.util.ArrayList;
+
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
@@ -13,6 +15,7 @@ import jade.core.AID;
 import hotelmania.group3.ontology.Ontology3;
 import hotelmania.group3.platform.client.behaviour.*;
 import hotelmania.ontology.SharedAgentsOntology;
+import hotelmania.ontology.Stay;
 
 @SuppressWarnings("serial")
 public class AgClient3 extends DayDependentAgent {
@@ -20,6 +23,7 @@ public class AgClient3 extends DayDependentAgent {
 	public static final String EVALUATION_SERVICE = "Evaluation";
 	public static final String NUMBEROFCLIENTS_QUERY = "NumberOfClients";
 	public static final String BOOKAROOM_REQUEST = "BookARoom";
+	public static final String BOOKING_OFFER = "BookingOffer";
 	
 	public Codec codec = new SLCodec();
 	public Ontology innerOntology = Ontology3.getInstance();
@@ -32,7 +36,14 @@ public class AgClient3 extends DayDependentAgent {
 	public int rate = 0;
 	public float budget = 0.0f;
 	public AID hotelAID;
+
+	private Stay stay;
+	private CompleteOffer selectedOffer = new CompleteOffer();
+	private boolean isBooked = false;
 	
+	// All hotels in hotelmania
+	private ArrayList<AID> hotels= new ArrayList<AID>();
+
 	protected void setup(){
 		
 		ontology = SharedAgentsOntology.getInstance();
@@ -63,10 +74,15 @@ public class AgClient3 extends DayDependentAgent {
     	
     	addBehaviour(new NUMBEROFCLIENTS_ExpectFailure(this) );
     	
-    	
     	addBehaviour(new GetHotelInformation_ExpectforMessages(this));
     	
-    	addBehaviour(new BOOKAROOM_BookARoomBehaviour(this));
+    	addBehaviour(new ReceiveOffers(this));
+    	
+    	// Change THIS - Eli
+    	hotels.add(hotelAID);
+    	stay = new Stay();
+    	stay.setCheckIn(5);
+    	stay.setCheckOut(8);
     }
 	
 	public int getRate()
@@ -93,6 +109,33 @@ public class AgClient3 extends DayDependentAgent {
 		System.out.println(getLocalName() + ": Day changed to " + currentDay);
 		//addBehaviour(new NUMBEROFCLIENTS_NumberOfClientsBehaviour(this) );
     	addBehaviour(new GetHotelInformation(this));
-
+    	
+    	// If the day is before the stay period ask all hotels for offers
+    	if (currentDay < stay.getCheckIn()) {
+	    	for (AID aidHotel : hotels) {
+	    		addBehaviour(new SendRequestForOffer(this, aidHotel));
+	    	}
+    	}
+    	if (currentDay == 3) {
+    		addBehaviour(new BOOKAROOM_BookARoomBehaviour(this));
+    	}
     }
+	
+	public Stay getStay() {
+		return stay;
+	}
+
+	public void setStay(Stay stay) {
+		this.stay = stay;
+	}
+	
+	public void viewOffer(CompleteOffer offer) {
+		if (!isBooked && (offer.getPrice() < selectedOffer.getPrice())) {
+			selectedOffer = offer;
+		}
+	}
+
+	public CompleteOffer getSelectedOffer() {
+		return selectedOffer;
+	}
 }

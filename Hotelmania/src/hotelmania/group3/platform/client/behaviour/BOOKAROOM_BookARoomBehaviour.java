@@ -11,20 +11,15 @@ import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.content.lang.Codec.*;
 import jade.content.onto.*;
-import jade.content.onto.basic.*;
-import jade.domain.DFService;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
-import hotelmania.group3.ontology.*;
+import jade.content.onto.basic.Action;
 import hotelmania.group3.platform.AgClient3;
+import hotelmania.group3.platform.CompleteOffer;
 import hotelmania.ontology.BookRoom;
 import hotelmania.ontology.BookingOffer;
-import hotelmania.ontology.NumberOfClientsQueryRef;
 import hotelmania.ontology.Price;
-import hotelmania.ontology.Stay;
 
 @SuppressWarnings("serial")
-public class BOOKAROOM_BookARoomBehaviour extends CyclicBehaviour {
+public class BOOKAROOM_BookARoomBehaviour extends SimpleBehaviour {
 	
 	AID[] hotelmania = new AID[20];
 	AID ag;
@@ -49,24 +44,24 @@ public class BOOKAROOM_BookARoomBehaviour extends CyclicBehaviour {
 			
 			BookRoom br = new BookRoom();
 			//FIX VALUES
-			Stay stayTest = new Stay();
-			stayTest.setCheckIn(3);
-			stayTest.setCheckOut(5);
-			BookingOffer bookingOfferTest = new BookingOffer();
-			Price priceTest = new Price();
-			priceTest.setPrice(20.30f);
-			bookingOfferTest.setRoomPrice(priceTest);
+			//Stay stayTest = new Stay();
+			//stayTest.setCheckIn(3);
+			//stayTest.setCheckOut(5);
 			//////////
-			
-			br.setStay(stayTest);
-			br.setBookingOffer(bookingOfferTest);
+			CompleteOffer offer = agent.getSelectedOffer();
+			br.setStay(agent.getStay());
+			BookingOffer bo = new BookingOffer();
+			Price price = new Price();
+			price.setPrice(offer.getPrice());
+			bo.setRoomPrice(price);
+			br.setBookingOffer(bo);
 			
 			// Wrap the message with action
 			Action agAction = new Action(agent.getHotelAID(),  br);
 			try{
 				// The ContentManager transforms the java objects into strings
-				//myAgent.getContentManager().fillContent(msg, agAction);
-				agent.getContentManager().fillContent(msg, agAction);
+				myAgent.getContentManager().fillContent(msg, agAction);
+				agent.getContentManager().fillContent(msg, br);
 				agent.send(msg);
 				System.out.println(agent.getLocalName() + ": REQUEST BOOK a ROOM to" + agent.getHotel());
 			}
@@ -80,6 +75,12 @@ public class BOOKAROOM_BookARoomBehaviour extends CyclicBehaviour {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+		end = true;
+	}
+
+	@Override
+	public boolean done() {
+		return end;
 	} 
 	
 }

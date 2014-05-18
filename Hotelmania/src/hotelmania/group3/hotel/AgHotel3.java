@@ -13,19 +13,17 @@
 package hotelmania.group3.hotel;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
+import jade.util.leap.HashMap;
+import jade.util.leap.Map;
 import hotelmania.group3.hotel.behaviour.*;
-import hotelmania.group3.platform.AgClient3;
 import hotelmania.group3.platform.DayDependentAgent;
-import hotelmania.group3.platform.Opinion;
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectFailure;
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectInform;
 import hotelmania.ontology.*;
-import hotelmania.group3.ontology.*;
 
 @SuppressWarnings("serial")
 public class AgHotel3 extends DayDependentAgent {
@@ -39,21 +37,15 @@ public class AgHotel3 extends DayDependentAgent {
 	
 	public int id_account = 0;
 
-	//Sprint 1
 	public final static String REGISTRATION_SERVICE = "Registration";
 	public final static String HOTEL_NAME = "Hotel3";
-	//Sprint 2
 	public static final String SIGN_CONTRACT = "SignContract";
-	//Sprint 3
-
 	public static final String NUMBEROFCLIENTS_QUERY = "NumberOfClients";
-
 	public static final String CREATEACCOUNT_SERVICE = "CreateAccount";
-	
-	//Sprint 4
+	public static final String BOOKING_OFFER = "BookingOffer";
+	private Map offers = new HashMap();
 	public ArrayList<String> BookingClients = new ArrayList<String>();
 	public static final String BOOKAROOM_REQUEST = "BookARoom";
-	public Dictionary<String, BookingOffer> offers;
 	public int numberOfRooms = 6;
 	
 	protected void setup(){
@@ -109,6 +101,8 @@ public class AgHotel3 extends DayDependentAgent {
     	addBehaviour(new CreateAccount(this));
     	
     	addBehaviour(new ExpectAccount(this));
+    	
+    	addBehaviour(new ReceiveOfferRequests(this));
 	}
 	
 	public void ChangesOnDayChange()
@@ -118,5 +112,20 @@ public class AgHotel3 extends DayDependentAgent {
        	addBehaviour(new GetAccountStatus(this)); 	
 
     }
+	
+	public void makeOffer(String client, BookingOffer offer) {
+		offers.put(client, offer);
+	}
+	
+	public boolean isValidOffer(String client, BookingOffer offer) {
+		if (offers.containsKey(client)) {
+			BookingOffer currentOffer = (BookingOffer)(offers.get(client));
+			if (offer.getRoomPrice().getPrice() == currentOffer.getRoomPrice().getPrice()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }
 

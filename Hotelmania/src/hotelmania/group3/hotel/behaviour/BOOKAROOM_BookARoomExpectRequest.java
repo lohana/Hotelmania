@@ -4,8 +4,6 @@ package hotelmania.group3.hotel.behaviour;
 
 import jade.core.Agent;
 import jade.core.AID;
-import jade.domain.FIPAAgentManagement.*;
-import jade.domain.DFService;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -15,7 +13,6 @@ import jade.content.lang.Codec.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
 import hotelmania.group3.hotel.AgHotel3;
-import hotelmania.group3.ontology.Client;
 import hotelmania.group3.platform.AgClient3;
 import hotelmania.ontology.*;
 
@@ -78,7 +75,7 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 							}
 							
 							//Review if requestPrice is different to dictionary offers price
-							if ( (agent.offers.get(requestedClientName).getRoomPrice().getPrice()) != (br.getBookingOffer().getRoomPrice().getPrice()))
+							if (!agent.isValidOffer(requestedClientName, br.getBookingOffer()))
 								differentPrice = true;
 								
 													
