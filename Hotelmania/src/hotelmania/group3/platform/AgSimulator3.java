@@ -13,6 +13,7 @@
 package hotelmania.group3.platform;
 
 import hotelmania.group3.ontology.Ontology3;
+import hotelmania.group3.platform.simulator.behaviour.SubscribeEndSimulation;
 import hotelmania.group3.platform.simulator.behaviour.SendDayChange;
 import hotelmania.group3.platform.simulator.behaviour.SubscribeAgents;
 import hotelmania.ontology.SharedAgentsOntology;
@@ -30,58 +31,83 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class AgSimulator3 extends Agent {
-	
-    public Codec codec = new SLCodec();
-    public Ontology ontology = SharedAgentsOntology.getInstance();
-    public Ontology innerOntology = Ontology3.getInstance();
-    public static final String TIMECHANGE_SERVICE = "SubscribeToDayEvent";
-    // Agents, subscribed for NotificationDayEvent 
-    private ArrayList<AID> registeredAgents = new ArrayList<AID>();
-    
-    private int day = 0;
-    
+
+	public Codec codec = new SLCodec();
+	public Ontology ontology = SharedAgentsOntology.getInstance();
+	public Ontology innerOntology = Ontology3.getInstance();
+	public static final String TIMECHANGE_SERVICE = "SubscribeToDayEvent";
+	public static final String END_SIMULATION = "EndSimulation";
+
+
+	// Agents, subscribed for NotificationDayEvent 
+	private ArrayList<AID> registeredAgents = new ArrayList<AID>();
+	// Agents, subscribed for NotificationDayEvent 
+	private ArrayList<AID> registeredAgents_EndSimulation = new ArrayList<AID>();
+
+
+
+	private int day = 0;
+
 	protected void setup() {
 		System.out.println(getLocalName() + ": has entered.");
 
-        getContentManager().registerLanguage(codec);
-        getContentManager().registerOntology(ontology);		
-        getContentManager().registerOntology(innerOntology);		
-        
+		getContentManager().registerLanguage(codec);
+		getContentManager().registerOntology(ontology);		
+		getContentManager().registerOntology(innerOntology);		
+
 		try{
 			// Creates its own description
 			DFAgentDescription dfd = new DFAgentDescription();
-			
+
 			// Add registration service
 			ServiceDescription sd = new ServiceDescription();
 			sd.setName(this.getName()); 
 			sd.setType(TIMECHANGE_SERVICE);
-			dfd.addServices(sd);
 			
+			ServiceDescription sdes = new ServiceDescription();
+			sdes.setName(this.getName()); 
+			sdes.setType(END_SIMULATION);
+			
+			dfd.addServices(sdes);
+			dfd.addServices(sd);
+
 			// Registers its description in the DF
 			DFService.register(this, dfd);
+			
+			
 			System.out.println(getLocalName() + ": is registered in the DF");
+			System.out.println(getLocalName() + ":(EndSimulation) is registered in the DF");
 			dfd = null;
 			sd = null;
-			
+			sdes = null;
+
 			System.out.println(getLocalName() + ": Waiting subscriptions ...");
-			
+			System.out.println(getLocalName() + ":(EndSimulation) Waiting subscriptions ...");
+
 			doWait(10000);
-			
+
+
+
+
+
 		} catch (FIPAException e){
 			e.printStackTrace();
 		}
-		
+
 		// Adds a behavior to answer the estimation requests
 		addBehaviour(new SubscribeAgents(this));
-
+		// Adds a behavior to answer the estimation requests
+		addBehaviour(new SubscribeEndSimulation(this));
+		
+		
 		int interval = 5000;
 		//interval = Integer.parseInt(Configuration.getInstance().getProperty(Configuration.DATE_LENGTH)) * 1000;
 		interval = 10 * 1000;
 
 		// Adds a behavior to receive evaluation from clients
 		addBehaviour(new SendDayChange(this, interval));
-    }
-	
+	}
+
 	public void changeDay()
 	{
 		day++;
@@ -101,7 +127,7 @@ public class AgSimulator3 extends Agent {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -117,4 +143,32 @@ public class AgSimulator3 extends Agent {
 	{
 		return new ArrayList<AID>(registeredAgents);
 	}
+
+	public boolean isRegistered_EndSimulation(AID agent){
+
+		for (AID ag : registeredAgents_EndSimulation)
+		{
+			if (ag.getName().equals(agent.getName()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void registerAgent_EndSimulation(AID agent)
+	{
+		if (!isRegistered_EndSimulation(agent))
+		{
+			registeredAgents_EndSimulation.add(agent);
+		}
+	}
+	public ArrayList<AID> getRegisteredAgents_EndSimulation()
+	{
+		return new ArrayList<AID>(registeredAgents_EndSimulation);
+	}
+
+
+
+
 }
