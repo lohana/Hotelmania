@@ -117,6 +117,7 @@ public class AgClient3 extends DayDependentAgent {
 	    	}
     	}
     	if (currentDay == 3) {
+    		isBooked = true;
     		addBehaviour(new BOOKAROOM_BookARoomBehaviour(this));
     	}
     }
@@ -130,7 +131,7 @@ public class AgClient3 extends DayDependentAgent {
 	}
 	
 	public void viewOffer(CompleteOffer offer) {
-		if (!isBooked && (offer.getPrice() < selectedOffer.getPrice())) {
+		if (!isBooked && ((selectedOffer.getPrice() == 0) || offer.getPrice() < selectedOffer.getPrice())) {
 			selectedOffer = offer;
 		}
 	}

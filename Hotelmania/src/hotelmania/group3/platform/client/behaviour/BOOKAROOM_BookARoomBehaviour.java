@@ -10,8 +10,6 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
-import jade.content.lang.Codec.*;
-import jade.content.onto.*;
 import jade.content.onto.basic.Action;
 import hotelmania.group3.platform.AgClient3;
 import hotelmania.group3.platform.CompleteOffer;
