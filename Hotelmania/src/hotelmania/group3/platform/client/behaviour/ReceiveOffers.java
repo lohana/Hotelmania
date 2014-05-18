@@ -53,7 +53,7 @@ public class ReceiveOffers extends CyclicBehaviour {
 						offer.setHotel(sender);
 						offer.setPrice(n.getRoomPrice().getPrice());
 						agent.viewOffer(offer);
-						System.out.println(agent.getLocalName() + ": received BookingOffer from " + sender.getLocalName() + " price " + offer.getPrice());
+						System.out.println(agent.getLocalName() + ": received BookingOffer from " + sender.getLocalName() + " price: " + offer.getPrice());
 					}
 				}
 			}

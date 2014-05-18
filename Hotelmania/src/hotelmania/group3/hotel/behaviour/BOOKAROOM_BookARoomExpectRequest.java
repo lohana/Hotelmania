@@ -2,11 +2,14 @@
 
 package hotelmania.group3.hotel.behaviour;
 
+import java.io.Serializable;
+
 import jade.core.Agent;
 import jade.core.AID;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
 import jade.content.Concept;
 import jade.content.ContentElement;
 import jade.content.lang.Codec.*;
@@ -37,7 +40,7 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 		
 		if (msg!=null){
 			try{
-				ContentElement ce = null;
+				Serializable ce = null;
 				int AclMessage = msg.getPerformative();
 				ACLMessage reply = msg.createReply();
 				reply.setProtocol(AgClient3.BOOKAROOM_REQUEST);
@@ -45,7 +48,8 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 				if (AclMessage == ACLMessage.REQUEST){
 					// The ContentManager transforms the message content (string)
 					// in java objects
-					ce = agent.getContentManager().extractContent(msg);
+					ce = msg.getContentObject();
+					//ce = agent.getContentManager().extractContent(msg);
 					// We expect an action inside the message
 					if (ce instanceof Action){
 						Action agAction = (Action) ce;
@@ -69,8 +73,6 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 								//review if Hotel is full
 								if (agent.BookingClients.size() == agent.numberOfRooms)
 									hotelIsFull = true;
-							} else {
-								System.out.println(myAgent.getLocalName()+": does not have rooms" );
 							}
 							
 							//Review if requestPrice is different to dictionary offers price
@@ -80,13 +82,13 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 													
 							if (hotelIsFull){
 								reply.setPerformative(ACLMessage.REFUSE);
-								System.out.println(myAgent.getLocalName()+": Sorry " + requestedClientName + " All rooms are occupied ");
+								System.out.println(myAgent.getLocalName()+": Sorry " + requestedClientName + " All rooms are occupied. REFUSE has been send ");
 							} else if (clientRepeated){
 								reply.setPerformative(ACLMessage.REFUSE);
-								System.out.println(myAgent.getLocalName()+": Client: " + requestedClientName + " is already hosted ");
+								System.out.println(myAgent.getLocalName()+": Client: " + requestedClientName + " is already hosted. REFUSE has been send");
 							} else if (differentPrice){
 								reply.setPerformative(ACLMessage.REFUSE);
-								System.out.println(myAgent.getLocalName()+": Price has been change.");
+								System.out.println(myAgent.getLocalName()+": Price has been change. REFUSE has been send");
 							} else {
 								reply.setPerformative(ACLMessage.AGREE);
 								agent.BookingClients.add(requestedClientName);
@@ -101,12 +103,15 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 					System.out.println(myAgent.getLocalName()+ ": BOOK ROOM REQUEST - NOT UNDERSTOOD: wrong protocol");
 				}	
 				
-			}catch (CodecException e){
+			/*}catch (CodecException e){
 				e.printStackTrace();
 			} catch (UngroundedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (OntologyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();*/
+			} catch (UnreadableException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

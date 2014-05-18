@@ -44,11 +44,6 @@ public class BOOKAROOM_BookARoomBehaviour extends SimpleBehaviour {
 			msg.setOntology(agent.ontology.getName());
 			
 			BookRoom br = new BookRoom();
-			//FIX VALUES
-			//Stay stayTest = new Stay();
-			//stayTest.setCheckIn(3);
-			//stayTest.setCheckOut(5);
-			//////////
 			CompleteOffer offer = agent.getSelectedOffer();
 			br.setStay(agent.getStay());
 			BookingOffer bo = new BookingOffer();
@@ -59,19 +54,20 @@ public class BOOKAROOM_BookARoomBehaviour extends SimpleBehaviour {
 			
 			// Wrap the message with action
 			Action agAction = new Action(agent.getHotelAID(),  br);
-			try{
+			//try{
 				// The ContentManager transforms the java objects into strings
-				myAgent.getContentManager().fillContent(msg, agAction);
-				agent.getContentManager().fillContent(msg, br);
+				//myAgent.getContentManager().fillContent(msg, agAction);
+				msg.setContentObject(agAction);
+				//agent.getContentManager().fillContent(msg, agAction);
 				agent.send(msg);
 				System.out.println(agent.getLocalName() + ": REQUEST BOOK a ROOM to" + agent.getHotel());
-			}
-			catch (CodecException ce){
+			//}
+			/*catch (CodecException ce){
 				ce.printStackTrace();
 			}
 			catch (OntologyException oe){
 				oe.printStackTrace();
-			}
+			}*/
 				
 		}catch (Exception e){
 			e.printStackTrace();

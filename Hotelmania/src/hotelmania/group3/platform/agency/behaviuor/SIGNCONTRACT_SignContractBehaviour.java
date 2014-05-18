@@ -106,10 +106,10 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 							if ( hotel_day_contract_repeated  ){
 								reply.setPerformative(ACLMessage.REFUSE);
 								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is REFUSED: Contract exits for this Hotel in this day");
-							} /*else if (!correct_contract_day){
+							} else if (!correct_contract_day){
 								reply.setPerformative(ACLMessage.REFUSE);
 								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is REFUSED: Day of requested contract it is wrong");
-							}*/
+							}
 							else {
 								//agent.signedContracts.add(agent.signedContracts.size(), sc);
 								agent.signedContracts.add(sc);

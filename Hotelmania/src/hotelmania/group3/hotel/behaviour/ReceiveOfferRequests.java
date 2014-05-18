@@ -60,6 +60,7 @@ public class ReceiveOfferRequests extends CyclicBehaviour {
 							Price totalPrice = new Price();
 							totalPrice.setPrice(nightsStayed * price);
 							offer.setRoomPrice(totalPrice);
+							agent.makeOffer((msg.getSender()).getLocalName(), offer);
 							reply.setPerformative(ACLMessage.INFORM);
 							reply.setOntology(agent.ontology.getName());
 							reply.setLanguage(agent.codec.getName());
