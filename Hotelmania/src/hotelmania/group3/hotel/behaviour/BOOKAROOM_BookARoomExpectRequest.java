@@ -11,6 +11,10 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
 import jade.content.Concept;
+import jade.content.ContentElement;
+import jade.content.lang.Codec.CodecException;
+import jade.content.onto.OntologyException;
+import jade.content.onto.UngroundedException;
 import jade.content.onto.basic.*;
 import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.group3.platform.AgClient3;
@@ -37,14 +41,16 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 		
 		if (msg!=null){
 			try{
-				Serializable ce = null;
+				 ContentElement ce = null;
 				int AclMessage = msg.getPerformative();
 				ACLMessage reply = msg.createReply();
 				reply.setProtocol(AgClient3.BOOKAROOM_REQUEST);
 					
 				if (AclMessage == ACLMessage.REQUEST){
 					// The ContentManager transforms the message content (string) in java objects
-					ce = msg.getContentObject();
+					ce = myAgent.getContentManager().extractContent(msg);
+					
+					
 					// We expect an action inside the message
 					if (ce instanceof Action){
 						Action agAction = (Action) ce;
@@ -71,7 +77,7 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 							}
 							
 							//Review if requestPrice is different to dictionary offers price
-							if (!agent.isValidOffer(requestedClientName, br.getBookingOffer()))
+							if (!agent.isValidOffer(requestedClientName, br.getPrice()))
 								differentPrice = true;
 								
 													
@@ -100,7 +106,13 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
 					System.out.println(myAgent.getLocalName()+ ": BOOK ROOM REQUEST - NOT UNDERSTOOD: wrong protocol");
 				}	
-			} catch (UnreadableException e) {
+			} catch (UngroundedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CodecException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (OntologyException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

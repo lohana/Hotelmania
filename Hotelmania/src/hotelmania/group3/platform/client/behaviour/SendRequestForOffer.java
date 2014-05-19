@@ -7,8 +7,10 @@
 package hotelmania.group3.platform.client.behaviour;
 
 import hotelmania.group3.platform.AgClient3;
+import hotelmania.ontology.StayQueryRef;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
+import jade.content.onto.basic.Action;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
@@ -34,8 +36,11 @@ public class SendRequestForOffer extends SimpleBehaviour {
 			msg.setLanguage(agent.codec.getName());
 			msg.setOntology(agent.ontology.getName());
 			
+			StayQueryRef stayQuery = new StayQueryRef();
+			stayQuery.setStay(agent.getStay());
+			
 			try{
-				agent.getContentManager().fillContent(msg, agent.getStay());
+				agent.getContentManager().fillContent(msg, stayQuery);
 				agent.send(msg);
 				System.out.println(agent.getLocalName() + ": QUERY_REF BookingOffer " + agent.getHotel());
 			}

@@ -58,7 +58,7 @@ public class ReceiveOfferRequests extends CyclicBehaviour {
 							float price = agent.strategy.getCurrentPrice();
 							int nightsStayed = stay.getCheckOut() - stay.getCheckIn();
 							Price totalPrice = new Price();
-							totalPrice.setPrice(nightsStayed * price);
+							totalPrice.setAmount(nightsStayed * price);
 							offer.setRoomPrice(totalPrice);
 							agent.makeOffer((msg.getSender()).getLocalName(), offer);
 							reply.setPerformative(ACLMessage.INFORM);

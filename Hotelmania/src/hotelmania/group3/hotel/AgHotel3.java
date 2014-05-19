@@ -123,10 +123,10 @@ public class AgHotel3 extends DayDependentAgent {
 		offers.put(client, offer);
 	}
 	
-	public boolean isValidOffer(String client, BookingOffer offer) {
+	public boolean isValidOffer(String client, Price price) {
 		if (offers.containsKey(client)) {
 			BookingOffer currentOffer = (BookingOffer)(offers.get(client));
-			if (offer.getRoomPrice().getPrice() == currentOffer.getRoomPrice().getPrice()) {
+			if (price.getAmount() == currentOffer.getRoomPrice().getAmount()) {
 				return true;
 			}
 		}

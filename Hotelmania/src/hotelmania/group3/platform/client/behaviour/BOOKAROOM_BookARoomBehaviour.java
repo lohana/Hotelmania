@@ -44,15 +44,13 @@ public class BOOKAROOM_BookARoomBehaviour extends SimpleBehaviour {
 			BookRoom br = new BookRoom();
 			CompleteOffer offer = agent.getSelectedOffer();
 			br.setStay(agent.getStay());
-			BookingOffer bo = new BookingOffer();
 			Price price = new Price();
-			price.setPrice(offer.getPrice());
-			bo.setRoomPrice(price);
-			br.setBookingOffer(bo);
+			price.setAmount(offer.getPrice());
+			br.setPrice(price);
 			
 			// Wrap the message with action
 			Action agAction = new Action(agent.getHotelAID(),  br);
-			msg.setContentObject(agAction);
+			agent.getContentManager().fillContent(msg, agAction);
 			
 			agent.send(msg);
 			System.out.println(agent.getLocalName() + ": REQUEST BOOK a ROOM to" + agent.getHotel());
