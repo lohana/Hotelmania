@@ -140,6 +140,7 @@ public class SharedAgentsOntology extends jade.content.onto.Ontology  {
     add(bookingOfferSchema, hotelmania.ontology.BookingOffer.class);
 
 
+    
     // adding fields
     hotelSchema.add(HOTEL_HOTELAGENT, (ConceptSchema)getSchema(BasicOntology.AID), ObjectSchema.OPTIONAL);
     hotelSchema.add(HOTEL_HOTEL_NAME, (TermSchema)getSchema(BasicOntology.STRING), ObjectSchema.MANDATORY);
