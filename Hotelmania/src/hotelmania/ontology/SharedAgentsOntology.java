@@ -9,7 +9,7 @@ import jade.core.CaseInsensitiveString;
 
 /** file: SharedAgentsOntologyOntology.java
  * @author ontology bean generator
- * @version 2014/05/19, 16:02:34
+ * @version 2014/05/23, 21:12:41
  */
 public class SharedAgentsOntology extends jade.content.onto.Ontology  {
   //NAME
@@ -32,6 +32,7 @@ public class SharedAgentsOntology extends jade.content.onto.Ontology  {
     public static final String HOTELINFORMATION_HOTEL="hotel";
     public static final String HOTELINFORMATION_RATING="rating";
     public static final String HOTELINFORMATION="HotelInformation";
+    public static final String NOTIFICATIONENDSIMULATION="NotificationEndSimulation";
     public static final String STAYQUERYREF_STAY="stay";
     public static final String STAYQUERYREF="StayQueryRef";
     public static final String NOTIFICATIONDAYEVENT_DAYEVENT="dayEvent";
@@ -127,6 +128,8 @@ public class SharedAgentsOntology extends jade.content.onto.Ontology  {
     add(notificationDayEventSchema, hotelmania.ontology.NotificationDayEvent.class);
     PredicateSchema stayQueryRefSchema = new PredicateSchema(STAYQUERYREF);
     add(stayQueryRefSchema, hotelmania.ontology.StayQueryRef.class);
+    PredicateSchema notificationEndSimulationSchema = new PredicateSchema(NOTIFICATIONENDSIMULATION);
+    add(notificationEndSimulationSchema, hotelmania.ontology.NotificationEndSimulation.class);
     PredicateSchema hotelInformationSchema = new PredicateSchema(HOTELINFORMATION);
     add(hotelInformationSchema, hotelmania.ontology.HotelInformation.class);
     PredicateSchema accountStatusSchema = new PredicateSchema(ACCOUNTSTATUS);

@@ -8,7 +8,7 @@ import jade.core.*;
 /**
 * Protege name: Contract
 * @author ontology bean generator
-* @version 2014/05/19, 16:02:34
+* @version 2014/05/23, 21:12:41
 */
 public class Contract implements Concept {
 

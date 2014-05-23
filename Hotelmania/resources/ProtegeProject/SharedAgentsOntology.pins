@@ -1,0 +1,135 @@
+; Fri May 23 21:12:10 CEST 2014
+; 
+;+ (version "3.4.8")
+;+ (build "Build 629")
+
+([Account] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([AccountStatus] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([AccountStatusQueryRef] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([addresses] of  %3AJADE-SLOT
+
+	(%3AJADE-UNNAMED-SLOT FALSE))
+
+([AgentAction] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE TRUE))
+
+([AID] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE TRUE))
+
+([BookingOffer] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([BookRoom] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([ChargeAccount] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([Concept] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE TRUE))
+
+([Contract] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([CreateAccountRequest] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([DayEvent] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([EndSimulation] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([Hotel] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([HotelInformation] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([name] of  %3AJADE-SLOT
+
+	(%3AJADE-UNNAMED-SLOT FALSE))
+
+([NotificationDayEvent] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([NotificationEndSimulation] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([NumberOfClients] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([NumberOfClientsQueryRef] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([Predicate] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE TRUE))
+
+([Price] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([project+annotation] of  %3APROJECT-ANNOTATION
+
+	(%3ALOCATION "/home/isaac/Agents/Ontology/Ontology MAREK 2")
+	(%3AONTOLOGYNAME "SharedAgentsOntology")
+	(%3APACKAGE "hotelmania.ontology")
+	(%3ASUPPORT "j2se"))
+
+([RegistrationRequest] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([resolvers] of  %3AJADE-SLOT
+
+	(%3AJADE-UNNAMED-SLOT FALSE))
+
+([SignContract] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([SimpleJADEAbstractOntology_00014] of  %3ASTANDARD-FACET
+
+	(%3AASSOCIATED-SLOT [%3AJADE-NAME]))
+
+([SimpleJADEAbstractOntology_00016] of  %3ASTANDARD-FACET
+
+	(%3AASSOCIATED-SLOT [%3AJADE-UNNAMED-SLOT]))
+
+([Stay] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([StayQueryRef] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
+
+([SubscribeToDayEvent] of  %3AJADE-CLASS
+
+	(%3AJADE-IGNORE FALSE))
