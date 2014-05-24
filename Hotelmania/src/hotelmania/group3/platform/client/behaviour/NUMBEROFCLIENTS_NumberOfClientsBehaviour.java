@@ -10,10 +10,8 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
-import jade.content.Predicate;
 import jade.content.lang.Codec.*;
 import jade.content.onto.*;
-import jade.content.onto.basic.*;
 import hotelmania.group3.platform.AgClient3;
 import hotelmania.ontology.NumberOfClientsQueryRef;
 
@@ -31,9 +29,6 @@ public class NUMBEROFCLIENTS_NumberOfClientsBehaviour extends SimpleBehaviour {
 	
 	public void action(){
 		AgClient3 agent = (AgClient3)this.myAgent;
-		
-		// The client will search for hotelmania 12 times for total of 60 seconds
-;
 		
 		try{
 								

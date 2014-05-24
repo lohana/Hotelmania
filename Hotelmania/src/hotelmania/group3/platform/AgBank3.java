@@ -13,7 +13,6 @@ import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import jade.core.Agent;
 import hotelmania.ontology.*;
- 
 import hotelmania.group3.platform.bank.behaviour.*;
 
 @SuppressWarnings("serial")
@@ -48,9 +47,6 @@ public class AgBank3 extends Agent{
 			sd.setType(CREATEACCOUNT_SERVICE);
 			dfd.addServices(sd);
 
-
-
-
 			sdas.setName(this.getName()); 
 			sdas.setType(ACCOUNTSTATUS_SERVICE);
 			dfd.addServices(sdas);
@@ -59,22 +55,20 @@ public class AgBank3 extends Agent{
 			sdca.setType(CHARGE_ACCOUNT_SERVICE);
 			dfd.addServices(sdca);
 
-
 			// Registers its description in the DF
 			DFService.register(this, dfd);
 			System.out.println(getLocalName()+": Bank CREATE ACCOUNT SERVICE is registered in the DF");
 			System.out.println(getLocalName()+": Bank CREATE ACCOUNT STATUS SERVICE is registered in the DF");
 			System.out.println(getLocalName()+": Bank CHARGE TO ACCOUNT SERVICE is registered in the DF");
 
-
-
 			dfd = null;
 			sd = null;
 			sdas= null;
 			sdca= null;
-			//doWait(10000);
+			
+			Thread.sleep(5000);
 
-		}catch (FIPAException e){
+		}catch (FIPAException | InterruptedException e){
 			e.printStackTrace();
 		}
 
@@ -87,16 +81,11 @@ public class AgBank3 extends Agent{
     	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
 		
 	}
- 
-    
 
 	public Account getStatusForHotel(int account)
 	{
 		return (Account)(accounts.get(account));
-
 	}
-
-
 
 	public int createAccount(Hotel hotel)
 	{
@@ -113,9 +102,7 @@ public class AgBank3 extends Agent{
 	}
 
 	public boolean chargetoaccount(Hotel h,float amount){
-		
- 		
-		
+
 		int id_account = (int)id_accounts.get(h.getHotel_name());
 
 		if(getStatusForHotel(id_account)  != null && amount>0){
@@ -130,9 +117,5 @@ public class AgBank3 extends Agent{
 
 			return false;
 		}
-
 	}
-	
-	
-	 
 }

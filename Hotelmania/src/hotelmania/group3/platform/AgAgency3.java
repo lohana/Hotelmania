@@ -10,7 +10,6 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import hotelmania.group3.platform.agency.behaviuor.*;
- 
 import hotelmania.ontology.*;
 
 
@@ -47,14 +46,14 @@ public class AgAgency3 extends DayDependentAgent{
 			System.out.println(getLocalName()+": AGENCY SIGN CONTRACT SERVICE is registered in the DF");
 			dfd = null;
 			sd = null;
-			doWait(10000);
+			Thread.sleep(5000);
 			
-        }catch (FIPAException e){
+        }catch (FIPAException | InterruptedException e){
 			e.printStackTrace();
 		}
         
         // Adds a behavior to answer the sign contract requests
-     //	addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
+        // addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
         
         // Adds behavior for day communication
     	addDayBehaviour();

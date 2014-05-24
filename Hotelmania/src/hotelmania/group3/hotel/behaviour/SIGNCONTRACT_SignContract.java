@@ -112,10 +112,10 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 					}
 					ignore = false;
 				}
-				agent.doWait(5000);
+				Thread.sleep(1000);
 			} else {
-				// If no new Agency has been found, it waits 5 seconds
-				agent.doWait(5000);
+				// If no new Agency has been found, it waits 1 second
+				Thread.sleep(1000);
 			}	
 		}catch (Exception e){
 			e.printStackTrace();

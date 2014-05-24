@@ -34,7 +34,7 @@ public class SendRate extends SimpleBehaviour {
 	public void action(){
 		AgClient3 agent = (AgClient3)this.myAgent;
 		
-		// The client will search for hotelmania 12 times for total of 60 seconds
+		// The client will search for hotelmania 60 times for total of 60 seconds
 	    int count = 0;
 		
 		// Creates the description for the type of agent to be searched
@@ -104,10 +104,10 @@ public class SendRate extends SimpleBehaviour {
 					}
 				}
 				count++;
-				agent.doWait(5000);
+				Thread.sleep(1000);
 			} else {
 				count++;
-				agent.doWait(5000);
+				Thread.sleep(1000);
 			}	
 		}catch (Exception e){
 			e.printStackTrace();

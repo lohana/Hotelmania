@@ -10,7 +10,6 @@ import hotelmania.group3.platform.AgClient3;
 import hotelmania.ontology.StayQueryRef;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
-import jade.content.onto.basic.Action;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;

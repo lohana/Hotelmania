@@ -96,6 +96,7 @@ public class AgSimulator3 extends Agent {
 
 		// Adds a behavior to answer the estimation requests
 		addBehaviour(new SubscribeAgents(this));
+		
 		// Adds a behavior to answer the estimation requests
 		addBehaviour(new SubscribeEndSimulation(this));
 		
@@ -108,10 +109,9 @@ public class AgSimulator3 extends Agent {
 			lastDay = Integer.parseInt(configuration.getProperty(Configuration.MAX_DAYS));
 			clientsPerDay = Integer.parseInt(configuration.getProperty(Configuration.CLIENTS_PER_DAY));
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("EXCEPTION: Unable to read configuration file. Default values are used.");
 		}
-
-		doWait(10000);
 
 		// Adds a behavior to receive evaluation from clients
 		addBehaviour(new SendDayChange(this, interval));
@@ -120,7 +120,11 @@ public class AgSimulator3 extends Agent {
 	public void changeDay()
 	{
 		day++;
-		generateClients();
+		if (day <= lastDay) {
+			generateClients();
+		} else {
+			// End of the simulation
+		}
 	}
 
 	public int getCurrentDay()

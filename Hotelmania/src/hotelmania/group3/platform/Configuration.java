@@ -31,7 +31,7 @@ public class Configuration {
     public final static String BUDGET_VARIANCE = "budget_variance";
     
     /** The number of clients to be generated every day */
-    public final static String CLIENTS_PER_DAY = "clients_per_day";
+    public final static String CLIENTS_PER_DAY = "simulation.clients_per_day";
  
     private Configuration() {
         this.properties = new Properties();

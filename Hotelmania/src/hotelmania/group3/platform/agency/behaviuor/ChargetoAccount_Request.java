@@ -105,10 +105,10 @@ public class ChargetoAccount_Request extends SimpleBehaviour{
 					}
 					ignore = false;
 				}
-				agency.doWait(5000);
+				Thread.sleep(1000);
 			} else {
-				// If no new BANK has been found, it waits 5 seconds
-				agency.doWait(5000);
+				// If no new BANK has been found, it waits 1 second
+				Thread.sleep(1000);
 			}	
 		}catch (Exception e){
 			e.printStackTrace();

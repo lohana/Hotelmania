@@ -6,7 +6,6 @@
 package hotelmania.group3.platform.simulator.behaviour;
 
 import hotelmania.group3.platform.AgSimulator3;
-import hotelmania.group3.platform.Configuration;
 import hotelmania.ontology.NotificationEndSimulation;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;

@@ -81,9 +81,9 @@ public class AgHotelmania3 extends Agent {
 					
 			dfd = null;
 			sd = null;
-			doWait(10000);
+			Thread.sleep(5000);
 			
-		} catch (FIPAException e){
+		} catch (FIPAException | InterruptedException e){
 			e.printStackTrace();
 		}
 		
@@ -116,6 +116,6 @@ public class AgHotelmania3 extends Agent {
 				count++;
 			}
 		}
-		return count == 0 ? 0 : sum / count;
+		return count == 0 ? 5 : sum / count;
 	}
 }

@@ -8,7 +8,6 @@ package hotelmania.group3.platform.simulator.behaviour;
 
 import hotelmania.group3.platform.AgSimulator3;
 import hotelmania.ontology.EndSimulation;
-import hotelmania.ontology.SubscribeToDayEvent;
 import jade.content.Concept;
 import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;

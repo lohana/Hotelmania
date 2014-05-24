@@ -28,7 +28,6 @@ public class GetAccountStatus extends CyclicBehaviour {
 	int last = 0;
 	boolean ignore = false;
 
-
 	public GetAccountStatus(Agent agent) {
 
 		super(agent);
@@ -42,7 +41,6 @@ public class GetAccountStatus extends CyclicBehaviour {
 		if(agent.id_account!=0) {
 
 			final Date registerTime = new Date();
-
  
 			// Creates the description for the type of agent to be searched
 			DFAgentDescription dfd = new DFAgentDescription();
@@ -76,24 +74,18 @@ public class GetAccountStatus extends CyclicBehaviour {
 					// If we have not contacted yet with this simulator
 					if (!ignore){
 						simulator[last++] = ag;
-
-
-
-
+						
 						msg.addReceiver(ag);
 						msg.setLanguage(agent.codec.getName());
 						msg.setOntology(agent.ontology.getName());
 						msg.setProtocol(AgBank3.ACCOUNTSTATUS_SERVICE);
 
 						// Create Action AccountStatusQueryRef
-
 						AccountStatusQueryRef acsqf = new AccountStatusQueryRef();
-
 
 						acsqf.setId_account(agent.id_account);
 
 						Action agAction = new Action(ag,acsqf);
-
 
 						try {
 							agent.getContentManager().fillContent(msg, agAction);
@@ -108,18 +100,10 @@ public class GetAccountStatus extends CyclicBehaviour {
 						System.out.println(agent.getLocalName()
 								+ ": QUERY_REF AccountStatusQueryRef  "
 								+ ag.getName());
-
-
-					}ignore = false;
+					}
+					ignore = false;
 				}
-				
-				//agent.doWait(5);
-			} else {
-				// If no new Simulator has been found, it waits 5 seconds
-				//agent.doWait(5000);
-				//block();
 			}	
-		}
-		
+		}	
 	}
 }

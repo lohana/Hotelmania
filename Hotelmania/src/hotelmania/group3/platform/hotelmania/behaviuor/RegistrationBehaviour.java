@@ -15,7 +15,6 @@ import jade.content.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
 import hotelmania.group3.platform.AgHotelmania3;
-import hotelmania.group3.platform.Opinion;
 import hotelmania.group3.platform.hotelmania.behaviuor.RegistrationBehaviour;
 import hotelmania.ontology.*;
 

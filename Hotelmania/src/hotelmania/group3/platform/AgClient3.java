@@ -47,12 +47,19 @@ public class AgClient3 extends DayDependentAgent {
 	// All hotels in hotelmania
 	private ArrayList<AID> hotels= new ArrayList<AID>();
 
-	protected void setup(String name, float budget, int arrivalDay, int nightsToStay){
+	protected void setup(){
+		
+		Object[] args = getArguments();
+        String name= (String) args[0];
+        float budget = (float) args[1];
+        int arrivalDay = (int) args[2];
+        int nightsToStay = (int) args[3];
 		
 		this.id = name;
 		this.budget = budget;
 		this.arrivalDay = arrivalDay;
 		this.nightsToStay = nightsToStay;
+		
 		this.stay = new Stay();
 		stay.setCheckIn(arrivalDay);
 		stay.setCheckOut(arrivalDay + nightsToStay);
@@ -95,9 +102,8 @@ public class AgClient3 extends DayDependentAgent {
     	
     	// Change THIS - Eli
     	hotels.add(hotelAID);
-    	stay = new Stay();
-    	stay.setCheckIn(5);
-    	stay.setCheckOut(8);
+    	
+    	//System.out.println("Client generated - " + budget + " " + stay.getCheckIn() + "/" + stay.getCheckOut());
     }
 	
 	public int getRate()
