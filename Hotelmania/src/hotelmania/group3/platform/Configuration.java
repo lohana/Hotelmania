@@ -23,6 +23,15 @@ public class Configuration {
     
     /** Number of days to simulate */
     public final static String MAX_DAYS = "simulation.days";
+    
+    /** The initial budget of a client */
+    public final static String CLIENT_BUDGET = "client_budget";
+    
+    /** The variance that a client's budget may have */
+    public final static String BUDGET_VARIANCE = "budget_variance";
+    
+    /** The number of clients to be generated every day */
+    public final static String CLIENTS_PER_DAY = "clients_per_day";
  
     private Configuration() {
         this.properties = new Properties();

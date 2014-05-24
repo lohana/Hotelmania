@@ -35,7 +35,9 @@ public class AgClient3 extends DayDependentAgent {
 	// Information about the hotel where the client stayed
 	public String hotel = "";
 	public int rate = 0;
-	public float budget = 0.0f;
+	private float budget = 0.0f;
+	private int arrivalDay = 1;
+	private int nightsToStay = 1;
 	public AID hotelAID;
 
 	private Stay stay;
@@ -45,7 +47,15 @@ public class AgClient3 extends DayDependentAgent {
 	// All hotels in hotelmania
 	private ArrayList<AID> hotels= new ArrayList<AID>();
 
-	protected void setup(){
+	protected void setup(String name, float budget, int arrivalDay, int nightsToStay){
+		
+		this.id = name;
+		this.budget = budget;
+		this.arrivalDay = arrivalDay;
+		this.nightsToStay = nightsToStay;
+		this.stay = new Stay();
+		stay.setCheckIn(arrivalDay);
+		stay.setCheckOut(arrivalDay + nightsToStay);
 		
 		ontology = SharedAgentsOntology.getInstance();
 		Object[] pr = this.getArguments();

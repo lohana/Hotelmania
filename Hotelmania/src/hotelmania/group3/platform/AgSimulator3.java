@@ -22,6 +22,8 @@ import jade.content.lang.sl.SLCodec;
 import jade.content.onto.Ontology;
 import jade.core.AID;
 import jade.core.Agent;
+import jade.wrapper.AgentController;
+import jade.wrapper.StaleProxyException;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -38,15 +40,20 @@ public class AgSimulator3 extends Agent {
 	public static final String TIMECHANGE_SERVICE = "SubscribeToDayEvent";
 	public static final String END_SIMULATION = "EndSimulation";
 
-
 	// Agents, subscribed for NotificationDayEvent 
 	private ArrayList<AID> registeredAgents = new ArrayList<AID>();
 	// Agents, subscribed for NotificationDayEvent 
 	private ArrayList<AID> registeredAgents_EndSimulation = new ArrayList<AID>();
-
-
+	
+	// Settings
+	int interval = 5000;
+	float clientBudget = 50.0f;
+	float clientBudgetVariance = 25.0f;
+	int lastDay = 30;
+	int clientsPerDay = 10;
 
 	private int day = 0;
+	private int nextClientID = 0;
 
 	protected void setup() {
 		System.out.println(getLocalName() + ": has entered.");
@@ -74,7 +81,6 @@ public class AgSimulator3 extends Agent {
 			// Registers its description in the DF
 			DFService.register(this, dfd);
 			
-			
 			System.out.println(getLocalName() + ": is registered in the DF");
 			System.out.println(getLocalName() + ":(EndSimulation) is registered in the DF");
 			dfd = null;
@@ -83,12 +89,6 @@ public class AgSimulator3 extends Agent {
 
 			System.out.println(getLocalName() + ": Waiting subscriptions ...");
 			System.out.println(getLocalName() + ":(EndSimulation) Waiting subscriptions ...");
-
-			doWait(10000);
-
-
-
-
 
 		} catch (FIPAException e){
 			e.printStackTrace();
@@ -99,10 +99,19 @@ public class AgSimulator3 extends Agent {
 		// Adds a behavior to answer the estimation requests
 		addBehaviour(new SubscribeEndSimulation(this));
 		
-		
-		int interval = 5000;
-		//interval = Integer.parseInt(Configuration.getInstance().getProperty(Configuration.DATE_LENGTH)) * 1000;
-		interval = 10 * 1000;
+		interval = 5000;
+		try {
+			Configuration configuration = Configuration.getInstance();
+			interval = Integer.parseInt(configuration.getProperty(Configuration.DATE_LENGTH)) * 1000;
+			clientBudget = Float.parseFloat(configuration.getProperty(Configuration.CLIENT_BUDGET));
+			clientBudgetVariance = Float.parseFloat(configuration.getProperty(Configuration.BUDGET_VARIANCE));
+			lastDay = Integer.parseInt(configuration.getProperty(Configuration.MAX_DAYS));
+			clientsPerDay = Integer.parseInt(configuration.getProperty(Configuration.CLIENTS_PER_DAY));
+		} catch (Exception e) {
+			System.out.println("EXCEPTION: Unable to read configuration file. Default values are used.");
+		}
+
+		doWait(10000);
 
 		// Adds a behavior to receive evaluation from clients
 		addBehaviour(new SendDayChange(this, interval));
@@ -111,6 +120,7 @@ public class AgSimulator3 extends Agent {
 	public void changeDay()
 	{
 		day++;
+		generateClients();
 	}
 
 	public int getCurrentDay()
@@ -163,12 +173,36 @@ public class AgSimulator3 extends Agent {
 			registeredAgents_EndSimulation.add(agent);
 		}
 	}
+
 	public ArrayList<AID> getRegisteredAgents_EndSimulation()
 	{
 		return new ArrayList<AID>(registeredAgents_EndSimulation);
 	}
 
+	private void generateClients() {
+		for (int i = 0; i < clientsPerDay; i++) {
+			nextClientID++;
+			String name = "Client" + nextClientID;
+			
+			float budget = clientBudget + randomValue(0 - (int)clientBudgetVariance, (int)clientBudgetVariance);
+			int arrivalDay = randomValue(day + 1, lastDay);
+			int nightsToStay = randomValue(1, lastDay - arrivalDay);
+			try {
+				startNewAgent("hotelmania.group3.platform.AgClient3", "Client" + nextClientID, new Object[]{ name, budget, arrivalDay, nightsToStay });
+			} catch (StaleProxyException e) {
+				e.printStackTrace();
+				System.out.println("Unable to launch agent Client.");
+			}
+		}
+	}
+	
+	private void startNewAgent(String className,String agentName,Object[] arguments) throws StaleProxyException {
+    	((AgentController)getContainerController().createNewAgent(agentName,className,arguments)).start();
+    }
 
+	private int randomValue(int min, int max) {
+		return min + (int)(Math.random() * ((max - min) + 1));
+	}
 
 
 }
