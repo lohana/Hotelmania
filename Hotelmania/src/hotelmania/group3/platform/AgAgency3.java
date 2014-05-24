@@ -9,7 +9,8 @@ import jade.domain.FIPAException;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
-import hotelmania.group3.platform.agency.behaviuor.SIGNCONTRACT_SignContractBehaviour;
+import hotelmania.group3.platform.agency.behaviuor.*;
+ 
 import hotelmania.ontology.*;
 
 
@@ -57,6 +58,10 @@ public class AgAgency3 extends DayDependentAgent{
         
         // Adds behavior for day communication
     	addDayBehaviour();
+    	
+    	// EndSimulation Behaviors 
+    	addBehaviour (new SubscribeForEndSimulation(this));
+    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
     }
     
     public void ChangesOnDayChange()

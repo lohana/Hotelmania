@@ -1,8 +1,8 @@
 // Expects account status
 
-package hotelmania.group3.hotel.behaviour;
+package hotelmania.group3.platform.bank.behaviour;
 
-import hotelmania.group3.hotel.AgHotel3;
+import hotelmania.group3.platform.AgBank3;
 import hotelmania.group3.platform.AgSimulator3;
 import hotelmania.ontology.NotificationEndSimulation;
 import jade.content.ContentElement;
@@ -22,7 +22,7 @@ public class SubscribeFrEndSimulation_ExpectforMessages extends CyclicBehaviour 
 	}
 
 	public void action() {
-		AgHotel3 agent = (AgHotel3) this.myAgent;
+		AgBank3 agent = (AgBank3) this.myAgent;
 
 		// Waits for estimation requests
 		ACLMessage msg = agent.receive(MessageTemplate.and(MessageTemplate
@@ -33,7 +33,7 @@ public class SubscribeFrEndSimulation_ExpectforMessages extends CyclicBehaviour 
 		if (msg != null) {
 			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
-			 
+			
 
 			if (AclMessage == ACLMessage.INFORM) {
 

@@ -6,6 +6,10 @@
 package hotelmania.group3.platform.simulator.behaviour;
 
 import hotelmania.group3.platform.AgSimulator3;
+import hotelmania.group3.platform.Configuration;
+import hotelmania.ontology.NotificationEndSimulation;
+import jade.content.lang.Codec.CodecException;
+import jade.content.onto.OntologyException;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.SimpleBehaviour;
@@ -25,7 +29,10 @@ public class SendSubscribeEndSimulation extends SimpleBehaviour {
 		{
 			int currentDay = agent.getCurrentDay();
 			
-			if (currentDay == 30){
+		//	 int max_days =  Integer.parseInt( Configuration.getInstance().getProperty(Configuration.MAX_DAYS) ); 
+			 int max_days =  10;
+			
+			if (currentDay == max_days){
 			
 			for (AID ag : agent.getRegisteredAgents_EndSimulation())
 			{
@@ -35,6 +42,15 @@ public class SendSubscribeEndSimulation extends SimpleBehaviour {
 				msg.addReceiver(ag);
 				msg.setLanguage(agent.codec.getName());
 				msg.setOntology(agent.ontology.getName());
+				
+				NotificationEndSimulation n = new NotificationEndSimulation();
+				try {
+					agent.getContentManager().fillContent(msg, n);
+				} catch (CodecException | OntologyException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 
 				agent.send(msg);
 				System.out.println(String.format("%s: Simulation %d Over  to %s.", agent.getLocalName(), agent.getCurrentDay(), ag.getLocalName()));

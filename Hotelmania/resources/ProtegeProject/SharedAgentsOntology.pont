@@ -1,4 +1,4 @@
-; Fri May 23 21:12:10 CEST 2014
+; Sat May 24 00:34:04 CEST 2014
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -7,22 +7,9 @@
 (defclass %3ACLIPS_TOP_LEVEL_SLOT_CLASS "Fake class to save top-level slot information"
 	(is-a USER)
 	(role abstract)
-	(single-slot SharedAgentsOntology_Class1
-		(type INSTANCE)
-;+		(allowed-classes)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot SharedAgentsOntology_Class2
-		(type STRING)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
 	(single-slot checkOut
 		(type INTEGER)
-;+		(cardinality 0 1)
-		(create-accessor read-write))
-	(single-slot SharedAgentsOntology_Class3
-		(type STRING)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot account
 		(type INSTANCE)
@@ -59,7 +46,7 @@
 	(single-slot roomPrice
 		(type INSTANCE)
 ;+		(allowed-classes Price)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot hotel
 		(type INSTANCE)
@@ -68,7 +55,7 @@
 		(create-accessor read-write))
 	(single-slot checkIn
 		(type INTEGER)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot %3AJADE-PROPERTIES-GENERATE-BEANS
 		(type SYMBOL)
@@ -119,7 +106,7 @@
 	(single-slot stay
 		(type INSTANCE)
 ;+		(allowed-classes Stay)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot %3AJADE-JAVA-CODE
 		(type STRING)
@@ -296,6 +283,23 @@
 	(is-a Concept)
 	(role abstract))
 
+(defclass ChargeAccount
+	(is-a AgentAction)
+	(role concrete)
+	(single-slot day
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot amount
+		(type FLOAT)
+;+		(cardinality 1 1)
+		(create-accessor read-write))
+	(single-slot hotel
+		(type INSTANCE)
+;+		(allowed-classes Hotel)
+;+		(cardinality 0 1)
+		(create-accessor read-write)))
+
 (defclass RegistrationRequest
 	(is-a AgentAction)
 	(role concrete)
@@ -340,43 +344,18 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
-(defclass NumberOfClientsQueryRef
-	(is-a AgentAction)
-	(role concrete)
-	(single-slot day
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
 (defclass BookRoom
 	(is-a AgentAction)
 	(role concrete)
 	(single-slot stay
 		(type INSTANCE)
 ;+		(allowed-classes Stay)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot price
 		(type INSTANCE)
 ;+		(allowed-classes Price)
 ;+		(cardinality 1 1)
-		(create-accessor read-write)))
-
-(defclass ChargeAccount
-	(is-a AgentAction)
-	(role concrete)
-	(single-slot day
-		(type INTEGER)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot amount
-		(type FLOAT)
-;+		(cardinality 1 1)
-		(create-accessor read-write))
-	(single-slot hotel
-		(type INSTANCE)
-;+		(allowed-classes Hotel)
-;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
 (defclass EndSimulation
@@ -466,11 +445,11 @@
 	(role concrete)
 	(single-slot checkOut
 		(type INTEGER)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write))
 	(single-slot checkIn
 		(type INTEGER)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
 (defclass Predicate "The common ancestor for all predicates in an ontology (e.g. FatherOf...)"
@@ -509,7 +488,7 @@
 	(single-slot roomPrice
 		(type INSTANCE)
 ;+		(allowed-classes Price)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
 (defclass HotelInformation
@@ -525,15 +504,23 @@
 ;+		(cardinality 0 1)
 		(create-accessor read-write)))
 
+(defclass NotificationEndSimulation
+	(is-a Predicate)
+	(role concrete))
+
 (defclass StayQueryRef
 	(is-a Predicate)
 	(role concrete)
 	(single-slot stay
 		(type INSTANCE)
 ;+		(allowed-classes Stay)
-;+		(cardinality 0 1)
+;+		(cardinality 1 1)
 		(create-accessor read-write)))
 
-(defclass NotificationEndSimulation
+(defclass NumberOfClientsQueryRef
 	(is-a Predicate)
-	(role concrete))
+	(role concrete)
+	(single-slot day
+		(type INTEGER)
+;+		(cardinality 1 1)
+		(create-accessor read-write)))

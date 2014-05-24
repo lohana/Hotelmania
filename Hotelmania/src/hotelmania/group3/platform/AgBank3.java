@@ -13,6 +13,7 @@ import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import jade.core.Agent;
 import hotelmania.ontology.*;
+ 
 import hotelmania.group3.platform.bank.behaviour.*;
 
 @SuppressWarnings("serial")
@@ -80,6 +81,10 @@ public class AgBank3 extends Agent{
 		addBehaviour(new CreateAccountForHotel(this));
 		addBehaviour(new SendAccountStatus(this));
 		addBehaviour(new ChargetoAccount(this));
+		
+		// EndSimulation Behaviors 
+    	addBehaviour (new SubscribeForEndSimulation(this));
+    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
 		
 	}
  

@@ -12,6 +12,7 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import jade.core.AID;
+ 
 import hotelmania.group3.ontology.Ontology3;
 import hotelmania.group3.platform.client.behaviour.*;
 import hotelmania.ontology.SharedAgentsOntology;
@@ -77,6 +78,10 @@ public class AgClient3 extends DayDependentAgent {
     	addBehaviour(new GetHotelInformation_ExpectforMessages(this));
     	
     	addBehaviour(new ReceiveOffers(this));
+    	
+    	// EndSimulation Behaviors 
+    	addBehaviour (new SubscribeForEndSimulation(this));
+    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
     	
     	// Change THIS - Eli
     	hotels.add(hotelAID);

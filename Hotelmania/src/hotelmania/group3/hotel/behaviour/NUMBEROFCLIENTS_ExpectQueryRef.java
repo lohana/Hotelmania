@@ -9,6 +9,7 @@ import hotelmania.ontology.NumberOfClients;
 import hotelmania.ontology.NumberOfClientsQueryRef;
 import jade.content.Concept;
 import jade.content.ContentElement;
+import jade.content.Predicate;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.content.onto.basic.Action;
@@ -50,17 +51,13 @@ public class NUMBEROFCLIENTS_ExpectQueryRef extends CyclicBehaviour {
 					// in java objects
 					ce = agent.getContentManager().extractContent(msg);
 					// We expect an action inside the message
-					if (ce instanceof Action){
-						
-						Action agAction = (Action) ce;
-						Concept conc = agAction.getAction();
-						// If the action is NumberOfClientsQueryRef
-						if (conc instanceof NumberOfClientsQueryRef){
+				
+						if (ce instanceof NumberOfClientsQueryRef){
 							   
 																				
-							NumberOfClientsQueryRef  noc = (NumberOfClientsQueryRef )conc;
-														
-							int requestedday = noc.getDay();
+							NumberOfClientsQueryRef  noc = (NumberOfClientsQueryRef )ce;
+							int day = noc.getDay();							
+							
 							AID receiverAgent = msg.getSender();
 							String requestedHotelName = receiverAgent.getLocalName();
 							
@@ -84,7 +81,7 @@ public class NUMBEROFCLIENTS_ExpectQueryRef extends CyclicBehaviour {
 							reply.setPerformative(ACLMessage.FAILURE);
 							System.out.println(myAgent.getLocalName()+ ": Number of Clients Query FAILED: Wrong Concept");
 						}
-					}
+					
 				} 
 				else{
 					reply.setPerformative(ACLMessage.FAILURE);

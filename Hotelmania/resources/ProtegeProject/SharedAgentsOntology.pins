@@ -1,4 +1,4 @@
-; Fri May 23 21:12:10 CEST 2014
+; Sat May 24 00:34:04 CEST 2014
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -97,7 +97,7 @@
 
 ([project+annotation] of  %3APROJECT-ANNOTATION
 
-	(%3ALOCATION "/home/isaac/Agents/Ontology/Ontology MAREK 2")
+	(%3ALOCATION "/home/isaac/Agents/Ontology/FINAL/clases")
 	(%3AONTOLOGYNAME "SharedAgentsOntology")
 	(%3APACKAGE "hotelmania.ontology")
 	(%3ASUPPORT "j2se"))

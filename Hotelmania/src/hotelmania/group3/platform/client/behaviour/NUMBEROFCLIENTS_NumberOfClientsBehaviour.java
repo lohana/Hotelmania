@@ -10,6 +10,7 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
+import jade.content.Predicate;
 import jade.content.lang.Codec.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
@@ -43,13 +44,15 @@ public class NUMBEROFCLIENTS_NumberOfClientsBehaviour extends SimpleBehaviour {
 			msg.setLanguage(agent.codec.getName());
 			msg.setOntology(agent.ontology.getName());
 			
-			NumberOfClientsQueryRef noc = new NumberOfClientsQueryRef();
-			
+			//NumberOfClientsQueryRef noc = new NumberOfClientsQueryRef();
 			// Wrap the message with action
-			Action agAction = new Action(agent.getHotelAID(),  noc);
+			//-Predicate agAction = new Predicate(agent.getHotelAID(),  noc);
+			NumberOfClientsQueryRef num_clients = new NumberOfClientsQueryRef();
+			num_clients.setDay(current);
+			
 			try{
 				// The ContentManager transforms the java objects into strings
-				agent.getContentManager().fillContent(msg, agAction);
+				agent.getContentManager().fillContent(msg, num_clients);
 				agent.send(msg);
 				System.out.println(agent.getLocalName() + ": Query for Number of Clients of " + agent.getHotelAID().getLocalName());
 			}

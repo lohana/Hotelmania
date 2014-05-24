@@ -1,4 +1,4 @@
-; Fri May 23 21:12:10 CEST 2014
+; Sat May 24 00:34:04 CEST 2014
 ; 
 ;+ (version "3.4.8")
 ;+ (build "Build 629")
@@ -30,7 +30,7 @@
 	(property_list [ProjectKB_7094_00037])
 	(widget_class_name "edu.stanford.smi.protege.widget.InstancesTab"))
 
-([KB_878317_Class3] of  Map
+([KB_754405_Class3] of  Map
 )
 
 ([KB_883944_Instance_0] of  Property_List
