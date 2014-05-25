@@ -88,9 +88,9 @@ public class AgClient3 extends DayDependentAgent {
     	
     	//addBehaviour(new NUMBEROFCLIENTS_NumberOfClientsBehaviour(this) );
     	
-    	addBehaviour(new NUMBEROFCLIENTS_ExpectInform(this) );
+    	//addBehaviour(new NUMBEROFCLIENTS_ExpectInform(this) );
     	
-    	addBehaviour(new NUMBEROFCLIENTS_ExpectFailure(this) );
+    	//addBehaviour(new NUMBEROFCLIENTS_ExpectFailure(this) );
     	
     	addBehaviour(new GetHotelInformation_ExpectforMessages(this));
     	
@@ -137,7 +137,7 @@ public class AgClient3 extends DayDependentAgent {
 	    		addBehaviour(new SendRequestForOffer(this, aidHotel));
 	    	}
     	}
-    	if (currentDay == 3) {
+    	if (currentDay == 2) {
     		isBooked = true;
     		addBehaviour(new BOOKAROOM_BookARoomBehaviour(this));
     	}

@@ -83,14 +83,9 @@ public class AgHotel3 extends DayDependentAgent {
     	addBehaviour(new  SIGNCONTRACT_ExpectNotUnderstood(this));
     	
     	//Adds a behavior to process the Number of Clients Query Ref
-    	addBehaviour(new  NUMBEROFCLIENTS_ExpectQueryRef(this));
+    	//addBehaviour(new  NUMBEROFCLIENTS_ExpectQueryRef(this));
     	
-    	//Adds a behavior to process the Number of Clients Query Ref
-    	addBehaviour(new  NUMBEROFCLIENTS_ExpectInform(this));
-    	
-    	//Adds a behavior to process the Number of Clients Query Ref
-    	addBehaviour(new  NUMBEROFCLIENTS_ExpectFailure(this));
-    	
+  	
     	 // Adds a behavior to queryref account status
        	addBehaviour(new GetAccountStatus_ExpectforMessages(this));
        	
