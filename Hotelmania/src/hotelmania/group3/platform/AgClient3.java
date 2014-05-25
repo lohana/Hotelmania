@@ -12,6 +12,7 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import jade.core.AID;
+ 
 import hotelmania.group3.ontology.Ontology3;
 import hotelmania.group3.platform.client.behaviour.*;
 import hotelmania.ontology.SharedAgentsOntology;
@@ -34,7 +35,9 @@ public class AgClient3 extends DayDependentAgent {
 	// Information about the hotel where the client stayed
 	public String hotel = "";
 	public int rate = 0;
-	public float budget = 0.0f;
+	private float budget = 0.0f;
+	private int arrivalDay = 1;
+	private int nightsToStay = 1;
 	public AID hotelAID;
 
 	private Stay stay;
@@ -45,6 +48,21 @@ public class AgClient3 extends DayDependentAgent {
 	private ArrayList<AID> hotels= new ArrayList<AID>();
 
 	protected void setup(){
+		
+		Object[] args = getArguments();
+        String name= (String) args[0];
+        float budget = (float) args[1];
+        int arrivalDay = (int) args[2];
+        int nightsToStay = (int) args[3];
+		
+		this.id = name;
+		this.budget = budget;
+		this.arrivalDay = arrivalDay;
+		this.nightsToStay = nightsToStay;
+		
+		this.stay = new Stay();
+		stay.setCheckIn(arrivalDay);
+		stay.setCheckOut(arrivalDay + nightsToStay);
 		
 		ontology = SharedAgentsOntology.getInstance();
 		Object[] pr = this.getArguments();
@@ -78,11 +96,14 @@ public class AgClient3 extends DayDependentAgent {
     	
     	addBehaviour(new ReceiveOffers(this));
     	
+    	// EndSimulation Behaviors 
+    	addBehaviour (new SubscribeForEndSimulation(this));
+    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
+    	
     	// Change THIS - Eli
     	hotels.add(hotelAID);
-    	stay = new Stay();
-    	stay.setCheckIn(5);
-    	stay.setCheckOut(8);
+    	
+    	//System.out.println("Client generated - " + budget + " " + stay.getCheckIn() + "/" + stay.getCheckOut());
     }
 	
 	public int getRate()

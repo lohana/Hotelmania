@@ -8,7 +8,7 @@ import jade.core.*;
 /**
 * Protege name: HotelInformation
 * @author ontology bean generator
-* @version 2014/05/19, 16:02:34
+* @version 2014/05/24, 00:31:09
 */
 public class HotelInformation implements Predicate {
 

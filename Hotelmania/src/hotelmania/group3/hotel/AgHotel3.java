@@ -22,6 +22,7 @@ import jade.util.leap.HashMap;
 import jade.util.leap.Map;
 import hotelmania.group3.hotel.behaviour.*;
 import hotelmania.group3.platform.DayDependentAgent;
+ 
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectFailure;
 import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectInform;
 import hotelmania.ontology.*;
@@ -105,6 +106,8 @@ public class AgHotel3 extends DayDependentAgent {
     	
     	addBehaviour(new ReceiveOfferRequests(this));
     	
+    	
+    	// EndSimulation Behaviors 
     	addBehaviour (new SubscribeForEndSimulation(this));
     	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
 

@@ -23,7 +23,6 @@ public class GetHotelInformation extends CyclicBehaviour {
 	int last = 0;
 	boolean ignore = false;
 
-
 	public GetHotelInformation(Agent agent) {
 
 		super(agent);
@@ -34,10 +33,7 @@ public class GetHotelInformation extends CyclicBehaviour {
 		AgClient3 agent = (AgClient3) this.myAgent;
 		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_REF);
 
-
-
 		final Date registerTime = new Date();
-
 
 		// Creates the description for the type of agent to be searched
 		DFAgentDescription dfd = new DFAgentDescription();
@@ -54,7 +50,6 @@ public class GetHotelInformation extends CyclicBehaviour {
 		try {
 			res = DFService.search(myAgent, dfd);
 		} catch (FIPAException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -82,18 +77,15 @@ public class GetHotelInformation extends CyclicBehaviour {
 					System.out.println(agent.getLocalName()
 							+ ": QUERY_REF  HotelInformation   "
 							+ ag.getName());
-
-
-				}ignore = false;
+				}
+				ignore = false;
 			}
 
-			//agent.doWait(5);
+			//Thread.sleep(1000);
 		} else {
-			// If no new Simulator has been found, it waits 5 seconds
-			//agent.doWait(5000);
+			// If no new Simulator has been found, it waits 1 second
+			//Thread.sleep(1000);
 			//block();
 		}	
-
-
 	}
 }

@@ -25,6 +25,13 @@ public class SendDayChange extends TickerBehaviour {
 	@Override
 	protected void onTick() {
 		AgSimulator3 agent = (AgSimulator3)this.myAgent;
+		if (agent.getCurrentDay() == 0) {
+			try {
+				Thread.sleep(30000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		if (agent.getRegisteredAgents().size() > 0)
 		{
 			agent.changeDay();

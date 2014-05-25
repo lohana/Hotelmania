@@ -14,7 +14,6 @@ import jade.content.onto.basic.Action;
 import hotelmania.group3.platform.AgClient3;
 import hotelmania.group3.platform.CompleteOffer;
 import hotelmania.ontology.BookRoom;
-import hotelmania.ontology.BookingOffer;
 import hotelmania.ontology.Price;
 
 @SuppressWarnings("serial")

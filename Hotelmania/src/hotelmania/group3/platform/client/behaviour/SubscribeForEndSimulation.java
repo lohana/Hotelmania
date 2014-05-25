@@ -1,8 +1,13 @@
- 
+/**
+ * Subscribes the agent for day notification
+ * @author Eleonora Adova, EMSE
+ * @version $Date: 2014/05/04 00:28 $ $Revision: 1.0 $
+ * 
+ **/
 
-package hotelmania.group3.hotel.behaviour;
+package hotelmania.group3.platform.client.behaviour;
 
-import hotelmania.group3.hotel.AgHotel3;
+import hotelmania.group3.platform.AgClient3;
 import hotelmania.group3.platform.AgSimulator3;
 import hotelmania.ontology.EndSimulation;
 
@@ -33,7 +38,7 @@ public class SubscribeForEndSimulation extends SimpleBehaviour {
 	}
 	
 	public void action(){
-		AgHotel3 agent =  (AgHotel3)this.myAgent;
+		AgClient3 agent =  (AgClient3)this.myAgent;
 		
 	     // From this moment, it will be searching for the simulator for a minute		
      	final Date registerTime = new Date();
