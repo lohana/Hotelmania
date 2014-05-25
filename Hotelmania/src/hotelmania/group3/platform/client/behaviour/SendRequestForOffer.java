@@ -41,6 +41,7 @@ public class SendRequestForOffer extends SimpleBehaviour {
 			try{
 				agent.getContentManager().fillContent(msg, stayQuery);
 				agent.send(msg);
+				end = true;
 				System.out.println(agent.getLocalName() + ": QUERY_REF BookingOffer " + agent.getHotel());
 			}
 			catch (CodecException ce){
