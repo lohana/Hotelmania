@@ -33,10 +33,10 @@ public class BOOKAROOM_BookARoomBehaviour extends SimpleBehaviour {
 		
 		try{
 								
-			// Inform for opinion
+			// Request  Book a room.
 			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 			msg.setProtocol(AgClient3.BOOKAROOM_REQUEST);
-			msg.addReceiver(agent.getHotelAID());
+			//msg.addReceiver(agent.getHotelAID());
 			msg.setLanguage(agent.codec.getName());
 			msg.setOntology(agent.ontology.getName());
 			
@@ -51,11 +51,14 @@ public class BOOKAROOM_BookARoomBehaviour extends SimpleBehaviour {
 				
 				// Wrap the message with action
 				AID hotelID = offer.getHotel();
-				Action agAction = new Action(hotelID,  br);
+				agent.hotelAID = hotelID;
+				agent.hotel = agent.getHotelName(hotelID);
+				Action agAction = new Action(agent.hotelAID,  br);
+				msg.addReceiver(agent.hotelAID);
 				agent.getContentManager().fillContent(msg, agAction);
 				
 				agent.send(msg);
-				System.out.println(agent.getLocalName() + ": REQUEST BOOK a ROOM to " + hotelID.getLocalName());
+				System.out.println(agent.getLocalName() + ": REQUEST BOOK a ROOM to "+agent.hotel);
 			}
 						
 		}catch (Exception e){

@@ -7,15 +7,12 @@
 package hotelmania.group3.platform;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import jade.core.AID;
  
-import jade.util.leap.HashMap;
-import jade.util.leap.Map;
 import hotelmania.group3.ontology.Ontology3;
 import hotelmania.group3.platform.client.behaviour.*;
 import hotelmania.ontology.Hotel;
@@ -130,9 +127,8 @@ public class AgClient3 extends DayDependentAgent {
 	    	}
 
     	} else if (currentDay <= stay.getCheckIn()) {
-    		// Book
-
     		isBooked = true;
+    		
     		addBehaviour(new BOOKAROOM_BookARoomBehaviour(this));
     	} else if (isBooked && hotelAID != null && currentDay <= stay.getCheckOut()) {
     		// Ask for #clients and stuff
@@ -189,4 +185,16 @@ public class AgClient3 extends DayDependentAgent {
 	public ArrayList<HotelInformation> getHotelsInformation() {
 		return (ArrayList<HotelInformation>)hotelsInformation.clone();
 	}
+	
+	public String getHotelName(AID hotelID){
+		String hotelName = "";
+		for (int i = 0; i < hotelsInformation.size(); i++) {
+			if (hotelsInformation.get(i).getHotel().getHotelAgent().equals(hotelID)){
+				hotelName = hotelsInformation.get(i).getHotel().getHotel_name();
+			}
+		}
+		return hotelName;
+		
+	}
+	
 }

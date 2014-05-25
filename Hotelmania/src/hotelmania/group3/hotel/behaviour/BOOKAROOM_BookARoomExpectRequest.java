@@ -31,7 +31,7 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 		boolean clientRepeated = false;
 		boolean differentPrice = false;
 		
-		// Waits for sign contract acceptation
+		// Waits for book a room request
 		ACLMessage msg = agent.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agent.codec.getName()), 
 				MessageTemplate.and(MessageTemplate.MatchOntology(agent.ontology.getName()),
 						MessageTemplate.MatchProtocol(AgClient3.BOOKAROOM_REQUEST))));
@@ -94,7 +94,7 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 								reply.setPerformative(ACLMessage.AGREE);
 								agent.BookingClients.add(requestedClientName);
 								//System.out.println(myAgent.getLocalName()+": BOOK A ROOM Request has been accepted");
-								System.out.println(myAgent.getLocalName()+": Welcome to "+ agent.getName() + " " + requestedClientName);
+								System.out.println(myAgent.getLocalName()+": Mr. " + requestedClientName + ", welcome to "+ AgHotel3.HOTEL_NAME );
 							}
 						}
 					}
