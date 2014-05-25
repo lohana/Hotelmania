@@ -2,14 +2,11 @@
 
 package hotelmania.group3.hotel.behaviour;
 
-import java.io.Serializable;
-
 import jade.core.Agent;
 import jade.core.AID;
 import jade.core.behaviours.*;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import jade.lang.acl.UnreadableException;
 import jade.content.Concept;
 import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
@@ -62,7 +59,7 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 							System.out.println(myAgent.getLocalName()+": received BOOK A ROOM Request from "+(msg.getSender()).getLocalName() );
 							
 							AID receiverAgent = msg.getSender();
-							String requestedClientName = receiverAgent.getName();
+							String requestedClientName = receiverAgent.getLocalName();
 							
 							
 							if (!agent.BookingClients.isEmpty()){

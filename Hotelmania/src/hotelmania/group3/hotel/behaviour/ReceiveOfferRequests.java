@@ -11,6 +11,7 @@ import hotelmania.group3.hotel.AgHotel3;
 import hotelmania.ontology.BookingOffer;
 import hotelmania.ontology.Price;
 import hotelmania.ontology.Stay;
+import hotelmania.ontology.StayQueryRef;
 import jade.content.ContentElement;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
@@ -44,8 +45,9 @@ public class ReceiveOfferRequests extends CyclicBehaviour {
 
 					ce = agent.getContentManager().extractContent(msg);
 
-					if (ce instanceof Stay){
-						Stay stay = (Stay) ce;  
+					if (ce instanceof StayQueryRef){
+						StayQueryRef stayQueryRef = (StayQueryRef) ce;  
+						Stay stay = stayQueryRef.getStay();
 						
 						if (stay.getCheckIn() < agent.currentDay) {
 							reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
