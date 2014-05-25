@@ -46,11 +46,11 @@ public class GetHotelInformation_ExpectforMessages extends CyclicBehaviour {
 
 						HotelInformation hi = (HotelInformation) myAgent
 								.getContentManager().extractContent(msg);
+						agent.addHotelInformation(hi);
 
 						// We expect an action inside the message
 
-						System.out
-						.println(myAgent.getLocalName()
+						System.out.println(myAgent.getLocalName()
 								+ ": received HotelInformation from Hotelmania HOTEL: "
 								+ hi.getHotel().getHotel_name()
 								+ " RATE " + hi.getRating()
@@ -66,10 +66,10 @@ public class GetHotelInformation_ExpectforMessages extends CyclicBehaviour {
 						// agentb.getContentManager().extractContent(msg);
 
 						HotelInformation h1 = (HotelInformation) li.get(1);
+						agent.addHotelInformation(h1);
 						// We expect an action inside the message
 
-						System.out
-						.println(myAgent.getLocalName()
+						System.out.println(myAgent.getLocalName()
 								+ ": received HotelInformation from Hotelmania HOTEL: "
 								+ h1.getHotel().getHotel_name()
 								+ "RATE " + h1.getRating()
@@ -78,13 +78,10 @@ public class GetHotelInformation_ExpectforMessages extends CyclicBehaviour {
 					}
 
 				} catch (UngroundedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (CodecException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (OntologyException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
