@@ -121,7 +121,7 @@ public class AgSimulator3 extends Agent {
 	{
 		day++;
 		if (day <= lastDay) {
-			//generateClients();
+			generateClients();
 		} else {
 			// End of the simulation
 		}
