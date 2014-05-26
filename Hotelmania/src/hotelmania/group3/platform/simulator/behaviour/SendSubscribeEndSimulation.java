@@ -6,7 +6,6 @@
 package hotelmania.group3.platform.simulator.behaviour;
 
 import hotelmania.group3.platform.AgSimulator3;
-import hotelmania.group3.platform.Configuration;
 import hotelmania.ontology.NotificationEndSimulation;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
@@ -17,48 +16,47 @@ import jade.lang.acl.ACLMessage;
 
 @SuppressWarnings("serial")
 public class SendSubscribeEndSimulation extends SimpleBehaviour {
-	
+
 	public SendSubscribeEndSimulation(Agent agent) {
 		super(agent);
-	} 
+	}
 
 	@Override
 	public void action() {
-		AgSimulator3 agent = (AgSimulator3)this.myAgent;
-		if (agent.getRegisteredAgents_EndSimulation().size() > 0)
-		{
+		AgSimulator3 agent = (AgSimulator3) this.myAgent;
+		if (agent.getRegisteredAgents_EndSimulation().size() > 0) {
 			int currentDay = agent.getCurrentDay();
-			
-		 int max_days =  agent.getLastDay(); 
-			 
-			
-			if (currentDay > max_days && agent.get_isover() == false ){
-				
+
+			int max_days = agent.getLastDay();
+
+			if (currentDay > max_days && agent.get_isover() == false) {
+
 				agent.setisover(true);
- 			
-			for (AID ag : agent.getRegisteredAgents_EndSimulation())
-			{
-			
-				ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-				msg.setProtocol(AgSimulator3.END_SIMULATION);
-				msg.addReceiver(ag);
-				msg.setLanguage(agent.codec.getName());
-				msg.setOntology(agent.ontology.getName());
-				
-				NotificationEndSimulation n = new NotificationEndSimulation();
-				try {
-					agent.getContentManager().fillContent(msg, n);
-				} catch (CodecException | OntologyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
+				for (AID ag : agent.getRegisteredAgents_EndSimulation()) {
+
+					ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+					msg.setProtocol(AgSimulator3.END_SIMULATION);
+					msg.addReceiver(ag);
+					msg.setLanguage(agent.codec.getName());
+					msg.setOntology(agent.ontology.getName());
+
+					NotificationEndSimulation n = new NotificationEndSimulation();
+					try {
+						agent.getContentManager().fillContent(msg, n);
+					} catch (CodecException | OntologyException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					agent.send(msg);
+					System.out.println(String.format(
+							"%s: Simulation %d Over  to %s.",
+							agent.getLocalName(), agent.getCurrentDay(),
+							ag.getLocalName()));
+
 				}
 
-
-				agent.send(msg);
-				System.out.println(String.format("%s: Simulation %d Over  to %s.", agent.getLocalName(), agent.getCurrentDay(), ag.getLocalName()));
-				
-			}
-			
 			}
 		}
 	}
