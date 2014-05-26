@@ -67,7 +67,7 @@ public class ReceiveOfferRequests extends CyclicBehaviour {
 							reply.setOntology(agent.ontology.getName());
 							reply.setLanguage(agent.codec.getName());
 							agent.getContentManager().fillContent(reply, offer);
-							System.out.println(myAgent.getLocalName()+": received BookingOffer Request from cliet "+(msg.getSender()).getLocalName());
+							System.out.println(myAgent.getLocalName()+": received BookingOffer Request from client "+(msg.getSender()).getLocalName());
 							System.out.println(myAgent.getLocalName()+ ": answer sent ->INFORM");
 						}
 					}
