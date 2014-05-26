@@ -118,7 +118,13 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 								System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " has hired Staff requested for " + requestedContractDay + " day");
 								//charge to account
 								//addBehaviour(new ChargetoAccount(myAgent)); 	
+								
 								myAgent.addBehaviour(new ChargetoAccount_Request(myAgent,requestedHotel));
+								
+								//ChargetoAccount_Request(myAgent,requestedHotel).
+								
+								
+								
 								
 							}
 						} 
