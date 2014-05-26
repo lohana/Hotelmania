@@ -59,6 +59,7 @@ public class NUMBEROFCLIENTS_ExpectQueryRef extends CyclicBehaviour {
 							String requestedHotelName = receiverAgent.getLocalName();
 							
 							Hotel requestedHotel = new Hotel();
+							requestedHotel.setHotelAgent(agent.getAID());
 							requestedHotel.setHotel_name(requestedHotelName);
 							
 							//Calculate the number of clients of the requestedHotel.

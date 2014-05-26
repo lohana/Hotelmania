@@ -75,6 +75,7 @@ public class CreateAccount extends SimpleBehaviour{
 						CreateAccountRequest rr = new CreateAccountRequest();
 						//Hotel Information for the request
 						Hotel hotel = new Hotel();
+						hotel.setHotelAgent(agent.getAID());
 						hotel.setHotel_name(AgHotel3.HOTEL_NAME);
 						//Add hotel information to the registration request
 						rr.setHotel(hotel);

@@ -75,6 +75,7 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 						
 						//Information for the request: Hotel
 						Hotel hotelRequesting = new Hotel();
+						hotelRequesting.setHotelAgent(agent.getAID());
 						hotelRequesting.setHotel_name(AgHotel3.HOTEL_NAME);
 						
 						//Information for the request: Contract
