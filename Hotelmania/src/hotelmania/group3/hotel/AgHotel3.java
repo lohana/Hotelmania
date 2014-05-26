@@ -82,6 +82,12 @@ public class AgHotel3 extends DayDependentAgent {
     	// Adds a behavior to process the NOT_UNDERSTOOD answer to a sign contract request
     	addBehaviour(new  SIGNCONTRACT_ExpectNotUnderstood(this));
     	
+    	// Adds a behavior to process the INFORM answer to a sign contract request
+    	addBehaviour(new  SIGNCONTRACT_ExpectInform(this));
+    	
+    	//Adds a behavior to process the INFORM answer to a sign contract request
+    	addBehaviour(new  SIGNCONTRACT_ExpectFailure(this));
+    	
     	//Adds a behavior to process the Number of Clients Query Ref
     	//addBehaviour(new  NUMBEROFCLIENTS_ExpectQueryRef(this));
     	

@@ -27,7 +27,7 @@ public class SIGNCONTRACT_ExpectAcceptation extends CyclicBehaviour {
 		if (msg != null)
 		{
 			// If an acceptation arrives...
-			System.out.println(myAgent.getLocalName()+": received Sign Contract Request ACCEPTATION from "+(msg.getSender()).getLocalName());
+			System.out.println(myAgent.getLocalName()+": received Sign Contract Request AGREE from "+(msg.getSender()).getLocalName());
 		}
 		else
 		{
