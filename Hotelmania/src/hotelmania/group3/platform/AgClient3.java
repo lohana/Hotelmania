@@ -112,13 +112,16 @@ public class AgClient3 extends DayDependentAgent {
 	{
 		return hotelAID;
 	}
+	public int getcurrentday(){
+		return currentDay; 
+	}
 
 	public void ChangesOnDayChange() {
 		System.out.println(getLocalName() + ": Day changed to " + currentDay);
     	
     	// If the day is before the stay period ask all hotels for offers
     	if (currentDay < stay.getCheckIn() - 1) {
-    		addBehaviour(new GetHotelInformation(this));
+    		addBehaviour(new GetHotelInformation(this)); 
     		try {
 				Thread.sleep(5000);
 				if (hotelsInformation.size() == 0) {

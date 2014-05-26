@@ -61,6 +61,7 @@ public class AgAgency3 extends DayDependentAgent{
     	// EndSimulation Behaviors 
     	addBehaviour (new SubscribeForEndSimulation(this));
     	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
+    	addBehaviour(new ChargetoAccount_ExpectforMessages(this));
     }
     
     public void ChangesOnDayChange()
