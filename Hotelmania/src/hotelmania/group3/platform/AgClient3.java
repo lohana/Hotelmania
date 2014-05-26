@@ -27,6 +27,7 @@ public class AgClient3 extends DayDependentAgent {
 	public static final String NUMBEROFCLIENTS_QUERY = "NumberOfClients";
 	public static final String BOOKAROOM_REQUEST = "BookARoom";
 	public static final String BOOKING_OFFER = "BookingOffer";
+	public static final String STAFF_QUERY_REF = "HotelStaff";
 	
 	public Codec codec = new SLCodec();
 	public Ontology innerOntology = Ontology3.getInstance();
@@ -95,6 +96,12 @@ public class AgClient3 extends DayDependentAgent {
     	addBehaviour (new SubscribeForEndSimulation(this));
     	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
     	
+    	//Query Ref HotelStaff
+    	addBehaviour (new GetHotelStaff(this));
+    	addBehaviour (new GetHotelStaff_ExpectforMessages(this));
+    	
+    	
+    	
     	//System.out.println("Client generated - " + budget + " " + stay.getCheckIn() + "/" + stay.getCheckOut());
     }
 	
@@ -111,6 +118,10 @@ public class AgClient3 extends DayDependentAgent {
 	public AID getHotelAID()
 	{
 		return hotelAID;
+	}
+	public boolean getisBooked()
+	{
+		return isBooked;
 	}
 	public int getcurrentday(){
 		return currentDay; 

@@ -21,7 +21,6 @@ public class SendAccountStatus extends CyclicBehaviour {
 	public SendAccountStatus(Agent agente) {
 		super(agente);
 	}
-
 	@Override
 	public void action() {
 

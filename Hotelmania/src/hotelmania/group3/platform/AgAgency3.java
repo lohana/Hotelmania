@@ -10,6 +10,7 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import hotelmania.group3.platform.agency.behaviuor.*;
+import hotelmania.group3.platform.bank.behaviour.SendAccountStatus;
 import hotelmania.ontology.*;
 
 
@@ -62,6 +63,8 @@ public class AgAgency3 extends DayDependentAgent{
     	addBehaviour (new SubscribeForEndSimulation(this));
     	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
     	addBehaviour(new ChargetoAccount_ExpectforMessages(this));
+    	
+    	addBehaviour(new SendHotelStaff(this));
     }
     
     public void ChangesOnDayChange()
