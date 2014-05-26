@@ -51,6 +51,7 @@ public class AgSimulator3 extends Agent {
 	float clientBudgetVariance = 25.0f;
 	int lastDay = 30;
 	int clientsPerDay = 10;
+	boolean isover = false;
 
 	private int day = 0;
 	private int nextClientID = 0;
@@ -131,7 +132,20 @@ public class AgSimulator3 extends Agent {
 	{
 		return day;
 	}
+	
+	public int getLastDay()
+	{
+		return lastDay;
+	}
+public void setisover(boolean b)
+{
+isover = b;	
+}
 
+public boolean get_isover(){
+	
+	return isover; 
+}
 	public boolean isRegistered(AID agent)
 	{
 		for (AID ag : registeredAgents)

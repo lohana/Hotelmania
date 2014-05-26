@@ -71,7 +71,7 @@ public class SubscribeEndSimulation extends CyclicBehaviour {
 				} 
 				else {
 					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-					System.out.println(myAgent.getLocalName()+ ": answer sent -> NOT_UNDERSTOOD");
+					System.out.println(myAgent.getLocalName()+ ": answer sent -> NOT_UNDERSTOOD ES");
 				}
 				
 				reply.setProtocol(AgSimulator3.END_SIMULATION);

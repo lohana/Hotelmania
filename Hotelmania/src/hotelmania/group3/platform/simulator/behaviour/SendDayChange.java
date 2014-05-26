@@ -6,6 +6,7 @@
 package hotelmania.group3.platform.simulator.behaviour;
 
 import hotelmania.group3.platform.AgSimulator3;
+import hotelmania.group3.platform.Configuration;
 import hotelmania.ontology.DayEvent;
 import hotelmania.ontology.NotificationDayEvent;
 import jade.content.lang.Codec.CodecException;
@@ -25,14 +26,17 @@ public class SendDayChange extends TickerBehaviour {
 	@Override
 	protected void onTick() {
 		AgSimulator3 agent = (AgSimulator3)this.myAgent;
+ 
 		if (agent.getCurrentDay() == 0) {
 			try {
-				Thread.sleep(30000);
+				Thread.sleep(3);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		if (agent.getRegisteredAgents().size() > 0)
+		
+		
+		if (agent.getRegisteredAgents().size() > 0 && agent.get_isover() == false )
 		{
 			agent.changeDay();
 			for (AID ag : agent.getRegisteredAgents())
@@ -54,8 +58,7 @@ public class SendDayChange extends TickerBehaviour {
 					agent.getContentManager().fillContent(msg, n);
 					agent.send(msg);
 					System.out.println(String.format("%s: Day %d sent to %s.", agent.getLocalName(), agent.getCurrentDay(), ag.getLocalName()));
-					
-					this.myAgent.addBehaviour(new SendSubscribeEndSimulation(this.myAgent));
+
 				}
 				catch (CodecException ce){
 					ce.printStackTrace();
@@ -63,6 +66,10 @@ public class SendDayChange extends TickerBehaviour {
 				catch (OntologyException oe){
 					oe.printStackTrace();
 				}
+			}
+			if( ! agent.get_isover()  ){
+				this.myAgent.addBehaviour(new SendSubscribeEndSimulation(this.myAgent));
+				
 			}
 		}
 	}
