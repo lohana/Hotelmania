@@ -105,21 +105,23 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 							
 							if ( hotel_day_contract_repeated  ){
 								reply.setPerformative(ACLMessage.REFUSE);
-								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is REFUSED: Contract exits for this Hotel in this day");
+								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is REFUSED");
+								reply.setPerformative(ACLMessage.FAILURE);
+								System.out.println(myAgent.getLocalName()+ ": Sign Contract FAILURE to the "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + ". Reason: Contract exits for this Hotel in this day");
 							} else if (!correct_contract_day){
 								reply.setPerformative(ACLMessage.REFUSE);
-								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is REFUSED: Day of requested contract it is wrong");
+								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is REFUSED");
+								reply.setPerformative(ACLMessage.FAILURE);
+								System.out.println(myAgent.getLocalName()+ ": Sign Contract FAILURE to the "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + ". Reason: Day of requested contract it is wrong");
 							}
 							else {
-								//agent.signedContracts.add(agent.signedContracts.size(), sc);
-								agent.signedContracts.add(sc);
 								reply.setPerformative(ACLMessage.AGREE);
 								System.out.println(myAgent.getLocalName()+ ": Sign Contract Request of "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + " is AGREED");
-								System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " has hired Staff requested for " + requestedContractDay + " day");
 								//charge to account
-								//addBehaviour(new ChargetoAccount(myAgent)); 	
 								myAgent.addBehaviour(new ChargetoAccount_Request(myAgent,requestedHotel));
-								
+								reply.setPerformative(ACLMessage.INFORM);
+								agent.signedContracts.add(sc);
+								System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " INFORM has hired Staff requested for " + requestedContractDay + " day");
 							}
 						} 
 						else {
@@ -134,7 +136,7 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 				}
 				
 				myAgent.send(reply);
-				System.out.println(myAgent.getLocalName()+": Answer Sent");
+				System.out.println(myAgent.getLocalName()+": Answer about Sign Contract Sent");
 			}
 			catch (CodecException e){
 				e.printStackTrace();

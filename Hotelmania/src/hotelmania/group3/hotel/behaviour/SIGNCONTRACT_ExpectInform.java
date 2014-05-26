@@ -10,9 +10,9 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 @SuppressWarnings("serial")
-public class SIGNCONTRACT_ExpectAcceptation extends CyclicBehaviour {
+public class SIGNCONTRACT_ExpectInform extends CyclicBehaviour {
 
-	public SIGNCONTRACT_ExpectAcceptation(Agent agent)
+	public SIGNCONTRACT_ExpectInform(Agent agent)
 	{
 		super(agent);
 	}
@@ -21,13 +21,13 @@ public class SIGNCONTRACT_ExpectAcceptation extends CyclicBehaviour {
 	{
 		
 		// Waits for sign contract acceptation
-		ACLMessage msg = myAgent.receive(MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.AGREE),MessageTemplate.MatchProtocol(AgHotel3.SIGN_CONTRACT)) );
+		ACLMessage msg = myAgent.receive(MessageTemplate.and(MessageTemplate.MatchPerformative(ACLMessage.INFORM),MessageTemplate.MatchProtocol(AgHotel3.SIGN_CONTRACT)) );
 		
 		//ACLMessage msg = myAgent.receive(MessageTemplate.MatchPerformative(ACLMessage.AGREE));
 		if (msg != null)
 		{
 			// If an acceptation arrives...
-			System.out.println(myAgent.getLocalName()+": received Sign Contract Request AGREE from "+(msg.getSender()).getLocalName());
+			System.out.println(myAgent.getLocalName()+": received Sign Contract INFORM from "+(msg.getSender()).getLocalName());
 		}
 		else
 		{

@@ -41,10 +41,6 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 		dfd.addServices(sd);
 		
 		try{
-			// If has been searching for estimations for more than a minute, it does not search any more
-			/*if ((new Date()).getTime() - registerTime.getTime() >= 60000){
-				end = true;
-			}*/
 			
 			// It finds agents of the required type
 			DFAgentDescription[] res = new DFAgentDescription[20];
@@ -81,8 +77,8 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 						//Information for the request: Contract
 						Contract contractRequesting = new Contract();
 						contractRequesting.setChef_1stars(1);
-						contractRequesting.setChef_2stars(1);
-						contractRequesting.setChef_3stars(1);
+						contractRequesting.setChef_2stars(0);
+						contractRequesting.setChef_3stars(0);
 						contractRequesting.setRoom_service_staff(2);
 						contractRequesting.setRecepcionist_novice(0);
 						contractRequesting.setRecepcionist_experienced(2);
