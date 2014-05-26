@@ -79,6 +79,9 @@ public class CreateAccountForHotel extends CyclicBehaviour {
 								System.out.println(myAgent.getLocalName()+ ": CreateAccount Request of "+ newHotel.getHotel_name() + " is DENIED. Failure sent");
 							} 
 							else {
+								
+								
+								
 								int id = agent.createAccount(newHotel);
 								reply.setPerformative(ACLMessage.INFORM);
 								Account a = new Account();

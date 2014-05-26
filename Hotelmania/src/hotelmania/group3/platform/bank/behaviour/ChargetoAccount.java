@@ -75,12 +75,12 @@ public class ChargetoAccount extends CyclicBehaviour {
 						if( agentb.chargetoaccount(h,amount) )
 						{
 							reply.setPerformative(ACLMessage.AGREE);
-							reply.setProtocol(AgBank3.ACCOUNTSTATUS_SERVICE);					 
+							reply.setProtocol(AgBank3.CHARGE_ACCOUNT_SERVICE);					 
 							myAgent.send(reply);
 							System.out.println(myAgent.getLocalName()+":  answer sent -> AGREE");	
 						}else{
 							reply.setPerformative(ACLMessage.REFUSE);
-							reply.setProtocol(AgBank3.ACCOUNTSTATUS_SERVICE);					 
+							reply.setProtocol(AgBank3.CHARGE_ACCOUNT_SERVICE);					 
 							myAgent.send(reply);
 							System.out.println(myAgent.getLocalName()+":  answer sent -> REFUSE");
 						}		

@@ -43,7 +43,7 @@ public class NUMBEROFCLIENTS_NumberOfClientsBehaviour extends SimpleBehaviour {
 			// Wrap the message with action
 			//-Predicate agAction = new Predicate(agent.getHotelAID(),  noc);
 			NumberOfClientsQueryRef num_clients = new NumberOfClientsQueryRef();
-			num_clients.setDay(current);
+			num_clients.setDay(agent.currentDay);
 			
 			try{
 				// The ContentManager transforms the java objects into strings
