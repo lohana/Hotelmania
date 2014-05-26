@@ -25,10 +25,10 @@ public class Configuration {
     public final static String MAX_DAYS = "simulation.days";
     
     /** The initial budget of a client */
-    public final static String CLIENT_BUDGET = "client_budget";
+    public final static String CLIENT_BUDGET = "clients.budget";
     
     /** The variance that a client's budget may have */
-    public final static String BUDGET_VARIANCE = "budget_variance";
+    public final static String BUDGET_VARIANCE = "clients.budget_variance";
     
     /** The number of clients to be generated every day */
     public final static String CLIENTS_PER_DAY = "simulation.clients_per_day";

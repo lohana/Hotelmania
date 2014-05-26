@@ -86,6 +86,11 @@ public class AgClient3 extends DayDependentAgent {
     	
     	addBehaviour(new ReceiveOffers(this));
     	
+    	//Book a room Behaviours
+    	addBehaviour (new BOOKAROOM_ExpectAcceptation(this));
+    	addBehaviour (new BOOKAROOM_ExpectNotUnderstood(this));
+    	addBehaviour (new BOOKAROOM_ExpectRejection(this));
+    	
     	// EndSimulation Behaviors 
     	addBehaviour (new SubscribeForEndSimulation(this));
     	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
