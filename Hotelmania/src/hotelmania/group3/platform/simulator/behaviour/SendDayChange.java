@@ -17,14 +17,15 @@ import jade.lang.acl.ACLMessage;
 
 @SuppressWarnings("serial")
 public class SendDayChange extends TickerBehaviour {
-	
+
 	public SendDayChange(Agent agent, int milliseconds) {
 		super(agent, milliseconds);
 	}
 
 	@Override
 	protected void onTick() {
-		AgSimulator3 agent = (AgSimulator3)this.myAgent;
+		AgSimulator3 agent = (AgSimulator3) this.myAgent;
+
 		if (agent.getCurrentDay() == 0) {
 			try {
 				Thread.sleep(30000);
@@ -32,37 +33,41 @@ public class SendDayChange extends TickerBehaviour {
 				e.printStackTrace();
 			}
 		}
-		if (agent.getRegisteredAgents().size() > 0)
-		{
+
+		if (agent.getRegisteredAgents().size() > 0
+				&& agent.get_isover() == false) {
 			agent.changeDay();
-			for (AID ag : agent.getRegisteredAgents())
-			{
-			
-				try{
+			for (AID ag : agent.getRegisteredAgents()) {
+
+				try {
 					ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
 					msg.setProtocol(AgSimulator3.TIMECHANGE_SERVICE);
 					msg.addReceiver(ag);
 					msg.setLanguage(agent.codec.getName());
 					msg.setOntology(agent.ontology.getName());
-					
+
 					DayEvent e = new DayEvent();
 					e.setDay(agent.getCurrentDay());
-					
+
 					NotificationDayEvent n = new NotificationDayEvent();
 					n.setDayEvent(e);
 
 					agent.getContentManager().fillContent(msg, n);
 					agent.send(msg);
-					System.out.println(String.format("%s: Day %d sent to %s.", agent.getLocalName(), agent.getCurrentDay(), ag.getLocalName()));
-					
-					this.myAgent.addBehaviour(new SendSubscribeEndSimulation(this.myAgent));
-				}
-				catch (CodecException ce){
+					System.out.println(String.format("%s: Day %d sent to %s.",
+							agent.getLocalName(), agent.getCurrentDay(),
+							ag.getLocalName()));
+
+				} catch (CodecException ce) {
 					ce.printStackTrace();
-				}
-				catch (OntologyException oe){
+				} catch (OntologyException oe) {
 					oe.printStackTrace();
 				}
+			}
+			if (!agent.get_isover()) {
+				this.myAgent.addBehaviour(new SendSubscribeEndSimulation(
+						this.myAgent));
+
 			}
 		}
 	}
