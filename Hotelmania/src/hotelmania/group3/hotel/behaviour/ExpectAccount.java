@@ -61,11 +61,11 @@ public class ExpectAccount extends CyclicBehaviour {
 
 
 
-			}else if(AclMessage == ACLMessage.REFUSE)
+			}else if(AclMessage == ACLMessage.FAILURE)
 			{
 
 				System.out.println(myAgent.getLocalName()
-						+ ": received REFUSE  from "
+						+ ": received FAILURE  from "
 						+ (msg.getSender()).getLocalName());
 
 			}else{
