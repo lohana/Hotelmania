@@ -2,7 +2,18 @@ package hotelmania.group3.platform.agency.behaviuor;
 
 import hotelmania.group3.platform.AgAgency3;
 import hotelmania.group3.platform.AgClient3;
+import hotelmania.ontology.Contract;
+import hotelmania.ontology.HotelContract;
+import hotelmania.ontology.HotelInformation;
 import jade.content.ContentElement;
+import jade.content.ContentElementList;
+import jade.content.Predicate;
+import jade.content.abs.AbsObject;
+import jade.content.abs.AbsPredicate;
+import jade.content.lang.Codec.CodecException;
+import jade.content.onto.OntologyException;
+import jade.content.onto.UngroundedException;
+import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -34,15 +45,64 @@ public class SendHotelStaff extends CyclicBehaviour {
 
 			if (AclMessage == ACLMessage.QUERY_REF) {
 
-				System.out.println(myAgent.getLocalName()
-						+ ": received HotelStaff from   "
-						+ (msg.getSender()).getLocalName());
+				try {
+					if (this.myAgent.getContentManager().extractContent(msg) instanceof HotelInformation) {
 
-				reply.setPerformative(ACLMessage.INFORM);
+						try {
+							HotelInformation hi = (HotelInformation) myAgent
+									.getContentManager().extractContent(msg);
 
-				myAgent.send(reply);
-				System.out.println(myAgent.getLocalName()
-						+ ":  answer sent -> INFORM HotelStaff");
+							ContentElementList cel = new ContentElementList();
+
+							for (int i = 0; i < agent.signedContracts.size(); i++) {
+								if (i != 0) {
+									String hnm = agent.signedContracts.get(i)
+											.getHotel().getHotel_name()
+											.toLowerCase();
+									String hhim = hi.getHotel().getHotel_name()
+											.toLowerCase();
+
+									if (hnm.compareTo(hhim) == 0) {
+										HotelContract hc = new HotelContract();
+										hc.setContract(agent.signedContracts
+												.get(i).getContract());
+										hc.setHotel(agent.signedContracts
+												.get(i).getHotel());
+										cel.add(hc);
+
+									}
+
+								}
+
+							}
+
+							myAgent.getContentManager().fillContent(reply, cel);
+
+							System.out.println(myAgent.getLocalName()
+									+ ": received HotelStaff from   "
+									+ (msg.getSender()).getLocalName());
+
+							reply.setPerformative(ACLMessage.INFORM);
+
+							myAgent.send(reply);
+							System.out.println(myAgent.getLocalName()
+									+ ":  answer sent -> INFORM HotelStaff");
+
+						} catch (CodecException | OntologyException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					} else {
+
+						System.out.println(myAgent.getLocalName()
+								+ ": received NOT_UNDERSTOOD  from "
+								+ (msg.getSender()).getLocalName());
+					}
+				} catch (CodecException | OntologyException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			} else if (AclMessage == ACLMessage.REFUSE) {
 				System.out.println(myAgent.getLocalName()

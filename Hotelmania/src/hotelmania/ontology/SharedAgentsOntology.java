@@ -9,9 +9,8 @@ import jade.core.CaseInsensitiveString;
 
 /** file: SharedAgentsOntologyOntology.java
  * @author ontology bean generator
- * @version 2014/05/24, 00:31:09
+ * @version 2014/05/27, 17:55:02
  */
-@SuppressWarnings("serial")
 public class SharedAgentsOntology extends jade.content.onto.Ontology  {
   //NAME
   public static final String ONTOLOGY_NAME = "SharedAgentsOntology";
@@ -28,6 +27,9 @@ public class SharedAgentsOntology extends jade.content.onto.Ontology  {
     public static final String BOOKINGOFFER="BookingOffer";
     public static final String NUMBEROFCLIENTS_NUM_CLIENTS="num_clients";
     public static final String NUMBEROFCLIENTS="NumberOfClients";
+    public static final String HOTELCONTRACT_CONTRACT="contract";
+    public static final String HOTELCONTRACT_HOTEL="hotel";
+    public static final String HOTELCONTRACT="HotelContract";
     public static final String ACCOUNTSTATUS_ACCOUNT="account";
     public static final String ACCOUNTSTATUS="AccountStatus";
     public static final String HOTELINFORMATION_HOTEL="hotel";
@@ -135,6 +137,8 @@ public class SharedAgentsOntology extends jade.content.onto.Ontology  {
     add(hotelInformationSchema, hotelmania.ontology.HotelInformation.class);
     PredicateSchema accountStatusSchema = new PredicateSchema(ACCOUNTSTATUS);
     add(accountStatusSchema, hotelmania.ontology.AccountStatus.class);
+    PredicateSchema hotelContractSchema = new PredicateSchema(HOTELCONTRACT);
+    add(hotelContractSchema, hotelmania.ontology.HotelContract.class);
     PredicateSchema numberOfClientsSchema = new PredicateSchema(NUMBEROFCLIENTS);
     add(numberOfClientsSchema, hotelmania.ontology.NumberOfClients.class);
     PredicateSchema bookingOfferSchema = new PredicateSchema(BOOKINGOFFER);
@@ -174,6 +178,8 @@ public class SharedAgentsOntology extends jade.content.onto.Ontology  {
     hotelInformationSchema.add(HOTELINFORMATION_RATING, (TermSchema)getSchema(BasicOntology.FLOAT), ObjectSchema.MANDATORY);
     hotelInformationSchema.add(HOTELINFORMATION_HOTEL, hotelSchema, ObjectSchema.OPTIONAL);
     accountStatusSchema.add(ACCOUNTSTATUS_ACCOUNT, accountSchema, ObjectSchema.MANDATORY);
+    hotelContractSchema.add(HOTELCONTRACT_HOTEL, hotelSchema, ObjectSchema.OPTIONAL);
+    hotelContractSchema.add(HOTELCONTRACT_CONTRACT, contractSchema, ObjectSchema.MANDATORY);
     numberOfClientsSchema.add(NUMBEROFCLIENTS_NUM_CLIENTS, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.MANDATORY);
     bookingOfferSchema.add(BOOKINGOFFER_ROOMPRICE, priceSchema, ObjectSchema.MANDATORY);
 

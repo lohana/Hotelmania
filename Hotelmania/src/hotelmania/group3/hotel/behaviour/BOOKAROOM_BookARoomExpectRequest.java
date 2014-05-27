@@ -103,6 +103,7 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 					reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
 					System.out.println(myAgent.getLocalName()+ ": BOOK ROOM REQUEST - NOT UNDERSTOOD: wrong protocol");
 				}	
+				agent.send(reply);
 			} catch (UngroundedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

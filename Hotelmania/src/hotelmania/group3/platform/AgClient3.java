@@ -46,6 +46,10 @@ public class AgClient3 extends DayDependentAgent {
 	private CompleteOffer selectedOffer = null;
 	private boolean isBooked = false;
 	
+	//For Booking
+	private boolean hasbooked = false;
+	private boolean stayathotel = false; 
+	
 	// All hotels in hotelmania
 	private ArrayList<HotelInformation> hotelsInformation = new ArrayList<HotelInformation>();
 
@@ -126,7 +130,28 @@ public class AgClient3 extends DayDependentAgent {
 	public int getcurrentday(){
 		return currentDay; 
 	}
-
+	
+	 
+	
+	public boolean gethasbooked()
+	{
+		return hasbooked;
+	}
+	public boolean getstayathotel()
+	{
+		return stayathotel; 
+	}
+	
+	public void sethasbooked(boolean b){
+		
+		this.hasbooked = b;
+	}
+	
+	public void setstayathotel(boolean b){
+		
+		this.stayathotel = b;
+	}
+	
 	public void ChangesOnDayChange() {
 		System.out.println(getLocalName() + ": Day changed to " + currentDay);
     	
@@ -163,7 +188,17 @@ public class AgClient3 extends DayDependentAgent {
     		
             // Adds a behavior to evaluate a hotel
             addBehaviour(new SendRate(this));
+            
+            this.setstayathotel(false);
+            this.sethasbooked(false);
     	}
+    	
+    	if(hasbooked && currentDay >= stay.getCheckIn() && currentDay <= stay.getCheckOut()){
+    		
+    		this.setstayathotel(true);
+    		
+    	}
+    	
     }
 	
 	public Stay getStay() {

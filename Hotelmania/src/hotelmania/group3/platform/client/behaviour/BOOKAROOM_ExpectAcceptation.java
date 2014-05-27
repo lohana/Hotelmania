@@ -27,6 +27,10 @@ public class BOOKAROOM_ExpectAcceptation extends CyclicBehaviour {
 		{
 			// If an acceptation arrives...
 			System.out.println(myAgent.getLocalName()+": received BOOK A ROOM Request ACCEPTATION from "+(msg.getSender()).getLocalName());
+			
+			AgClient3 agent = (AgClient3)this.myAgent;
+			agent.sethasbooked(true);
+ 
 		}
 		else
 		{
