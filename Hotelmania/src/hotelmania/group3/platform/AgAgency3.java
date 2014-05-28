@@ -10,7 +10,6 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import hotelmania.group3.platform.agency.behaviuor.*;
-import hotelmania.group3.platform.bank.behaviour.SendAccountStatus;
 import hotelmania.ontology.*;
 
 
@@ -54,7 +53,7 @@ public class AgAgency3 extends DayDependentAgent{
 		}
         
         // Adds a behavior to answer the sign contract requests
-        // addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
+        addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
         
         // Adds behavior for day communication
     	addDayBehaviour();
@@ -70,6 +69,5 @@ public class AgAgency3 extends DayDependentAgent{
     public void ChangesOnDayChange()
     {
     	System.out.println(getLocalName() + ": Day changed to " + currentDay);
-    	addBehaviour(new   SIGNCONTRACT_SignContractBehaviour(this));
     }
 }

@@ -32,6 +32,9 @@ public class Configuration {
     
     /** The number of clients to be generated every day */
     public final static String CLIENTS_PER_DAY = "simulation.clients_per_day";
+    
+    /** The time that the simulator waits before starting the simulation */
+    public final static String INITIAL_DELAY = "simulation.time_to_start";
  
     private Configuration() {
         this.properties = new Properties();

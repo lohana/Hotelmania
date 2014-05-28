@@ -28,7 +28,7 @@ public class SendDayChange extends TickerBehaviour {
 
 		if (agent.getCurrentDay() == 0) {
 			try {
-				Thread.sleep(3);
+				Thread.sleep(30000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

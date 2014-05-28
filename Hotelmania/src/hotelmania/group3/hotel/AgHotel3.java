@@ -22,9 +22,6 @@ import jade.util.leap.HashMap;
 import jade.util.leap.Map;
 import hotelmania.group3.hotel.behaviour.*;
 import hotelmania.group3.platform.DayDependentAgent;
- 
-import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectFailure;
-import hotelmania.group3.platform.client.behaviour.NUMBEROFCLIENTS_ExpectInform;
 import hotelmania.ontology.*;
 
 @SuppressWarnings("serial")
@@ -58,39 +55,26 @@ public class AgHotel3 extends DayDependentAgent {
         getContentManager().registerLanguage(codec);
         getContentManager().registerOntology(ontology);
 	
-        // Adds a behaviour to search Hotelmania
-        addBehaviour(new SearchHotelmania(this));
-		
-     	// Adds a behavior to process the ACEPTATION answer to an registration request
-     	addBehaviour(new ExpectReqistrationAgree(this));
-
-     	// Adds a behavior to process the REJECTION answer to an registration request
+    	// Register in the bank
+    	addBehaviour(new ExpectAccount(this));
+    	addBehaviour(new CreateAccount(this));
+        
+        // Register in Hotelmania
+    	addBehaviour(new ExpectReqistrationAgree(this));
     	addBehaviour(new ExpectRegistrationRefuse(this));
+    	addBehaviour(new ExpectRegistrationNotUnderstood(this));
+        addBehaviour(new SearchHotelmania(this));  	
     	
-    	// Adds a behavior to process the NOT_UNDERSTOOD answer to an registration request
-    	addBehaviour(new  ExpectRegistrationNotUnderstood(this));
-    	
-    	// Adds a behavior to request sign contract to Agency
-    	addBehaviour(new  SIGNCONTRACT_SignContract(this));
-    	
-    	// Adds a behavior to process the ACEPTATION answer to a sign contract request
-     	addBehaviour(new SIGNCONTRACT_ExpectAcceptation(this));
-
-     	// Adds a behavior to process the REJECTION answer to a sign contract request
+    	// Sign contract for the first day
+        addBehaviour(new  SIGNCONTRACT_ExpectFailure(this));
+        addBehaviour(new SIGNCONTRACT_ExpectAcceptation(this));
     	addBehaviour(new SIGNCONTRACT_ExpectRejection(this));
-    	
-    	// Adds a behavior to process the NOT_UNDERSTOOD answer to a sign contract request
     	addBehaviour(new  SIGNCONTRACT_ExpectNotUnderstood(this));
-    	
-    	// Adds a behavior to process the INFORM answer to a sign contract request
     	addBehaviour(new  SIGNCONTRACT_ExpectInform(this));
-    	
-    	//Adds a behavior to process the INFORM answer to a sign contract request
-    	addBehaviour(new  SIGNCONTRACT_ExpectFailure(this));
+    	addBehaviour(new SIGNCONTRACT_SignContract(this)); 	
     	
     	//Adds a behavior to process the Number of Clients Query Ref
     	//addBehaviour(new  NUMBEROFCLIENTS_ExpectQueryRef(this));
-    	
   	
     	 // Adds a behavior to queryref account status
        	addBehaviour(new GetAccountStatus_ExpectforMessages(this));
@@ -101,18 +85,11 @@ public class AgHotel3 extends DayDependentAgent {
     	// Adds behavior for day communication
     	addDayBehaviour();
     	
-    	addBehaviour(new CreateAccount(this));
-    	
-    	addBehaviour(new ExpectAccount(this));
-    	
     	addBehaviour(new ReceiveOfferRequests(this));
-    	
     	
     	// EndSimulation Behaviors 
     	addBehaviour (new SubscribeForEndSimulation(this));
     	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
-
-    	
 	}
 	
 	public void ChangesOnDayChange()

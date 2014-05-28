@@ -87,6 +87,7 @@ public class CreateAccount extends SimpleBehaviour{
 							// The ContentManager transforms the java objects into strings
 							agent.getContentManager().fillContent(msg, agAction);
 							agent.send(msg);
+							end = true;
 							System.out.println(agent.getLocalName()+": CREATE ACCOUNT REQUEST SEND");
 						}
 						catch (CodecException ce){

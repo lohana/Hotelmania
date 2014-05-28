@@ -175,7 +175,7 @@ public class AgClient3 extends DayDependentAgent {
     		
     		addBehaviour(new BOOKAROOM_BookARoomBehaviour(this));
     	} else if (isBooked && hotelAID != null && currentDay <= stay.getCheckOut()) {
-    		// Ask for #clients and stuff
+    		// Ask for #clients and staff
     		addBehaviour(new NUMBEROFCLIENTS_NumberOfClientsBehaviour(this));
     	}
     	if (isBooked && currentDay == stay.getCheckOut()) {

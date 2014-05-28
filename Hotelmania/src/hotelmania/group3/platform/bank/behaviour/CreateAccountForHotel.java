@@ -71,17 +71,13 @@ public class CreateAccountForHotel extends CyclicBehaviour {
 								blank_name = true;
 							
 							if (!newHotel.getHotel_name().toLowerCase().contains("hotel"))
-								wrong_name = true;
-							
+								wrong_name = true;						
 							
 							if ( blank_name || wrong_name || repeated  ){
 								reply.setPerformative(ACLMessage.FAILURE);
 								System.out.println(myAgent.getLocalName()+ ": CreateAccount Request of "+ newHotel.getHotel_name() + " is DENIED. Failure sent");
 							} 
-							else {
-								
-								
-								
+							else {								
 								int id = agent.createAccount(newHotel);
 								reply.setPerformative(ACLMessage.INFORM);
 								Account a = new Account();
