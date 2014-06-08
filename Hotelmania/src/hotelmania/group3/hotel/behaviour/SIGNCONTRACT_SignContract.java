@@ -73,16 +73,10 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 							hotelRequesting.setHotel_name(AgHotel3.HOTEL_NAME);
 							
 							//Information for the request: Contract
-							Contract contractRequesting = new Contract();
-							contractRequesting.setChef_1stars(1);
-							contractRequesting.setChef_2stars(0);
-							contractRequesting.setChef_3stars(0);
-							contractRequesting.setRoom_service_staff(2);
-							contractRequesting.setRecepcionist_novice(0);
-							contractRequesting.setRecepcionist_experienced(2);
+							Contract contractRequesting = agent.strategy.getNextContract();
 							
 							//Information about the contract day 
-							int contractDay = agent.currentDay+1;
+							int contractDay = agent.currentDay + 1;
 							contractRequesting.setDay(contractDay);
 								
 							//Add hotel information to the registration request
@@ -95,14 +89,6 @@ public class SIGNCONTRACT_SignContract extends SimpleBehaviour{
 							try{
 								// The ContentManager transforms the java objects into strings
 								agent.getContentManager().fillContent(msg, agAction);
-								
-								/*// Wait for the bank account to be created
-								for (int i = 0; i < 20; i++) {
-									Thread.sleep(500);
-									if (agent.id_account != 0) {
-										break;
-									}
-								}*/
 								
 								agent.send(msg);
 								end = true;

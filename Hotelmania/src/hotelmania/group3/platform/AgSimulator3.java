@@ -13,6 +13,7 @@
 package hotelmania.group3.platform;
 
 import hotelmania.group3.ontology.Ontology3;
+import hotelmania.group3.platform.simulator.behaviour.SendSubscribeEndSimulation;
 import hotelmania.group3.platform.simulator.behaviour.SubscribeEndSimulation;
 import hotelmania.group3.platform.simulator.behaviour.SendDayChange;
 import hotelmania.group3.platform.simulator.behaviour.SubscribeAgents;
@@ -46,13 +47,14 @@ public class AgSimulator3 extends Agent {
 	private ArrayList<AID> registeredAgents_EndSimulation = new ArrayList<AID>();
 
 	// Settings
+	public int initialDelay = 30000;
 	int interval = 5000;
 	float clientBudget = 50.0f;
 	float clientBudgetVariance = 25.0f;
 	int lastDay = 30;
 	int clientsPerDay = 10;
+	
 	boolean isover = false;
-
 	private int day = 0;
 	private int nextClientID = 0;
 
@@ -106,6 +108,8 @@ public class AgSimulator3 extends Agent {
 		interval = 5000;
 		try {
 			Configuration configuration = Configuration.getInstance();
+			initialDelay = Integer.parseInt(configuration
+					.getProperty(Configuration.INITIAL_DELAY)) * 1000;
 			interval = Integer.parseInt(configuration
 					.getProperty(Configuration.DATE_LENGTH)) * 1000;
 			clientBudget = Float.parseFloat(configuration
@@ -132,6 +136,13 @@ public class AgSimulator3 extends Agent {
 			generateClients();
 		} else {
 			// End of the simulation
+			isover = true;
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.addBehaviour(new SendSubscribeEndSimulation(this));
 		}
 	}
 
@@ -141,10 +152,6 @@ public class AgSimulator3 extends Agent {
 
 	public int getLastDay() {
 		return lastDay;
-	}
-
-	public void setisover(boolean b) {
-		isover = b;
 	}
 
 	public boolean get_isover() {

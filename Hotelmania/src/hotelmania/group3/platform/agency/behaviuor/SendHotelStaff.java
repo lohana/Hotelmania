@@ -2,18 +2,11 @@ package hotelmania.group3.platform.agency.behaviuor;
 
 import hotelmania.group3.platform.AgAgency3;
 import hotelmania.group3.platform.AgClient3;
-import hotelmania.ontology.Contract;
 import hotelmania.ontology.HotelContract;
 import hotelmania.ontology.HotelInformation;
-import jade.content.ContentElement;
 import jade.content.ContentElementList;
-import jade.content.Predicate;
-import jade.content.abs.AbsObject;
-import jade.content.abs.AbsPredicate;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
-import jade.content.onto.UngroundedException;
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -38,7 +31,6 @@ public class SendHotelStaff extends CyclicBehaviour {
 
 		if (msg != null) {
 
-			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
 			reply.setProtocol(AgClient3.STAFF_QUERY_REF);
@@ -69,11 +61,8 @@ public class SendHotelStaff extends CyclicBehaviour {
 										hc.setHotel(agent.signedContracts
 												.get(i).getHotel());
 										cel.add(hc);
-
 									}
-
 								}
-
 							}
 
 							myAgent.getContentManager().fillContent(reply, cel);
@@ -89,18 +78,15 @@ public class SendHotelStaff extends CyclicBehaviour {
 									+ ":  answer sent -> INFORM HotelStaff");
 
 						} catch (CodecException | OntologyException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
 					} else {
-
 						System.out.println(myAgent.getLocalName()
 								+ ": received NOT_UNDERSTOOD  from "
 								+ (msg.getSender()).getLocalName());
 					}
 				} catch (CodecException | OntologyException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -113,7 +99,6 @@ public class SendHotelStaff extends CyclicBehaviour {
 				System.out.println(myAgent.getLocalName()
 						+ ": received NOT_UNDERSTOOD  from "
 						+ (msg.getSender()).getLocalName());
-
 			}
 		} else {
 			// block();

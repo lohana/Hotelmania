@@ -14,6 +14,8 @@ public class CompleteOffer {
 	   
 	   private float price;
 	   
+	   private float offerRate;
+	   
 	public float getPrice() {
 		return price;
 	}
@@ -24,9 +26,17 @@ public class CompleteOffer {
 
 	public void setHotel(AID value) { 
 	    this.hotel=value;
-	   }
+	}
 	   
-	   public AID getHotel() {
-	     return this.hotel;
-	   }
+	public AID getHotel() {
+	    return this.hotel;
+	}
+	
+	public float getOfferRate() {
+		return this.offerRate;
+	}
+	
+	public void setOfferRate(float rate) {
+		this.offerRate = rate;
+	}
 }

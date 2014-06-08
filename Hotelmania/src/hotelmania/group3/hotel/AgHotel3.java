@@ -14,12 +14,11 @@
 package hotelmania.group3.hotel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
-import jade.util.leap.HashMap;
-import jade.util.leap.Map;
 import hotelmania.group3.hotel.behaviour.*;
 import hotelmania.group3.platform.DayDependentAgent;
 import hotelmania.ontology.*;
@@ -42,12 +41,17 @@ public class AgHotel3 extends DayDependentAgent {
 	public static final String NUMBEROFCLIENTS_QUERY = "NumberOfClients";
 	public static final String CREATEACCOUNT_SERVICE = "CreateAccount";
 	public static final String BOOKING_OFFER = "BookingOffer";
-	private Map offers = new HashMap();
+	private HashMap<String, BookingOffer> offers = new HashMap<String, BookingOffer>();
 	public ArrayList<String> BookingClients = new ArrayList<String>();
 	public static final String BOOKAROOM_REQUEST = "BookARoom";
 	public int numberOfRooms = 6;
+	private HashMap<String, Stay> bookings = new HashMap<String, Stay>();
+	
+	private ArrayList<HotelInformation> hotelsInformation = new ArrayList<HotelInformation>();
 	
 	protected void setup(){
+		System.out.println(this.getLocalName());
+		System.out.println(this.getName());
 		
 		System.out.println(getLocalName()+": HOTEL HAS ENTERED");
 		
@@ -97,8 +101,17 @@ public class AgHotel3 extends DayDependentAgent {
     	System.out.println(getLocalName() + ": Day changed to " + currentDay);
     	addBehaviour(new  SIGNCONTRACT_SignContract(this));
        	addBehaviour(new GetAccountStatus(this)); 	
-
     }
+	
+	public int getNumberOfClients(int day) {
+		int result = 0;
+		for (Stay stay : bookings.values()) {
+			if (day >= stay.getCheckIn() && day <= stay.getCheckOut()) {
+				result++;
+			}
+		}
+		return result;
+	}
 	
 	public void makeOffer(String client, BookingOffer offer) {
 		offers.put(client, offer);
@@ -106,13 +119,38 @@ public class AgHotel3 extends DayDependentAgent {
 	
 	public boolean isValidOffer(String client, Price price) {
 		if (offers.containsKey(client)) {
-			BookingOffer currentOffer = (BookingOffer)(offers.get(client));
+			BookingOffer currentOffer = offers.get(client);
 			if (price.getAmount() == currentOffer.getRoomPrice().getAmount()) {
 				return true;
 			}
 		}
 		
 		return false;
+	}
+
+	public boolean checkStay(Stay stay) {
+		for (int i = stay.getCheckIn(); i < stay.getCheckOut(); i++) {
+			if (getNumberOfClients(i) > 5) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void addHotelInformation(HotelInformation info) {
+		for (int i = 0; i < hotelsInformation.size(); i++) {
+			if (hotelsInformation.get(i).getHotel().getHotel_name().equals(info.getHotel().getHotel_name())) {
+				hotelsInformation.get(i).setRating(info.getRating());
+				return;
+			}
+		}
+		HotelInformation hi = new HotelInformation();
+		hi.setRating(info.getRating());
+		Hotel hotel = new Hotel();
+		hotel.setHotel_name(info.getHotel().getHotel_name());
+		hotel.setHotelAgent(info.getHotel().getHotelAgent());
+		hi.setHotel(hotel);
+		hotelsInformation.add(hi);
 	}
 }
 

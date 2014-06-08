@@ -10,9 +10,9 @@ public class Opinion {
 	
 	private String clientId;
 	private String hotel;
-	private int rate;
+	private float rate;
 	
-	public Opinion(String clientId, String hotel, int rate) {
+	public Opinion(String clientId, String hotel, float rate) {
 		this.clientId = clientId;
 		this.hotel = hotel;
 		this.rate = rate;
@@ -28,7 +28,7 @@ public class Opinion {
 		return hotel;
 	}
 	
-	public int getRate()
+	public float getRate()
 	{
 		return rate;
 	}

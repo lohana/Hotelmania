@@ -84,22 +84,24 @@ public class SendRate extends SimpleBehaviour {
 						client.setHotel(agent.getHotel());
 						client.setRate(agent.getRate());
 						
-						//Add client information to the evaluation
-						e.setClient(client);
-						
-						// Wrap the message with action
-						Action agAction = new Action(ag, e);
-						try{
-							// The ContentManager transforms the java objects into strings
-							agent.getContentManager().fillContent(msg, agAction);
-							agent.send(msg);
-							System.out.println(agent.getLocalName() + ": Evaluation sent with rate: " + agent.getRate());
-						}
-						catch (CodecException ce){
-							ce.printStackTrace();
-						}
-						catch (OntologyException oe){
-							oe.printStackTrace();
+						if (client.getRate() > 0) {
+							//Add client information to the evaluation
+							e.setClient(client);
+							
+							// Wrap the message with action
+							Action agAction = new Action(ag, e);
+							try{
+								// The ContentManager transforms the java objects into strings
+								agent.getContentManager().fillContent(msg, agAction);
+								agent.send(msg);
+								System.out.println(agent.getLocalName() + ": Evaluation sent with rate: " + agent.getRate());
+							}
+							catch (CodecException ce){
+								ce.printStackTrace();
+							}
+							catch (OntologyException oe){
+								oe.printStackTrace();
+							}
 						}
 					}
 				}

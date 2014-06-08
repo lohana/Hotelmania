@@ -66,28 +66,6 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 							
 							System.out.println(myAgent.getLocalName()+": received SIGN CONTRACT REQUEST from "+(msg.getSender()).getLocalName() + "for a " + requestedContractDay + " day");
 							
-							
-							/*Simulation Exist Contract in day 0 for a Hotel3*/
-							/*SignContract testSc = new SignContract();
-							Hotel testHotel = new Hotel();
-							testHotel.setHotel_name("Hotel3");
-							
-							Contract testContract = new Contract();
-							testContract.setChef_1stars(1);
-							testContract.setChef_2stars(1);
-							testContract.setChef_3stars(1);
-							testContract.setRoom_service_staff(2);
-							testContract.setRecepcionist_novice(0);
-							testContract.setRecepcionist_experienced(2);
-								
-							//Add hotel information to the registration request
-							testSc.setHotel(testHotel);
-							testSc.setContract(testContract);
-							agent.signedContracts.add(agent.currentDay,testSc);
-							
-							agent.currentDay++;*/
-							/*SIMULATION ENDS*/
-							
 							//Validate if contract request day is the greater equal than the agency day
 							if (requestedContractDay >= agent.currentDay){
 								correct_contract_day = true;
@@ -122,7 +100,7 @@ public class SIGNCONTRACT_SignContractBehaviour extends CyclicBehaviour {
 									System.out.println(myAgent.getLocalName()+ ": Sign Contract FAILURE to the "+ requestedHotel.getHotel_name() + " for a " + requestedContractDay + " day " + ". Reason: Contract exits for this Hotel in this day");
 								} else {
 									//charge to account
-									myAgent.addBehaviour(new ChargetoAccount_Request(myAgent,requestedHotel));
+									myAgent.addBehaviour(new ChargetoAccount_Request(myAgent, sc));
 									agent.signedContracts.add(sc);
 									reply2.setPerformative(ACLMessage.INFORM);
 									System.out.println(myAgent.getLocalName()+ ": "+ requestedHotel.getHotel_name() + " INFORM has hired Staff requested for " + requestedContractDay + " day");

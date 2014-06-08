@@ -1,5 +1,5 @@
 
-package hotelmania.group3.platform.agency.behaviuor;
+package hotelmania.group3.platform.client.behaviour;
 
 import jade.core.Agent;
 import jade.core.AID;
@@ -10,14 +10,14 @@ import jade.lang.acl.ACLMessage;
 import jade.content.lang.Codec.*;
 import jade.content.onto.*;
 import jade.content.onto.basic.*;
-import hotelmania.group3.platform.AgAgency3;
 import hotelmania.group3.platform.AgBank3;
+import hotelmania.group3.platform.AgClient3;
 import hotelmania.ontology.*;
 
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class ChargetoAccount_Request extends SimpleBehaviour{
+public class Payments_Request extends SimpleBehaviour{
 
 	boolean end = false;
 	AID[] bank = new AID[20];
@@ -25,16 +25,13 @@ public class ChargetoAccount_Request extends SimpleBehaviour{
 	boolean ignore = false;
 	int last = 0;
 	int i, j;
-	SignContract signedContract;
 
-
-	public ChargetoAccount_Request(Agent agent, SignContract signedContract) {
+	public Payments_Request(Agent agent) {
 		super(agent);
-		this.signedContract = signedContract;
 	}
 
 	public void action(){
-		AgAgency3 agency = (AgAgency3)myAgent;
+		AgClient3 client = (AgClient3)myAgent;
 
 		// From this moment, it will be searching bank for a minute		
 		final Date registerTime = new Date();
@@ -42,7 +39,7 @@ public class ChargetoAccount_Request extends SimpleBehaviour{
 		// Creates the description for the type of agent to be searched
 		DFAgentDescription dfd = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
-		sd.setType(AgBank3.CHARGE_ACCOUNT_SERVICE);
+		sd.setType(AgBank3.PAYMENTS);
 		dfd.addServices(sd);
 
 		try{
@@ -71,32 +68,32 @@ public class ChargetoAccount_Request extends SimpleBehaviour{
 
 						// Asks for registration
 						ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-						msg.setProtocol(AgBank3.CHARGE_ACCOUNT_SERVICE);
+						msg.setProtocol(AgBank3.PAYMENTS);
 						msg.addReceiver(ag);
-						msg.setLanguage(agency.codec.getName());
-						msg.setOntology(agency.ontology.getName());
+						msg.setLanguage(client.codec.getName());
+						msg.setOntology(client.ontology.getName());
 
 						ChargeAccount ca = new ChargeAccount();
-						Contract c = signedContract.getContract();
-						float amount = c.getChef_1stars() * 45 +
-									   c.getChef_2stars() * 58 +
-									   c.getChef_3stars() * 77 +
-									   c.getRecepcionist_novice() * 34 +
-									   c.getRecepcionist_experienced() * 44 +
-									   c.getRoom_service_staff() * 28;
-
-						ca.setHotel(signedContract.getHotel());
+						
+						float amount = client.getSelectedOffer().getPrice() * (client.getStay().getCheckOut() - client.getStay().getCheckIn());
+						Hotel h = new Hotel();
+						h.setHotel_name(client.getHotelName(client.getHotelAID()));
+						h.setHotelAgent(client.getHotelAID());
+ 						ca.setHotel(h);
 						ca.setAmount(amount);
 						ca.setDay(1);
+
+
 
 						// As it is an action and the encoding language the SL, it must be wrapped
 						// into an Action
 						Action agAction = new Action(ag,ca);
 						try{
 							// The ContentManager transforms the java objects into strings
-							agency.getContentManager().fillContent(msg, agAction);
-							agency.send(msg);
-							System.out.println(agency.getLocalName()+": CHARGE TO ACCOUNT REQUEST SEND");
+							client.getContentManager().fillContent(msg, agAction);
+							client.send(msg);
+							end = true;
+							System.out.println(client.getLocalName()+": PAYMENT REQUEST SEND");
 						}
 						catch (CodecException ce){
 							ce.printStackTrace();

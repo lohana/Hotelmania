@@ -63,7 +63,7 @@ public class NUMBEROFCLIENTS_ExpectQueryRef extends CyclicBehaviour {
 							requestedHotel.setHotel_name(requestedHotelName);
 							
 							//Calculate the number of clients of the requestedHotel.
-							int numberOfclientsRequestedHotel = 2;
+							int numberOfclientsRequestedHotel = agent.getNumberOfClients(day);
 							
 							System.out.println(myAgent.getLocalName()+": received NUMBER OF CLIENTS QUERY from "+(msg.getSender()).getLocalName() );
 							

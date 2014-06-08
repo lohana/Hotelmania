@@ -24,13 +24,12 @@ public class GetHotelInformation extends CyclicBehaviour {
 	boolean ignore = false;
 
 	public GetHotelInformation(Agent agent) {
-
 		super(agent);
 	}
 
 	public void action() {
-
 		AgClient3 agent = (AgClient3) this.myAgent;
+		
 		ACLMessage msg = new ACLMessage(ACLMessage.QUERY_REF);
 
 		final Date registerTime = new Date();
@@ -71,7 +70,6 @@ public class GetHotelInformation extends CyclicBehaviour {
 					msg.setLanguage(agent.codec.getName());
 					msg.setOntology(agent.ontology.getName());
 					msg.setProtocol(AgHotelmania3.HOTEL_INFORMATION);
-
 
 					agent.send(msg);
 					System.out.println(agent.getLocalName()

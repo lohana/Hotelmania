@@ -1,7 +1,5 @@
 /**
  * This action sends day notification to all registered agents.
- * @author Eleonora Adova, EMSE
- * @version $Date: 2014/05/04 00:28 $ $Revision: 1.0 $
  **/
 package hotelmania.group3.platform.simulator.behaviour;
 
@@ -16,6 +14,8 @@ import jade.lang.acl.ACLMessage;
 
 @SuppressWarnings("serial")
 public class SendSubscribeEndSimulation extends SimpleBehaviour {
+	
+	private boolean end = false;
 
 	public SendSubscribeEndSimulation(Agent agent) {
 		super(agent);
@@ -29,9 +29,7 @@ public class SendSubscribeEndSimulation extends SimpleBehaviour {
 
 			int max_days = agent.getLastDay();
 
-			if (currentDay > max_days && agent.get_isover() == false) {
-
-				agent.setisover(true);
+			if (currentDay > max_days) {
 
 				for (AID ag : agent.getRegisteredAgents_EndSimulation()) {
 
@@ -45,25 +43,22 @@ public class SendSubscribeEndSimulation extends SimpleBehaviour {
 					try {
 						agent.getContentManager().fillContent(msg, n);
 					} catch (CodecException | OntologyException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
 					agent.send(msg);
 					System.out.println(String.format(
 							"%s: Simulation %d Over  to %s.",
 							agent.getLocalName(), agent.getCurrentDay(),
 							ag.getLocalName()));
-
 				}
-
+				agent.doDelete();
+				end = true;
 			}
 		}
 	}
 
 	@Override
 	public boolean done() {
-		// TODO Auto-generated method stub
-		return false;
+		return end;
 	}
 }

@@ -28,15 +28,17 @@ public class SendDayChange extends TickerBehaviour {
 
 		if (agent.getCurrentDay() == 0) {
 			try {
-				Thread.sleep(30000);
+				Thread.sleep(agent.initialDelay);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 
-		if (agent.getRegisteredAgents().size() > 0
-				&& agent.get_isover() == false) {
+		if (agent.getRegisteredAgents().size() > 0) {
 			agent.changeDay();
+			if (agent.get_isover()) {
+				return;
+			}
 			for (AID ag : agent.getRegisteredAgents()) {
 
 				try {
@@ -57,17 +59,11 @@ public class SendDayChange extends TickerBehaviour {
 					System.out.println(String.format("%s: Day %d sent to %s.",
 							agent.getLocalName(), agent.getCurrentDay(),
 							ag.getLocalName()));
-
 				} catch (CodecException ce) {
 					ce.printStackTrace();
 				} catch (OntologyException oe) {
 					oe.printStackTrace();
 				}
-			}
-			if (!agent.get_isover()) {
-				this.myAgent.addBehaviour(new SendSubscribeEndSimulation(
-						this.myAgent));
-
 			}
 		}
 	}

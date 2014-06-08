@@ -61,22 +61,15 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 							AID receiverAgent = msg.getSender();
 							String requestedClientName = receiverAgent.getLocalName();
 							
-							
-							if (!agent.BookingClients.isEmpty()){
-								//Review if client exist in BookingList
-								for (String currentClient : agent.BookingClients){
-									if (currentClient.equals(requestedClientName))
-										clientRepeated = true;
-								}
-								//review if Hotel is full
-								if (agent.BookingClients.size() == agent.numberOfRooms)
-									hotelIsFull = true;
+							// Check is the hotel is full
+							if (!agent.checkStay(br.getStay())) {
+								hotelIsFull = true;
 							}
 							
 							//Review if requestPrice is different to dictionary offers price
-							if (!agent.isValidOffer(requestedClientName, br.getPrice()))
+							if (!agent.isValidOffer(requestedClientName, br.getPrice())) {
 								differentPrice = true;
-								
+							}	
 													
 							if (hotelIsFull){
 								reply.setPerformative(ACLMessage.REFUSE);
@@ -105,13 +98,10 @@ public class BOOKAROOM_BookARoomExpectRequest extends CyclicBehaviour{
 				}	
 				agent.send(reply);
 			} catch (UngroundedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (CodecException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (OntologyException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

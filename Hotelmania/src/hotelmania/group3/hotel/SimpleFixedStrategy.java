@@ -19,10 +19,8 @@ public class SimpleFixedStrategy implements IStrategy {
 	@Override
 	public Contract getNextContract() {
 		Contract contract = new Contract();
-		contract.setChef_1stars(1);
-		contract.setChef_2stars(1);
 		contract.setChef_3stars(1);
-		contract.setRoom_service_staff(2);
+		contract.setRoom_service_staff(6);
 		contract.setRecepcionist_novice(0);
 		contract.setRecepcionist_experienced(2);
 		

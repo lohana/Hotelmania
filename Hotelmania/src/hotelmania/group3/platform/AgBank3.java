@@ -1,22 +1,26 @@
 
 package hotelmania.group3.platform;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 import jade.domain.FIPAAgentManagement.*;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
-import jade.util.leap.HashMap;
-import jade.util.leap.Map;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
-import jade.core.Agent;
 import hotelmania.ontology.*;
 import hotelmania.group3.platform.bank.behaviour.*;
 
 @SuppressWarnings("serial")
-public class AgBank3 extends Agent{
+public class AgBank3 extends DayDependentAgent{
 
 	public Codec codec = new SLCodec();
 	public Ontology ontology = SharedAgentsOntology.getInstance();
@@ -24,12 +28,16 @@ public class AgBank3 extends Agent{
 
 	public static final String ACCOUNTSTATUS_SERVICE = "AccountStatus";
 	public static final String CHARGE_ACCOUNT_SERVICE = "ChargeAcount";
+	public static final String PAYMENTS = "ClientPayment";
 
-
-	private Map accounts = new HashMap();
-	private Map id_accounts = new HashMap();
+	private HashMap<Integer, Account> accounts = new HashMap<Integer, Account>();
+	private HashMap<String, Integer> id_accounts = new HashMap<String, Integer>();
 	public ArrayList<Hotel> hotelsWithAccount = new ArrayList<Hotel>();
 	private int nextId = 1;
+	
+	// Information about the report
+	private ArrayList<HotelInformation> hotelsInformation = new ArrayList<HotelInformation>();
+	private HashMap<String, ArrayList<String>> hotelsClients = new HashMap<String, ArrayList<String>>();
 
 	protected void setup() {
 		System.out.println(getLocalName() + ": Bank3 has entered into the system");
@@ -43,6 +51,7 @@ public class AgBank3 extends Agent{
 			ServiceDescription sd = new ServiceDescription();
 			ServiceDescription sdas = new ServiceDescription();
 			ServiceDescription sdca = new ServiceDescription();
+			ServiceDescription sdp = new ServiceDescription();
 			sd.setName(this.getName()); 
 			sd.setType(CREATEACCOUNT_SERVICE);
 			dfd.addServices(sd);
@@ -54,6 +63,10 @@ public class AgBank3 extends Agent{
 			sdca.setName(this.getName()); 
 			sdca.setType(CHARGE_ACCOUNT_SERVICE);
 			dfd.addServices(sdca);
+			
+			sdp.setName(this.getName()); 
+			sdp.setType(PAYMENTS);
+			dfd.addServices(sdp);
 
 			// Registers its description in the DF
 			DFService.register(this, dfd);
@@ -76,15 +89,20 @@ public class AgBank3 extends Agent{
 		addBehaviour(new SendAccountStatus(this));
 		addBehaviour(new ChargetoAccount(this));
 		
+		addDayBehaviour();
+		
+		addBehaviour(new GetHotelInformation_ExpectforMessages(this));
+		
+		addBehaviour(new Payments(this));
+		
 		// EndSimulation Behaviors 
     	addBehaviour (new SubscribeForEndSimulation(this));
     	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
-		
 	}
 
 	public Account getStatusForHotel(int account)
 	{
-		return (Account)(accounts.get(account));
+		return accounts.get(account);
 	}
 
 	public int createAccount(Hotel hotel)
@@ -98,24 +116,113 @@ public class AgBank3 extends Agent{
 		newAccount.setId_account(result);
 		accounts.put(result, newAccount);
 		id_accounts.put(hotel.getHotel_name(), result);
+		hotelsClients.put(hotel.getHotel_name(), new ArrayList<String>());
 		return result;
 	}
 
-	public boolean chargetoaccount(Hotel h,float amount){
+	public boolean chargetoaccount(Hotel h, float amount, String payer){
 
-		int id_account = (int)id_accounts.get(h.getHotel_name());
+		int id_account = id_accounts.get(h.getHotel_name());
 
 		if(getStatusForHotel(id_account)  != null && amount>0){
 			
 			Account act = getStatusForHotel(id_account);
-			act.setBalance(act.getBalance()-amount);		
+			act.setBalance(act.getBalance() - amount);		
 			accounts.put(id_account, act);
-
+			
+			if (payer.contains("Client")) {
+				hotelsClients.get(h.getHotel_name()).add(payer);
+			}
 			
 			return true;
 		}else {
 
 			return false;
 		}
+	}
+	
+	public void addHotelInformation(HotelInformation info) {
+		for (int i = 0; i < hotelsInformation.size(); i++) {
+			if (hotelsInformation.get(i).getHotel().getHotel_name().equals(info.getHotel().getHotel_name())) {
+				hotelsInformation.get(i).setRating(info.getRating());
+				return;
+			}
+		}
+		HotelInformation hi = new HotelInformation();
+		hi.setRating(info.getRating());
+		Hotel hotel = new Hotel();
+		hotel.setHotel_name(info.getHotel().getHotel_name());
+		hotel.setHotelAgent(info.getHotel().getHotelAgent());
+		hi.setHotel(hotel);
+		hotelsInformation.add(hi);
+	}
+	
+	public void writeReport() {
+		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+		Date today = Calendar.getInstance().getTime();        
+		String reportDate = df.format(today);
+		
+		// Read settings
+		int interval = 5;
+		float clientBudget = 50.0f;
+		float clientBudgetVariance = 25.0f;
+		int lastDay = 30;
+		int clientsPerDay = 10;
+		try {
+			Configuration configuration = Configuration.getInstance();
+			interval = Integer.parseInt(configuration
+					.getProperty(Configuration.DATE_LENGTH));
+			clientBudget = Float.parseFloat(configuration
+					.getProperty(Configuration.CLIENT_BUDGET));
+			clientBudgetVariance = Float.parseFloat(configuration
+					.getProperty(Configuration.BUDGET_VARIANCE));
+			lastDay = Integer.parseInt(configuration
+					.getProperty(Configuration.MAX_DAYS));
+			clientsPerDay = Integer.parseInt(configuration
+					.getProperty(Configuration.CLIENTS_PER_DAY));
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out
+					.println("EXCEPTION: Unable to read configuration file. Default values are used.");
+		}
+
+		try {
+			PrintWriter writer = new PrintWriter("FinalReportPlatform3" + reportDate + ".txt");
+			writer.println("Platform: Group 3");
+			writer.println("Simulation period: " + lastDay);
+			writer.println("Number of clients generated: " + (lastDay * clientsPerDay));
+			writer.println("Client's budget range: " + (clientBudget - clientBudgetVariance) + " - " + (clientBudget + clientBudgetVariance) + " EUR");
+			writer.println("Initial money for each hotel: 0 EUR");
+			writer.println("Rooms in each hotel: 6");
+			writer.println("Day duration: " + interval + " seconds");
+			writer.println("Participants: " + this.hotelsWithAccount.size());
+			writer.println("Status of the participants after the simulation:");
+			for (Hotel hotel : this.hotelsWithAccount) {
+				String hotelName = hotel.getHotel_name();
+				writer.println();
+				writer.println("\t" + hotelName);
+				int id = id_accounts.get(hotelName);
+				writer.println("\t\tMoney in the account: " + accounts.get(id).getBalance() + " EUR");
+				writer.println("\t\tClients visited the hotel: " + hotelsClients.get(hotelName).size());
+				writer.println("\t\tRate in Hotelmania: " + findRate(hotelName));
+			}
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private float findRate(String hotelName) {
+		for (HotelInformation info : hotelsInformation) {
+			if (info.getHotel().getHotel_name().equals(hotelName)) {
+				return info.getRating();
+			}
+		}
+		return 5;
+	}
+
+	@Override
+	public void ChangesOnDayChange() {
+		addBehaviour(new GetHotelInformation(this));
 	}
 }

@@ -26,7 +26,6 @@ public class ChargetoAccount extends CyclicBehaviour {
 
 		AgBank3 agentb = (AgBank3)this.myAgent;
 		
-		
  		ACLMessage msg = agentb.receive(MessageTemplate.and(MessageTemplate.MatchLanguage(agentb.codec.getName()), MessageTemplate.and(
 						MessageTemplate.MatchOntology(agentb.ontology.getName()),MessageTemplate.MatchProtocol(AgBank3.CHARGE_ACCOUNT_SERVICE))));
 
@@ -39,20 +38,13 @@ public class ChargetoAccount extends CyclicBehaviour {
 
 			if (AclMessage == ACLMessage.REQUEST) {
 
-
-
-
-
 				try {
 					ce = agentb.getContentManager().extractContent(msg);
 				} catch (UngroundedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (CodecException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (OntologyException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				// We expect an action inside the message
@@ -62,17 +54,14 @@ public class ChargetoAccount extends CyclicBehaviour {
 
 					if (conc instanceof ChargeAccount){
 
-
 						System.out.println(myAgent.getLocalName()+": received  ChargetoAccount REQUEST from   "+(msg.getSender()).getLocalName());    
 
-
 						ChargeAccount re = (ChargeAccount)conc;
-
 						
 						Float amount = re.getAmount();
 						Hotel h = re.getHotel();
  						
-						if( agentb.chargetoaccount(h,amount) )
+						if( agentb.chargetoaccount(h, amount, (msg.getSender()).getLocalName()))
 						{
 							reply.setPerformative(ACLMessage.AGREE);
 							reply.setProtocol(AgBank3.CHARGE_ACCOUNT_SERVICE);					 
@@ -97,12 +86,10 @@ public class ChargetoAccount extends CyclicBehaviour {
 				System.out.println(myAgent.getLocalName()
 						+ ": received REFUSE  from "
 						+ (msg.getSender()).getLocalName());
-
 			} else if (AclMessage == ACLMessage.NOT_UNDERSTOOD) {
 				System.out.println(myAgent.getLocalName()
 						+ ": received NOT_UNDERSTOOD  from "
 						+ (msg.getSender()).getLocalName());
-
 			}
 		} 
 	}

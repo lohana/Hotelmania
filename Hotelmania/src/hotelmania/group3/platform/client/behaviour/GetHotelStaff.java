@@ -4,7 +4,6 @@ import jade.lang.acl.ACLMessage;
 import hotelmania.group3.platform.AgClient3;
 import hotelmania.ontology.Hotel;
 import hotelmania.ontology.HotelInformation;
-import jade.content.abs.AbsContentElement;
 import jade.content.lang.Codec.CodecException;
 import jade.content.onto.OntologyException;
 import jade.core.AID;
@@ -18,11 +17,9 @@ public class GetHotelStaff extends CyclicBehaviour {
 	AID agency = new AID();;
 
 	public GetHotelStaff(Agent agent) {
-
 		super(agent);
 	}
 
-	@SuppressWarnings("static-access")
 	public void action() {
 
 		AgClient3 agent = (AgClient3) this.myAgent;
@@ -34,7 +31,7 @@ public class GetHotelStaff extends CyclicBehaviour {
 				ag = agent.getHotelAID();
 				msg.setLanguage(agent.codec.getName());
 				msg.setOntology(agent.ontology.getName());
-				msg.setProtocol(agent.STAFF_QUERY_REF);
+				msg.setProtocol(AgClient3.STAFF_QUERY_REF);
 
 				Hotel h = new Hotel();
 				h.setHotel_name(ag.getLocalName());
@@ -51,17 +48,14 @@ public class GetHotelStaff extends CyclicBehaviour {
 				try {
 					agent.getContentManager().fillContent(msg, hi);
 				} catch (CodecException | OntologyException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
 				agent.send(msg);
 				System.out.println(agent.getLocalName()
 						+ ": QUERY_REF  HotelStaff to   " + ag.getName());
-
 			} else {
 				System.out.println("Error, agent booked Without Hotel AID");
-
 			}
 
 		}

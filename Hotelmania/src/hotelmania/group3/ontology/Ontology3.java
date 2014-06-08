@@ -46,7 +46,7 @@ private static ReflectiveIntrospector introspect = new ReflectiveIntrospector();
     // adding fields
     clientSchema.add(CLIENT_ID, (TermSchema)getSchema(BasicOntology.STRING), ObjectSchema.MANDATORY);
     clientSchema.add(HOTEL, (TermSchema)getSchema(BasicOntology.STRING), ObjectSchema.MANDATORY);
-    clientSchema.add(RATE, (TermSchema)getSchema(BasicOntology.INTEGER), ObjectSchema.MANDATORY);
+    clientSchema.add(RATE, (TermSchema)getSchema(BasicOntology.FLOAT), ObjectSchema.MANDATORY);
     clientSchema.add(BUDGET, (TermSchema)getSchema(BasicOntology.FLOAT), ObjectSchema.MANDATORY);
     evaluationSchema.add(EVALUATION_CLIENT, clientSchema, ObjectSchema.MANDATORY);
 

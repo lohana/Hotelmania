@@ -21,22 +21,20 @@ public class GetHotelInformation_ExpectforMessages extends CyclicBehaviour {
 		super(agent);
 	}
 
-	@SuppressWarnings("static-access")
 	public void action() {
 		AgClient3 agent = (AgClient3) this.myAgent;
-		AgHotelmania3 agentb = new AgHotelmania3();
 
 		// Waits for estimation requests
 		ACLMessage msg = agent.receive(MessageTemplate.and(MessageTemplate
 				.MatchLanguage(agent.codec.getName()), MessageTemplate.and(
 						MessageTemplate.MatchOntology(agent.ontology.getName()),
-						MessageTemplate.MatchProtocol(agentb.HOTEL_INFORMATION))));
+						MessageTemplate.MatchProtocol(AgHotelmania3.HOTEL_INFORMATION))));
 
 		if (msg != null) {
 
 			int AclMessage = msg.getPerformative();
 			ACLMessage reply = msg.createReply();
-			reply.setProtocol(agentb.HOTEL_INFORMATION);
+			reply.setProtocol(AgHotelmania3.HOTEL_INFORMATION);
 
 			if (AclMessage == ACLMessage.INFORM) {
 

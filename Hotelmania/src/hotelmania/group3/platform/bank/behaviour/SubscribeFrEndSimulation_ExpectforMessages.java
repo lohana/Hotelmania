@@ -1,4 +1,4 @@
-// Expects account status
+// Expects end of simulation
 
 package hotelmania.group3.platform.bank.behaviour;
 
@@ -17,7 +17,6 @@ import jade.lang.acl.MessageTemplate;
 public class SubscribeFrEndSimulation_ExpectforMessages extends CyclicBehaviour {
 
 	public SubscribeFrEndSimulation_ExpectforMessages(Agent agent) {
-
 		super(agent);
 	}
 
@@ -33,7 +32,6 @@ public class SubscribeFrEndSimulation_ExpectforMessages extends CyclicBehaviour 
 		if (msg != null) {
 			ContentElement ce = null;
 			int AclMessage = msg.getPerformative();
-			
 
 			if (AclMessage == ACLMessage.INFORM) {
 
@@ -45,15 +43,14 @@ public class SubscribeFrEndSimulation_ExpectforMessages extends CyclicBehaviour 
 						System.out.println(myAgent.getLocalName()
 								+ ": received END_SIMULATION from  "
 								+ msg.getSender().getLocalName());
+						agent.writeReport();
 						myAgent.doDelete();
 
 					}
 
 				} catch (CodecException | OntologyException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 			} else if (AclMessage == ACLMessage.REFUSE) {
 				System.out.println(myAgent.getLocalName()
 						+ ": received FAILURE  from "
@@ -63,7 +60,6 @@ public class SubscribeFrEndSimulation_ExpectforMessages extends CyclicBehaviour 
 				System.out.println(myAgent.getLocalName()
 						+ ": received FAILURE  from "
 						+ (msg.getSender()).getLocalName());
-
 			}
 
 		} else {

@@ -31,6 +31,7 @@ public class NUMBEROFCLIENTS_ExpectInform extends CyclicBehaviour {
 			 try {
 			// If an acceptation arrives...
 			NumberOfClients numberOfclientsInformed = (NumberOfClients) myAgent.getContentManager().extractContent(msg);
+			((AgClient3)this.myAgent).storeNumberOfClients(numberOfclientsInformed);
 			
 			System.out.println(myAgent.getLocalName()+": received Number of clients INFORM from "+(msg.getSender()).getLocalName() + "Result: " + numberOfclientsInformed.getNum_clients() );
 			 } catch (OntologyException | CodecException oe){

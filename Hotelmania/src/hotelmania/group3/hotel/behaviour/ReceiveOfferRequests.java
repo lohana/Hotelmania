@@ -56,19 +56,21 @@ public class ReceiveOfferRequests extends CyclicBehaviour {
 							reply.setPerformative(ACLMessage.NOT_UNDERSTOOD);
 							System.out.println(myAgent.getLocalName()+ ": Booking offer checkin day >= checkout day");
 						} else {
-							BookingOffer offer = new BookingOffer();
-							float price = agent.strategy.getCurrentPrice();
-							int nightsStayed = stay.getCheckOut() - stay.getCheckIn();
-							Price totalPrice = new Price();
-							totalPrice.setAmount(nightsStayed * price);
-							offer.setRoomPrice(totalPrice);
-							agent.makeOffer((msg.getSender()).getLocalName(), offer);
-							reply.setPerformative(ACLMessage.INFORM);
-							reply.setOntology(agent.ontology.getName());
-							reply.setLanguage(agent.codec.getName());
-							agent.getContentManager().fillContent(reply, offer);
-							System.out.println(myAgent.getLocalName()+": received BookingOffer Request from client "+(msg.getSender()).getLocalName());
-							System.out.println(myAgent.getLocalName()+ ": answer sent ->INFORM");
+							if (agent.checkStay(stay)) {
+								BookingOffer offer = new BookingOffer();
+								float price = agent.strategy.getCurrentPrice();
+								int nightsStayed = stay.getCheckOut() - stay.getCheckIn();
+								Price totalPrice = new Price();
+								totalPrice.setAmount(nightsStayed * price);
+								offer.setRoomPrice(totalPrice);
+								agent.makeOffer((msg.getSender()).getLocalName(), offer);
+								reply.setPerformative(ACLMessage.INFORM);
+								reply.setOntology(agent.ontology.getName());
+								reply.setLanguage(agent.codec.getName());
+								agent.getContentManager().fillContent(reply, offer);
+								System.out.println(myAgent.getLocalName()+": received BookingOffer Request from client "+(msg.getSender()).getLocalName());
+								System.out.println(myAgent.getLocalName()+ ": answer sent ->INFORM");
+							}
 						}
 					}
 				} 

@@ -1,11 +1,10 @@
 /**
  * Subscribes the agent for end of the simulation
  * 
- **/ 
+ **/
+package hotelmania.group3.platform.hotelmania.behaviuor;
 
-package hotelmania.group3.hotel.behaviour;
-
-import hotelmania.group3.hotel.AgHotel3;
+import hotelmania.group3.platform.AgHotelmania3;
 import hotelmania.group3.platform.AgSimulator3;
 import hotelmania.ontology.EndSimulation;
 
@@ -36,7 +35,7 @@ public class SubscribeForEndSimulation extends SimpleBehaviour {
 	}
 	
 	public void action(){
-		AgHotel3 agent =  (AgHotel3)this.myAgent;
+		AgHotelmania3 agent =  (AgHotelmania3)this.myAgent;
 		
 	     // From this moment, it will be searching for the simulator for a minute		
      	final Date registerTime = new Date();

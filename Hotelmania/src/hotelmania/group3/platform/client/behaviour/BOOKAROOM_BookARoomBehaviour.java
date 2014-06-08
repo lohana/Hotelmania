@@ -52,13 +52,12 @@ public class BOOKAROOM_BookARoomBehaviour extends SimpleBehaviour {
 				// Wrap the message with action
 				AID hotelID = offer.getHotel();
 				agent.hotelAID = hotelID;
-				agent.hotel = agent.getHotelName(hotelID);
 				Action agAction = new Action(agent.hotelAID,  br);
 				msg.addReceiver(agent.hotelAID);
 				agent.getContentManager().fillContent(msg, agAction);
 				
 				agent.send(msg);
-				System.out.println(agent.getLocalName() + ": REQUEST BOOK a ROOM to "+agent.hotel);
+				System.out.println(agent.getLocalName() + ": REQUEST BOOK a ROOM to " + agent.getHotel());
 			}
 						
 		}catch (Exception e){

@@ -1,7 +1,5 @@
 /**
- * Subscribes the agent for day notification
- * @author Eleonora Adova, EMSE
- * @version $Date: 2014/05/04 00:28 $ $Revision: 1.0 $
+ * Subscribes the agent for end of the simulation
  * 
  **/
 
@@ -85,6 +83,7 @@ public class SubscribeForEndSimulation extends SimpleBehaviour {
 							agent.getContentManager().fillContent(msg, agAction);
 							agent.send(msg);
 							System.out.println(agent.getLocalName()+": SUSCRIBE END_SIMULATION");
+							end = true;
 						}
 						catch (CodecException ce){
 							ce.printStackTrace();

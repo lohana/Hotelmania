@@ -24,6 +24,8 @@ import hotelmania.group3.ontology.Ontology3;
 import hotelmania.group3.platform.hotelmania.behaviuor.HotelmaniaInformation;
 import hotelmania.group3.platform.hotelmania.behaviuor.ReceiveEvaluation;
 import hotelmania.group3.platform.hotelmania.behaviuor.RegistrationBehaviour;
+import hotelmania.group3.platform.hotelmania.behaviuor.SubscribeForEndSimulation;
+import hotelmania.group3.platform.hotelmania.behaviuor.SubscribeFrEndSimulation_ExpectforMessages;
 import hotelmania.ontology.*;
 
 import java.util.ArrayList;
@@ -91,13 +93,16 @@ public class AgHotelmania3 extends Agent {
 		addBehaviour(new RegistrationBehaviour(this));
 		
 		// Adds a behavior to receive evaluation from clients
-		addBehaviour(new ReceiveEvaluation(this));
-		
+		addBehaviour(new ReceiveEvaluation(this));	
 		
 		addBehaviour(new HotelmaniaInformation(this));
+		
+    	// EndSimulation Behaviors 
+    	addBehaviour (new SubscribeForEndSimulation(this));
+    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
     }
 	
-	public void addOpinion(String clientId, String hotel, int rate)
+	public void addOpinion(String clientId, String hotel, float rate)
 	{
 		opinions.add(new Opinion(clientId, hotel, rate));
 	}
