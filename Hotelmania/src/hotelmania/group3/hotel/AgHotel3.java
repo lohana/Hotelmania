@@ -31,7 +31,7 @@ public class AgHotel3 extends DayDependentAgent {
 	public Codec codec = new SLCodec();
 	public Ontology ontology = SharedAgentsOntology.getInstance();
 	
-	public IStrategy strategy = new SimpleFixedStrategy();
+	public IStrategy strategy = new FinalStrategy(this);
 	
 	public int id_account = 0;
 
@@ -78,7 +78,7 @@ public class AgHotel3 extends DayDependentAgent {
     	addBehaviour(new SignContract_SignContract(this)); 	
     	
     	//Adds a behavior to process the Number of Clients Query Ref
-    	//addBehaviour(new  NUMBEROFCLIENTS_ExpectQueryRef(this));
+    	addBehaviour(new NumberOfClients_ExpectQueryRef(this));
   	
     	 // Adds a behavior to queryref account status
        	addBehaviour(new BankAccount_ExpectAccountStatus(this));

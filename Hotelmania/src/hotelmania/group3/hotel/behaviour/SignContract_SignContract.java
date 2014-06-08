@@ -1,4 +1,3 @@
-// Processes the ACEPTATION answer to an registration request
 
 package hotelmania.group3.hotel.behaviour;
 

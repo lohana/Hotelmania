@@ -84,7 +84,7 @@ public class Rating_SendEvaluation extends SimpleBehaviour {
 						client.setHotel(agent.getHotel());
 						client.setRate(agent.getRate());
 						
-						if (client.getRate() > 0) {
+						if (client.getRate() >= 0) {
 							//Add client information to the evaluation
 							e.setClient(client);
 							
