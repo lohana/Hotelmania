@@ -60,47 +60,47 @@ public class AgHotel3 extends DayDependentAgent {
         getContentManager().registerOntology(ontology);
 	
     	// Register in the bank
-    	addBehaviour(new ExpectAccount(this));
-    	addBehaviour(new CreateAccount(this));
+    	addBehaviour(new BankAccount_ReceiveAccount(this));
+    	addBehaviour(new BankAccount_CreateAccount(this));
         
         // Register in Hotelmania
-    	addBehaviour(new ExpectReqistrationAgree(this));
-    	addBehaviour(new ExpectRegistrationRefuse(this));
-    	addBehaviour(new ExpectRegistrationNotUnderstood(this));
-        addBehaviour(new SearchHotelmania(this));  	
+    	addBehaviour(new Registration_ExpectReqistrationAgree(this));
+    	addBehaviour(new Registration_ExpectRegistrationRefuse(this));
+    	addBehaviour(new Registration_ExpectRegistrationNotUnderstood(this));
+        addBehaviour(new Registration_RegisterInHotelmania(this));  	
     	
     	// Sign contract for the first day
-        addBehaviour(new  SIGNCONTRACT_ExpectFailure(this));
-        addBehaviour(new SIGNCONTRACT_ExpectAcceptation(this));
-    	addBehaviour(new SIGNCONTRACT_ExpectRejection(this));
-    	addBehaviour(new  SIGNCONTRACT_ExpectNotUnderstood(this));
-    	addBehaviour(new  SIGNCONTRACT_ExpectInform(this));
-    	addBehaviour(new SIGNCONTRACT_SignContract(this)); 	
+        addBehaviour(new  SignContract_ExpectFailure(this));
+        addBehaviour(new SignContract_ExpectAccept(this));
+    	addBehaviour(new SignContract_ExpectReject(this));
+    	addBehaviour(new  SignContract_ExpectNotUnderstood(this));
+    	addBehaviour(new  SignContract_ExpectInform(this));
+    	addBehaviour(new SignContract_SignContract(this)); 	
     	
     	//Adds a behavior to process the Number of Clients Query Ref
     	//addBehaviour(new  NUMBEROFCLIENTS_ExpectQueryRef(this));
   	
     	 // Adds a behavior to queryref account status
-       	addBehaviour(new GetAccountStatus_ExpectforMessages(this));
+       	addBehaviour(new BankAccount_ExpectAccountStatus(this));
        	
        	// Adds a behavior to expect Client Booking Request
-       	addBehaviour(new BOOKAROOM_BookARoomExpectRequest(this));
+       	addBehaviour(new Booking_RequestBookingARoom(this));
     	
     	// Adds behavior for day communication
     	addDayBehaviour();
     	
-    	addBehaviour(new ReceiveOfferRequests(this));
+    	addBehaviour(new Offers_ReceiveOfferRequest(this));
     	
     	// EndSimulation Behaviors 
-    	addBehaviour (new SubscribeForEndSimulation(this));
-    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
+    	addBehaviour (new SimulationEnd_SubscribeForSimulationEnd(this));
+    	addBehaviour (new SimulationEnd_ExpectSimulationEnd(this));
 	}
 	
 	public void ChangesOnDayChange()
     {
     	System.out.println(getLocalName() + ": Day changed to " + currentDay);
-    	addBehaviour(new  SIGNCONTRACT_SignContract(this));
-       	addBehaviour(new GetAccountStatus(this)); 	
+    	addBehaviour(new  SignContract_SignContract(this));
+       	addBehaviour(new BankAccount_RequestAccountStatus(this)); 	
     }
 	
 	public int getNumberOfClients(int day) {

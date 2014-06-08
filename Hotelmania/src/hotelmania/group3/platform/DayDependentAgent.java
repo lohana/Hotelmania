@@ -6,11 +6,11 @@
 
 package hotelmania.group3.platform;
 
-import hotelmania.group3.commonbehaviour.ReceiveDayNotification;
-import hotelmania.group3.commonbehaviour.ReceiveSubscriptionAgree;
-import hotelmania.group3.commonbehaviour.ReceiveSubscriptionNotUnderstood;
-import hotelmania.group3.commonbehaviour.ReceiveSubscriptionRefuse;
-import hotelmania.group3.commonbehaviour.SubscribeForDayNotification;
+import hotelmania.group3.commonbehaviour.DayEvent_ReceiveDayNotification;
+import hotelmania.group3.commonbehaviour.DayEvent_ExpectSubscriptionAgree;
+import hotelmania.group3.commonbehaviour.DayEvent_ExpectSubscriptionNotUnderstood;
+import hotelmania.group3.commonbehaviour.DayEvent_ExpectSubscriptionRefuse;
+import hotelmania.group3.commonbehaviour.DayEvent_SubscribeForDayNotification;
 import hotelmania.ontology.SharedAgentsOntology;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -33,18 +33,18 @@ public abstract class DayDependentAgent extends Agent {
 	public void addDayBehaviour()
 	{
     	// Adds a behavior to subscribe for day event
-    	addBehaviour(new  SubscribeForDayNotification(this));
+    	addBehaviour(new  DayEvent_SubscribeForDayNotification(this));
 		
     	// Adds a behavior to process day notification
-    	addBehaviour(new  ReceiveDayNotification(this));
+    	addBehaviour(new  DayEvent_ReceiveDayNotification(this));
     	
     	// Adds a behavior to process subscription answer receive
-    	addBehaviour(new  ReceiveSubscriptionAgree(this));
+    	addBehaviour(new  DayEvent_ExpectSubscriptionAgree(this));
     	
     	// Adds a behavior to process subscription answer receive
-    	addBehaviour(new  ReceiveSubscriptionRefuse(this));
+    	addBehaviour(new  DayEvent_ExpectSubscriptionRefuse(this));
     	
     	// Adds a behavior to process subscription answer receive
-    	addBehaviour(new  ReceiveSubscriptionNotUnderstood(this));
+    	addBehaviour(new  DayEvent_ExpectSubscriptionNotUnderstood(this));
 	}
 }

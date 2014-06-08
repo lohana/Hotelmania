@@ -21,11 +21,11 @@ import jade.content.lang.Codec;
 import jade.content.lang.sl.*;
 import jade.content.onto.*;
 import hotelmania.group3.ontology.Ontology3;
-import hotelmania.group3.platform.hotelmania.behaviuor.HotelmaniaInformation;
-import hotelmania.group3.platform.hotelmania.behaviuor.ReceiveEvaluation;
-import hotelmania.group3.platform.hotelmania.behaviuor.RegistrationBehaviour;
-import hotelmania.group3.platform.hotelmania.behaviuor.SubscribeForEndSimulation;
-import hotelmania.group3.platform.hotelmania.behaviuor.SubscribeFrEndSimulation_ExpectforMessages;
+import hotelmania.group3.platform.hotelmania.behaviuor.HotelsInformation_ExpectRequest;
+import hotelmania.group3.platform.hotelmania.behaviuor.Rating_ReceiveEvaluation;
+import hotelmania.group3.platform.hotelmania.behaviuor.Registration_ExpectRequest;
+import hotelmania.group3.platform.hotelmania.behaviuor.SimulationEnd_SubscribeForSimulationEnd;
+import hotelmania.group3.platform.hotelmania.behaviuor.SimulationEnd_ExpectSimulationEnd;
 import hotelmania.ontology.*;
 
 import java.util.ArrayList;
@@ -90,16 +90,16 @@ public class AgHotelmania3 extends Agent {
 		}
 		
 		// Adds a behavior to answer the estimation requests
-		addBehaviour(new RegistrationBehaviour(this));
+		addBehaviour(new Registration_ExpectRequest(this));
 		
 		// Adds a behavior to receive evaluation from clients
-		addBehaviour(new ReceiveEvaluation(this));	
+		addBehaviour(new Rating_ReceiveEvaluation(this));	
 		
-		addBehaviour(new HotelmaniaInformation(this));
+		addBehaviour(new HotelsInformation_ExpectRequest(this));
 		
     	// EndSimulation Behaviors 
-    	addBehaviour (new SubscribeForEndSimulation(this));
-    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
+    	addBehaviour (new SimulationEnd_SubscribeForSimulationEnd(this));
+    	addBehaviour (new SimulationEnd_ExpectSimulationEnd(this));
     }
 	
 	public void addOpinion(String clientId, String hotel, float rate)

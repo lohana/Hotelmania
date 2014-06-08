@@ -53,17 +53,17 @@ public class AgAgency3 extends DayDependentAgent{
 		}
         
         // Adds a behavior to answer the sign contract requests
-        addBehaviour(new SIGNCONTRACT_SignContractBehaviour(this));
+        addBehaviour(new SignContract_SignContract(this));
         
         // Adds behavior for day communication
     	addDayBehaviour();
     	
     	// EndSimulation Behaviors 
-    	addBehaviour (new SubscribeForEndSimulation(this));
-    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
-    	addBehaviour(new ChargetoAccount_ExpectforMessages(this));
+    	addBehaviour (new SimulationEnd_SubscribeForSimulationEnd(this));
+    	addBehaviour (new SimulationEnd_ExpectSimulationEnd(this));
+    	addBehaviour(new ChargeAccount_ExpectResponse(this));
     	
-    	addBehaviour(new SendHotelStaff(this));
+    	addBehaviour(new StaffContracts_SendHotelStaffContracts(this));
     }
     
     public void ChangesOnDayChange()

@@ -13,10 +13,10 @@
 package hotelmania.group3.platform;
 
 import hotelmania.group3.ontology.Ontology3;
-import hotelmania.group3.platform.simulator.behaviour.SendSubscribeEndSimulation;
-import hotelmania.group3.platform.simulator.behaviour.SubscribeEndSimulation;
-import hotelmania.group3.platform.simulator.behaviour.SendDayChange;
-import hotelmania.group3.platform.simulator.behaviour.SubscribeAgents;
+import hotelmania.group3.platform.simulator.behaviour.SimulationEnd_SendSimulationEnd;
+import hotelmania.group3.platform.simulator.behaviour.SimulationEnd_SubscribeAgent;
+import hotelmania.group3.platform.simulator.behaviour.DayEvent_SendDayChange;
+import hotelmania.group3.platform.simulator.behaviour.DayEvent_SubscribeAgent;
 import hotelmania.ontology.SharedAgentsOntology;
 import jade.content.lang.Codec;
 import jade.content.lang.sl.SLCodec;
@@ -100,10 +100,10 @@ public class AgSimulator3 extends Agent {
 		}
 
 		// Adds a behavior to answer the estimation requests
-		addBehaviour(new SubscribeAgents(this));
+		addBehaviour(new DayEvent_SubscribeAgent(this));
 
 		// Adds a behavior to answer the estimation requests
-		addBehaviour(new SubscribeEndSimulation(this));
+		addBehaviour(new SimulationEnd_SubscribeAgent(this));
 
 		interval = 5000;
 		try {
@@ -127,7 +127,7 @@ public class AgSimulator3 extends Agent {
 		}
 
 		// Adds a behavior to receive evaluation from clients
-		addBehaviour(new SendDayChange(this, interval));
+		addBehaviour(new DayEvent_SendDayChange(this, interval));
 	}
 
 	public void changeDay() {
@@ -142,7 +142,7 @@ public class AgSimulator3 extends Agent {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			this.addBehaviour(new SendSubscribeEndSimulation(this));
+			this.addBehaviour(new SimulationEnd_SendSimulationEnd(this));
 		}
 	}
 

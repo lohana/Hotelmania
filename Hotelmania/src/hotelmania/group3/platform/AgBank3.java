@@ -85,19 +85,19 @@ public class AgBank3 extends DayDependentAgent{
 			e.printStackTrace();
 		}
 
-		addBehaviour(new CreateAccountForHotel(this));
-		addBehaviour(new SendAccountStatus(this));
-		addBehaviour(new ChargetoAccount(this));
+		addBehaviour(new BankAccount_CreateAccountForHotel(this));
+		addBehaviour(new BankAccount_SendAccountStatus(this));
+		addBehaviour(new ChargeAccount_ChargeAccount(this));
 		
 		addDayBehaviour();
 		
-		addBehaviour(new GetHotelInformation_ExpectforMessages(this));
+		addBehaviour(new HotelsInformation_ExpectHotelsInformation(this));
 		
-		addBehaviour(new Payments(this));
+		addBehaviour(new MoneyTransfer_TransferMoneyFromClientToHotel(this));
 		
 		// EndSimulation Behaviors 
-    	addBehaviour (new SubscribeForEndSimulation(this));
-    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
+    	addBehaviour (new SimulationEnd_SubscribeForSimulationEnd(this));
+    	addBehaviour (new SimulationEnd_ExpectSimulationEnd(this));
 	}
 
 	public Account getStatusForHotel(int account)
@@ -223,6 +223,6 @@ public class AgBank3 extends DayDependentAgent{
 
 	@Override
 	public void ChangesOnDayChange() {
-		addBehaviour(new GetHotelInformation(this));
+		addBehaviour(new HotelsInformation_RequestHotelsInformation(this));
 	}
 }

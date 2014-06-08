@@ -91,22 +91,22 @@ public class AgClient3 extends DayDependentAgent {
     	
     	//addBehaviour(new NUMBEROFCLIENTS_ExpectFailure(this));
     	
-    	addBehaviour(new GetHotelInformation_ExpectforMessages(this));
+    	addBehaviour(new HotelsInformation_ExpectHotelsInformation(this));
     	
-    	addBehaviour(new ReceiveOffers(this));
+    	addBehaviour(new Offers_ReceiveOffer(this));
     	
     	//Book a room Behaviours
-    	addBehaviour (new BOOKAROOM_ExpectAcceptation(this));
-    	addBehaviour (new BOOKAROOM_ExpectNotUnderstood(this));
-    	addBehaviour (new BOOKAROOM_ExpectRejection(this));
+    	addBehaviour (new Booking_ExpectAccept(this));
+    	addBehaviour (new Booking_ExpectNotUnderstood(this));
+    	addBehaviour (new Booking_ExpectRejection(this));
     	
     	// EndSimulation Behaviors 
-    	addBehaviour (new SubscribeForEndSimulation(this));
-    	addBehaviour (new SubscribeFrEndSimulation_ExpectforMessages(this));
+    	addBehaviour (new SimulationEnd_SubscribeForSimulationEnd(this));
+    	addBehaviour (new SimulationEnd_ExpectSimulationEnd(this));
     	
     	//Query Ref HotelStaff
-    	addBehaviour (new GetHotelStaff(this));
-    	addBehaviour (new GetHotelStaff_ExpectforMessages(this));
+    	addBehaviour (new StaffContracts_RequestStaffContracts(this));
+    	addBehaviour (new StaffContracts_ExpectStaffContracts(this));
     	
     	System.out.println("Client generated - " + budget + " " + stay.getCheckIn() + "/" + stay.getCheckOut());
     }
@@ -205,7 +205,7 @@ public class AgClient3 extends DayDependentAgent {
     	
     	// If the day is before the stay period ask all hotels for offers
     	if (!hasbooked && currentDay < stay.getCheckIn() - 1) {
-    		addBehaviour(new GetHotelInformation(this)); 
+    		addBehaviour(new HotelsInformation_RequestHotelsInformation(this)); 
     		try {
 				Thread.sleep(5000);
 				if (hotelsInformation.size() == 0) {
@@ -215,14 +215,14 @@ public class AgClient3 extends DayDependentAgent {
 				e.printStackTrace();
 			}
 	    	for (HotelInformation h : hotelsInformation) {
-	    		addBehaviour(new SendRequestForOffer(this, h.getHotel().getHotelAgent()));
+	    		addBehaviour(new Offers_RequestOffer(this, h.getHotel().getHotelAgent()));
 	    	}
 
     	} else if (!hasbooked && currentDay <= stay.getCheckIn()) {
-    		addBehaviour(new BOOKAROOM_BookARoomBehaviour(this));
+    		addBehaviour(new Booking_BookARoom(this));
     	} else if (stayathotel && hotelAID != null && currentDay <= stay.getCheckOut()) {
     		// Ask for #clients and staff
-    		addBehaviour(new NUMBEROFCLIENTS_NumberOfClientsBehaviour(this));
+    		addBehaviour(new NumberOfClients_RequestNumberOfClients(this));
     	}
     	if (stayathotel && currentDay == stay.getCheckOut()) {
     		// Pay after waiting for two seconds to get the opinion of the last day and send the final rate
@@ -232,10 +232,10 @@ public class AgClient3 extends DayDependentAgent {
 				e.printStackTrace();
 			}
     		// Pay
-    		addBehaviour(new Payments_Request(this));
+    		addBehaviour(new MoneyTransfer_RequestMoneyTransfer(this));
     		
             // Adds a behavior to evaluate a hotel
-            addBehaviour(new SendRate(this));
+            addBehaviour(new Rating_SendRate(this));
             
             /*this.setstayathotel(false);
             this.sethasbooked(false);*/
