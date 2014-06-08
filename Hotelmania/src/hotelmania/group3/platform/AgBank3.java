@@ -120,25 +120,38 @@ public class AgBank3 extends DayDependentAgent{
 		return result;
 	}
 
-	public boolean chargetoaccount(Hotel h, float amount, String payer){
+	public boolean chargetoaccount(Hotel h, float amount){
 
 		int id_account = id_accounts.get(h.getHotel_name());
 
-		if(getStatusForHotel(id_account)  != null && amount>0){
+		if(getStatusForHotel(id_account) != null && amount>0){
 			
 			Account act = getStatusForHotel(id_account);
 			act.setBalance(act.getBalance() - amount);		
 			accounts.put(id_account, act);
-			
-			if (payer.contains("Client")) {
-				hotelsClients.get(h.getHotel_name()).add(payer);
-			}
 			
 			return true;
 		}else {
 
 			return false;
 		}
+	}
+	
+	public boolean transferMoney(String hotelName, float amount, String payer) {
+		int id_account = id_accounts.get(hotelName);
+
+		if(getStatusForHotel(id_account) != null && amount > 0){
+			
+			Account act = getStatusForHotel(id_account);
+			act.setBalance(act.getBalance() + amount);		
+			accounts.put(id_account, act);
+			
+			hotelsClients.get(hotelName).add(payer);
+			
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void addHotelInformation(HotelInformation info) {

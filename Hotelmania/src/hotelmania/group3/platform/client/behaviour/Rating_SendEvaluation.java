@@ -20,14 +20,14 @@ import hotelmania.group3.ontology.*;
 import hotelmania.group3.platform.AgClient3;
 
 @SuppressWarnings("serial")
-public class Rating_SendRate extends SimpleBehaviour {
+public class Rating_SendEvaluation extends SimpleBehaviour {
 	
 	AID[] hotelmania = new AID[20];
 	AID ag;
 	boolean end = false;
 	int current = 0;
 
-	public Rating_SendRate(Agent agent) {
+	public Rating_SendEvaluation(Agent agent) {
 		super(agent);
 	}
 	

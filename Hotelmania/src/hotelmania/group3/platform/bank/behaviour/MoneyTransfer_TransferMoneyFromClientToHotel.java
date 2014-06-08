@@ -67,7 +67,7 @@ public class MoneyTransfer_TransferMoneyFromClientToHotel extends CyclicBehaviou
 						Float amount = re.getAmount();
 						Hotel h = re.getHotel();
 
-						if (agentb.chargetoaccount(h, amount, (msg.getSender()).getLocalName())) {
+						if (agentb.transferMoney(h.getHotel_name(), amount, (msg.getSender()).getLocalName())) {
 							reply.setPerformative(ACLMessage.AGREE);
 							reply.setProtocol(AgBank3.PAYMENTS);
 							myAgent.send(reply);

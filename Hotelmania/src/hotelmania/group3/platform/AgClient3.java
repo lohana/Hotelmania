@@ -235,7 +235,7 @@ public class AgClient3 extends DayDependentAgent {
     		addBehaviour(new MoneyTransfer_RequestMoneyTransfer(this));
     		
             // Adds a behavior to evaluate a hotel
-            addBehaviour(new Rating_SendRate(this));
+            addBehaviour(new Rating_SendEvaluation(this));
             
             /*this.setstayathotel(false);
             this.sethasbooked(false);*/

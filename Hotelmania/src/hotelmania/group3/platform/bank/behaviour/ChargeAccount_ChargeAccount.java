@@ -61,7 +61,7 @@ public class ChargeAccount_ChargeAccount extends CyclicBehaviour {
 						Float amount = re.getAmount();
 						Hotel h = re.getHotel();
  						
-						if( agentb.chargetoaccount(h, amount, (msg.getSender()).getLocalName()))
+						if(agentb.chargetoaccount(h, amount))
 						{
 							reply.setPerformative(ACLMessage.AGREE);
 							reply.setProtocol(AgBank3.CHARGE_ACCOUNT_SERVICE);					 
